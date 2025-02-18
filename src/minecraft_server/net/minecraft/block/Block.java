@@ -1,6 +1,7 @@
 package net.minecraft.block;
 
 import java.util.List;
+import java.util.HashMap;
 import java.util.Random;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;

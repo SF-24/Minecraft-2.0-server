@@ -114,7 +114,7 @@ public class ChunkProviderGenerate implements IChunkProvider
         }
     }
 
-    public void setBlocksInChunk(int p_180518_1_, int p_180518_2_, ChunkPrimer p_180518_3_)
+    public void setBlocksInChunk(int p_180518_1_, int p_180518_2_, ChunkPrimer primer)
     {
         this.biomesForGeneration = this.worldObj.getWorldChunkManager().getBiomesForGeneration(this.biomesForGeneration, p_180518_1_ * 4 - 2, p_180518_2_ * 4 - 2, 10, 10);
         this.func_147423_a(p_180518_1_ * 4, 0, p_180518_2_ * 4);
@@ -165,7 +165,7 @@ public class ChunkProviderGenerate implements IChunkProvider
                                 }
                                 else if (i2 * 8 + j2 < this.settings.seaLevel)
                                 {
-                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, this.oceanBlockTmpl.getDefaultState());
+                                    primer.setBlockState(i * 4 + k2, i2 * 8 + j2, l * 4 + l2, Blocks.water.getDefaultState());
                                 }
                             }
 
