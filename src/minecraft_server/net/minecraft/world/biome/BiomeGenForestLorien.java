@@ -19,26 +19,15 @@ public class BiomeGenForestLorien extends BiomeGenBase
     private static final IBlockState acaciaLeaves = Blocks.leaves2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
     private static final IBlockState darkOakLeaves = Blocks.leaves2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.DARK_OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
 
-    protected static final WorldGenMegaForest lorienTree =new  WorldGenMegaForest(false, 10, 20, birchLog, acaciaLeaves);
-    protected static final WorldGenMegaForest lorienTree2 =new  WorldGenMegaForest(false, 10, 20, birchLog, darkOakLeaves);
-    protected static final WorldGenForest smallTree1 = new WorldGenForest(false, true);
+    protected static final WorldGenCanopyTreeLorien lorienTree = new WorldGenCanopyTreeLorien(false);
     protected static final WorldGenForest smallTree2 = new WorldGenForest(false, false);
-    protected static final WorldGenCanopyTree canopyTree = new WorldGenCanopyTree(false);
 
     public BiomeGenForestLorien(int id, int p_i45377_2_)
     {
         super(id);
-//        this.field_150632_aF = p_i45377_2_;
-        this.theBiomeDecorator.treesPerChunk = 1;
+        this.theBiomeDecorator.treesPerChunk = 4;
         this.theBiomeDecorator.grassPerChunk = 2;
 
-  /*      if (this.field_150632_aF == 1)
-        {
-            this.theBiomeDecorator.treesPerChunk = 6;
-            this.theBiomeDecorator.flowersPerChunk = 100;
-            this.theBiomeDecorator.grassPerChunk = 1;
-        }
-*/
         this.setFillerBlockMetadata(5159473);
         this.setTemperatureRainfall(0.7F, 0.8F);
 
@@ -82,10 +71,10 @@ public class BiomeGenForestLorien extends BiomeGenBase
 
     public WorldGenAbstractTree genBigTreeChance(Random rand)
     {
-        return (WorldGenAbstractTree)(
-                (rand.nextInt(2) == 0|| rand.nextInt(2) == 0 ? (rand.nextInt(2)==0 ? lorienTree : lorienTree2) :
-                        this.field_150632_aF == 3 && rand.nextInt(2) > 0 ? smallTree2 : smallTree1
-                ));
+        if(rand.nextInt(2) == 0 ) {return lorienTree;}
+        else if(rand.nextInt(6) == 0) {return  new WorldGenTreesAnySurface(false, 8, birchLog, acaciaLeaves, false, false);}
+        //else if(rand.nextInt(8) == 0) {return  new WorldGenTreesAnySurface(false, 8, birchLog, darkOakLeaves, false, false);}
+        return smallTree2;
     }
 
 

@@ -137,7 +137,7 @@ public abstract class BiomeGenBase
 
     public static final BiomeGenBase lorienForest = (new BiomeGenForestLorien(51, 0)).setBiomeName("Lorien Forest").setColor(3132452).setHeight(height_Default);
 
-    public static final BiomeGenBase lorienForestHills = (new BiomeGenForestLorien(52, 0)).setBiomeName("Lorien Forest Hills").setColor(3132452).setHeight(height_MidHills);
+    public static final BiomeGenBase lorienForestHills = (new BiomeGenForestLorien(52, 0)).setBiomeName("Lorien Forest Hills").setColor(3132452).setHeight(height_LowHills);
 
     public static final BiomeGenBase roofedSwamp = (new BiomeGenSwampDark(46)).setColor(3236668).setBiomeName("Roofed Swamp").setHeight(height_PartiallySubmerged);
 
