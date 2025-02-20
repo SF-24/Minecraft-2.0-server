@@ -815,7 +815,7 @@ public abstract class EntityLiving extends EntityLivingBase
      */
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
-        if (this.rand.nextFloat() < 0.15F * difficulty.getClampedAdditionalDifficulty())
+        if (this.rand.nextFloat() < 0.30F /*was 0.15F*/ * difficulty.getClampedAdditionalDifficulty())
         {
             int i = this.rand.nextInt(2);
             float f = this.worldObj.getDifficulty() == EnumDifficulty.HARD ? 0.1F : 0.25F;

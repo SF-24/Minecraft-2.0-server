@@ -598,6 +598,39 @@ public abstract class StructureComponent
         }
     }
 
+    // fill with block id
+    protected void fillWithBlockId(World worldIn, StructureBoundingBox boundingboxIn, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, Block block, Block blockInside, boolean existingOnly)
+    {
+        for (int i = minY; i <= maxY; ++i)
+        {
+            for (int j = minX; j <= maxX; ++j)
+            {
+                for (int k = minZ; k <= maxZ; ++k)
+                {
+                    if (!existingOnly || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air)
+                    {
+                        if (i != minY && i != maxY && j != minX && j != maxX && k != minZ && k != maxZ)
+                        {
+                            this.setBlockId(worldIn, blockInside, j, i, k, boundingboxIn);
+                        }
+                        else
+                        {
+                            this.setBlockId(worldIn, block, j, i, k, boundingboxIn);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected void setBlockId(World worldIn, Block block, int x, int y, int z, StructureBoundingBox boundingboxIn)
+    {
+        if (boundingboxIn.isVecInside(x,y,z))
+        {
+            worldIn.setBlockPrimitive(this.getXWithOffset(x, z),this.getYWithOffset(y),this.getZWithOffset(x,z), block, 2);
+        }
+    }
+
     protected IBlockState getBlockStateFromPos(World worldIn, int x, int y, int z, StructureBoundingBox boundingboxIn)
     {
         int i = this.getXWithOffset(x, z);

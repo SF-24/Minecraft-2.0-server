@@ -444,6 +444,7 @@ public abstract class World implements IBlockAccess
         else
         {
             //IBlockState iblockstate = chunk.setBlockState(pos, newState);
+            this.getChunkFromBlockCoords(x,z).setBlockPrimitive(x,y,z,Block.getMultipliedIdFromBlock(block1));
             Block block = this.getChunkFromBlockCoords(x,z).getBlock(x,y,z);
 
             if (block == null)

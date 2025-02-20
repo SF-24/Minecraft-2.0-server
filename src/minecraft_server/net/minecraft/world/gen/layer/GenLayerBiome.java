@@ -100,7 +100,9 @@ public class GenLayerBiome extends GenLayer
                         aint1[j + i * areaWidth] = k;
                     } else if (k >= 1 && k <= 4) {
                         // a -> getIntCache? or aint1 or this.nextInt
-                        aint1[j + i * areaWidth] = (this.randomBiomeList[this.nextInt(this.randomBiomeList.length)]).biomeID;
+                        int biome = (this.randomBiomeList[this.nextInt(this.randomBiomeList.length)]).biomeID;
+                        if((biome==BiomeGenBase.autumnalForest.biomeID || biome==BiomeGenBase.birchForest.biomeID) && (this.nextInt(4)==0)) biome= BiomeGenBase.lorienForest.biomeID;
+                        aint1[j + i * areaWidth] = biome;
                     } else {
                         aint1[j + i * areaWidth] = BiomeGenBase.mushroomIsland.biomeID;
                     }

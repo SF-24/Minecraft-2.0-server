@@ -96,28 +96,32 @@ public class MapGenVillage extends MapGenStructure
         {
         }
 
-        public Start(World worldIn, Random rand, int x, int z, int p_i2092_5_)
+        public Start(World worldIn, Random rand, int x, int z, int size)
         {
             super(x, z);
-            List<StructureVillagePieces.PieceWeight> list = StructureVillagePieces.getStructureVillageWeightedPieceList(rand, p_i2092_5_);
-            StructureVillagePieces.Start structurevillagepieces$start = new StructureVillagePieces.Start(worldIn.getWorldChunkManager(), 0, rand, (x << 4) + 2, (z << 4) + 2, list, p_i2092_5_);
+            int modifier = (int) Math.sqrt(((x))^2 + (z)^2)/100;
+            boolean isAbandoned = true || rand.nextInt((int) ((35-modifier)+2))>=25;
+
+            List<StructureVillagePieces.PieceWeight> list = StructureVillagePieces.getStructureVillageWeightedPieceList(rand, size);
+
+            StructureVillagePieces.Start structurevillagepieces$start = new StructureVillagePieces.Start(worldIn.getWorldChunkManager(), 0, rand, (x << 4) + 2, (z << 4) + 2, list, size,isAbandoned);
+            if(isAbandoned) {
+                structurevillagepieces$start = new StructureAbandonedVillagePieces.Start(worldIn.getWorldChunkManager(), 0, rand, (x << 4) + 2, (z << 4) + 2, list, size,isAbandoned);
+            }
+
             this.components.add(structurevillagepieces$start);
             structurevillagepieces$start.buildComponent(structurevillagepieces$start, this.components, rand);
             List<StructureComponent> list1 = structurevillagepieces$start.field_74930_j;
             List<StructureComponent> list2 = structurevillagepieces$start.field_74932_i;
 
-            while (!list1.isEmpty() || !list2.isEmpty())
-            {
-                if (list1.isEmpty())
-                {
+            while (!list1.isEmpty() || !list2.isEmpty()) {
+                if (list1.isEmpty()) {
                     int i = rand.nextInt(list2.size());
-                    StructureComponent structurecomponent = (StructureComponent)list2.remove(i);
+                    StructureComponent structurecomponent = (StructureComponent) list2.remove(i);
                     structurecomponent.buildComponent(structurevillagepieces$start, this.components, rand);
-                }
-                else
-                {
+                } else {
                     int j = rand.nextInt(list1.size());
-                    StructureComponent structurecomponent2 = (StructureComponent)list1.remove(j);
+                    StructureComponent structurecomponent2 = (StructureComponent) list1.remove(j);
                     structurecomponent2.buildComponent(structurevillagepieces$start, this.components, rand);
                 }
             }
@@ -125,10 +129,8 @@ public class MapGenVillage extends MapGenStructure
             this.updateBoundingBox();
             int k = 0;
 
-            for (StructureComponent structurecomponent1 : this.components)
-            {
-                if (!(structurecomponent1 instanceof StructureVillagePieces.Road))
-                {
+            for (StructureComponent structurecomponent1 : this.components) {
+                if (!(structurecomponent1 instanceof StructureVillagePieces.Road)) {
                     ++k;
                 }
             }

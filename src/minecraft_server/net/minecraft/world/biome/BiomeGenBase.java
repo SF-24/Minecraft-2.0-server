@@ -52,7 +52,7 @@ public abstract class BiomeGenBase
     protected static final BiomeGenBase.Height height_JungleHills = new BiomeGenBase.Height(0.1F, 0.6F);
 
     protected static final BiomeGenBase.Height height_Desert = new BiomeGenBase.Height(0.1F, 0.35F);
-    protected static final BiomeGenBase.Height height_Wasteland = new BiomeGenBase.Height(0.45F, 0.6F);
+    protected static final BiomeGenBase.Height height_Wasteland = new BiomeGenBase.Height(0.45F, 0.6F); // was 0.3
 
     /** An array of all the biomes, indexed by biome id. */
     public static final BiomeGenBase[] biomeList = new BiomeGenBase[256];
@@ -106,7 +106,7 @@ public abstract class BiomeGenBase
     public static final BiomeGenBase coldBeach = (new BiomeGenBeach(26, Blocks.sand.getDefaultState())).setColor(16445632).setBiomeName("Cold Beach").setTemperatureRainfall(0.05F, 0.3F).setHeight(height_Shores).setEnableSnow();
     public static final BiomeGenBase birchForest = (new BiomeGenForest(27, 2)).setBiomeName("Birch Forest").setColor(3175492).setHeight(height_Autumnal);
     public static final BiomeGenBase birchForestHills = (new BiomeGenForest(28, 2)).setBiomeName("Birch Forest Hills").setColor(2055986).setHeight(height_LowHills);
-    public static final BiomeGenBase roofedForest = (new BiomeGenForest(29, 3)).setColor(4215066).setBiomeName("Roofed Forest").setHeight(height_Autumnal);
+    public static final BiomeGenBase roofedForest = (new BiomeGenForest(29, 3)).setColor(4215066).setBiomeName("Roofed Forest").setHeight(height_Default);
     public static final BiomeGenBase coldTaiga = (new BiomeGenTaiga(30, 0)).setColor(3233098).setBiomeName("Cold Taiga").setFillerBlockMetadata(5159473).setEnableSnow().setTemperatureRainfall(-0.5F, 0.4F).setHeight(height_MidPlains).func_150563_c(16777215);
     public static final BiomeGenBase coldTaigaHills = (new BiomeGenTaiga(31, 0)).setColor(2375478).setBiomeName("Cold Taiga Hills").setFillerBlockMetadata(5159473).setEnableSnow().setTemperatureRainfall(-0.5F, 0.4F).setHeight(height_LowHills).func_150563_c(16777215);
     public static final BiomeGenBase megaTaiga = (new BiomeGenTaiga(32, 1)).setColor(5858897).setBiomeName("Mega Taiga").setFillerBlockMetadata(5159473).setTemperatureRainfall(0.3F, 0.8F).setHeight(height_MidPlains);
@@ -135,6 +135,9 @@ public abstract class BiomeGenBase
 
     public static final BiomeGenBase autumnalForestHills = (new BiomeGenForestAutumnal(50, 0)).setBiomeName("Autumnal Forest Hills").setColor(86776960).setHeight(height_MidHills);
 
+    public static final BiomeGenBase lorienForest = (new BiomeGenForestLorien(51, 0)).setBiomeName("Lorien Forest").setColor(3132452).setHeight(height_Default);
+
+    public static final BiomeGenBase lorienForestHills = (new BiomeGenForestLorien(52, 0)).setBiomeName("Lorien Forest Hills").setColor(3132452).setHeight(height_MidHills);
 
     public static final BiomeGenBase roofedSwamp = (new BiomeGenSwampDark(46)).setColor(3236668).setBiomeName("Roofed Swamp").setHeight(height_PartiallySubmerged);
 
@@ -153,6 +156,7 @@ public abstract class BiomeGenBase
             .setTemperatureRainfall(0.8F, 0.9F)
             .setHeight(height_ArchipelagoHills)
             .setOcean();
+
 
     public static final BiomeGenBase field_180279_ad = ocean;
     protected static final NoiseGeneratorPerlin temperatureNoise;

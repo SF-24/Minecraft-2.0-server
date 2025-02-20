@@ -126,6 +126,10 @@ public class GenLayerHills extends GenLayer
                     {
                         i1 = BiomeGenBase.autumnalForestHills.biomeID;
                     }
+                    else if (k == BiomeGenBase.lorienForest.biomeID)
+                    {
+                        i1 = BiomeGenBase.lorienForestHills.biomeID;
+                    }
                     else if (biomesEqualOrMesaPlateau(k, BiomeGenBase.mesaPlateau_F.biomeID))
                     {
                         i1 = BiomeGenBase.mesa.biomeID;

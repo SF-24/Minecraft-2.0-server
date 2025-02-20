@@ -171,6 +171,12 @@ public class StructureBoundingBox
         return vec.getX() >= this.minX && vec.getX() <= this.maxX && vec.getZ() >= this.minZ && vec.getZ() <= this.maxZ && vec.getY() >= this.minY && vec.getY() <= this.maxY;
     }
 
+    public boolean isVecInside(int x, int y, int z)
+    {
+        return x >= this.minX && x <= this.maxX && z >= this.minZ && z <= this.maxZ && y >= this.minY && y <= this.maxY;
+    }
+
+
     public Vec3i func_175896_b()
     {
         return new Vec3i(this.maxX - this.minX, this.maxY - this.minY, this.maxZ - this.minZ);

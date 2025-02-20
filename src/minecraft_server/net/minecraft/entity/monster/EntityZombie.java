@@ -409,7 +409,7 @@ public class EntityZombie extends EntityMob
     {
         super.setEquipmentBasedOnDifficulty(difficulty);
 
-        if (this.rand.nextFloat() < (this.worldObj.getDifficulty() == EnumDifficulty.HARD ? 0.05F : 0.01F))
+        if (this.rand.nextFloat() < (this.worldObj.getDifficulty() == EnumDifficulty.HARD ? 0.15F : 0.05F)) // was 0.05F : 0.01F
         {
             int i = this.rand.nextInt(3);
 
