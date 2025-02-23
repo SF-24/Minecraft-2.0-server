@@ -21,12 +21,11 @@ public class BiomeGenMountains extends BiomeGenBase
     private int field_150637_aG = 2;
     private int field_150638_aH;
 
-    public BiomeGenMountains(int id, boolean wooded)
+    protected BiomeGenMountains(int id, boolean wooded)
     {
         super(id);
-        this.hasBeach=false;
-
         this.field_150638_aH = this.field_150635_aE;
+        this.hasBeach=false;
 
         if (wooded)
         {
@@ -69,20 +68,20 @@ public class BiomeGenMountains extends BiomeGenBase
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal)
     {
+        super.genTerrainBlocks(worldIn,rand,chunkPrimerIn,x,z,noiseVal);
         this.topBlock = Blocks.grass.getDefaultState();
         this.fillerBlock = Blocks.dirt.getDefaultState();
 
-        if(worldIn.getPrecipitationHeight(new BlockPos(x,0,z)).getY()>110) {
-            this.topBlock= Blocks.snow.getDefaultState();
-            this.fillerBlock= Blocks.snow.getDefaultState();
-        } else if(worldIn.getPrecipitationHeight(new BlockPos(x,0,z)).getY()>70) {
-            this.topBlock= Blocks.stone.getDefaultState();
-            this.fillerBlock= Blocks.stone.getDefaultState();
-        } else if ((noiseVal < -1.0D || noiseVal > 2.0D) && this.field_150638_aH == this.field_150637_aG)
+        /*if(worldIn.canSnowAt(new BlockPos(x,100,z),false)) {
+            this.topBlock=Blocks.snow.getDefaultState();
+            this.fillerBlock=Blocks.snow.getDefaultState();
+        } else*/
+        if ((noiseVal < -1.0D || noiseVal > 2.0D) && this.field_150638_aH == this.field_150637_aG)
         {
             this.topBlock = Blocks.gravel.getDefaultState();
             this.fillerBlock = Blocks.gravel.getDefaultState();
-        } else if ((noiseVal > 1.0D && this.field_150638_aH != this.field_150636_aF))
+        }
+        else if (noiseVal > 1.0D && this.field_150638_aH != this.field_150636_aF)
         {
             this.topBlock = Blocks.stone.getDefaultState();
             this.fillerBlock = Blocks.stone.getDefaultState();
