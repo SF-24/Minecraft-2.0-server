@@ -712,6 +712,12 @@ public abstract class EntityLiving extends EntityLivingBase
      */
     public int getMaxSpawnedInChunk()
     {
+        if(this.isEntityUndead()) {
+            if (this.worldObj.isBloodMoon()) {
+                return 10;
+            }
+            return 6;
+        }
         return 4;
     }
 
@@ -815,9 +821,9 @@ public abstract class EntityLiving extends EntityLivingBase
      */
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
-        if (this.rand.nextFloat() < 0.30F /*was 0.15F*/ * difficulty.getClampedAdditionalDifficulty())
+        if (this.rand.nextFloat() < 0.30F /*was 0.15F*/ * difficulty.getClampedAdditionalDifficulty()  * (this.worldObj.isBloodMoon() ? 2.0F : 1.0F))
         {
-            int i = this.rand.nextInt(2);
+            int i = this.rand.nextInt(2  + (this.worldObj.isBloodMoon() ? 1 : 0));
             float f = this.worldObj.getDifficulty() == EnumDifficulty.HARD ? 0.1F : 0.25F;
 
             if (this.rand.nextFloat() < 0.095F)

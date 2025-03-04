@@ -84,6 +84,10 @@ public class BlockBed extends BlockDirectional
                     {
                         playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.notSafe", new Object[0]));
                     }
+                    else if (entityplayer$enumstatus == EntityPlayer.EnumStatus.BLOOD_MOON)
+                    {
+                        playerIn.addChatComponentMessage(new ChatComponentTranslation("tile.bed.bloodMoon", new Object[0]));
+                    }
 
                     return true;
                 }

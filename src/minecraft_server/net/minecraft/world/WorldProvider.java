@@ -130,6 +130,11 @@ public abstract class WorldProvider
         return f;
     }
 
+    public boolean isBloodMoon()
+    {
+        return this.provider.isBloodMoon(this.worldInfo.getWorldTime());
+    }
+
     public int getMoonPhase(long p_76559_1_)
     {
         return (int)(p_76559_1_ / 24000L % 8L + 8L) % 8;

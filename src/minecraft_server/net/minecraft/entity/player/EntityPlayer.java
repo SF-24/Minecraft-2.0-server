@@ -1444,6 +1444,11 @@ public abstract class EntityPlayer extends EntityLivingBase
                 return EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW;
             }
 
+            if(this.worldObj.isBloodMoon())
+            {
+                return EnumStatus.BLOOD_MOON;
+            }
+
             if (Math.abs(this.posX - (double)bedLocation.getX()) > 3.0D || Math.abs(this.posY - (double)bedLocation.getY()) > 2.0D || Math.abs(this.posZ - (double)bedLocation.getZ()) > 3.0D)
             {
                 return EntityPlayer.EnumStatus.TOO_FAR_AWAY;
@@ -2367,6 +2372,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         NOT_POSSIBLE_NOW,
         TOO_FAR_AWAY,
         OTHER_PROBLEM,
-        NOT_SAFE;
+        NOT_SAFE,
+        BLOOD_MOON;
     }
 }

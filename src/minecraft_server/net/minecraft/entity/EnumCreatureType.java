@@ -9,7 +9,7 @@ import net.minecraft.entity.passive.IAnimals;
 
 public enum EnumCreatureType
 {
-    MONSTER(IMob.class, 70, Material.air, false, false),
+    MONSTER(IMob.class, 120, Material.air, false, false),
     CREATURE(EntityAnimal.class, 10, Material.air, true, true),
     AMBIENT(EntityAmbientCreature.class, 15, Material.air, true, false),
     WATER_CREATURE(EntityWaterMob.class, 5, Material.water, true, false);

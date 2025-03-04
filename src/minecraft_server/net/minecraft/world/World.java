@@ -1470,7 +1470,13 @@ public abstract class World implements IBlockAccess
      */
     public float getCurrentMoonPhaseFactor()
     {
+        if(isBloodMoon()) return 1.25F;
         return WorldProvider.moonPhaseFactors[this.provider.getMoonPhase(this.worldInfo.getWorldTime())];
+    }
+
+    public boolean isBloodMoon()
+    {
+        return this.provider.isBloodMoon(this.worldInfo.getWorldTime());
     }
 
     /**

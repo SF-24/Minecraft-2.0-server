@@ -21,7 +21,7 @@ public class BiomeGenMountains extends BiomeGenBase
     private int field_150637_aG = 2;
     private int field_150638_aH;
 
-    protected BiomeGenMountains(int id, boolean wooded)
+    public BiomeGenMountains(int id, boolean wooded)
     {
         super(id);
         this.field_150638_aH = this.field_150635_aE;
@@ -103,7 +103,7 @@ public class BiomeGenMountains extends BiomeGenBase
         return this;
     }
 
-    protected BiomeGenBase createMutatedBiome(int p_180277_1_)
+    public BiomeGenBase createMutatedBiome(int p_180277_1_)
     {
         return (new BiomeGenMountains(p_180277_1_, false)).mutateHills(this);
     }

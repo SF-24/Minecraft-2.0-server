@@ -131,13 +131,13 @@ public abstract class BiomeGenBase
 
     public static final BiomeGenBase rainforest = (new BiomeGenJungleRainforest(44, false)).setColor(5470985).setBiomeName("Jungle Rainforest").setFillerBlockMetadata(5470985).setTemperatureRainfall(0.95F, 0.9F).setHeight(height_Autumnal);
 
-    public static final BiomeGenBase autumnalForest = (new BiomeGenForestAutumnal(45, 0)).setColor(86776960).setBiomeName("Autumnal Forest").setHeight(height_Autumnal);
+    public static final BiomeGenBase autumnalForest = (new BiomeGenForestAutumnal(45, 0)).setColor(16243232).setBiomeName("Autumnal Forest").setHeight(height_Autumnal);
 
-    public static final BiomeGenBase autumnalForestHills = (new BiomeGenForestAutumnal(50, 0)).setBiomeName("Autumnal Forest Hills").setColor(86776960).setHeight(height_MidHills);
+    public static final BiomeGenBase autumnalForestHills = (new BiomeGenForestAutumnal(50, 0)).setBiomeName("Autumnal Forest Hills").setColor(16243232).setHeight(height_MidHills);
 
-    public static final BiomeGenBase lorienForest = (new BiomeGenForestLorien(51, 0)).setBiomeName("Lorien Forest").setColor(3132452).setHeight(height_Default);
+    public static final BiomeGenBase lorienForest = (new BiomeGenForestLorien(51, 0)).setBiomeName("Lorien Forest").setColor(16246801).setHeight(height_Default);
 
-    public static final BiomeGenBase lorienForestHills = (new BiomeGenForestLorien(52, 0)).setBiomeName("Lorien Forest Hills").setColor(3132452).setHeight(height_LowHills);
+    public static final BiomeGenBase lorienForestHills = (new BiomeGenForestLorien(52, 0)).setBiomeName("Lorien Forest Hills").setColor(16246801).setHeight(height_LowHills);
 
     public static final BiomeGenBase roofedSwamp = (new BiomeGenSwampDark(46)).setColor(3236668).setBiomeName("Roofed Swamp").setHeight(height_PartiallySubmerged);
 
