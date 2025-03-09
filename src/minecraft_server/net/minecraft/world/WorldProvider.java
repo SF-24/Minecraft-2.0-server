@@ -132,7 +132,7 @@ public abstract class WorldProvider
 
     public boolean isBloodMoon()
     {
-        return this.provider.isBloodMoon(this.worldInfo.getWorldTime());
+        return worldTime / 24000L==0 || (new Random(worldObj.getSeed() + worldTime / 24000L).nextInt()==0);
     }
 
     public int getMoonPhase(long p_76559_1_)

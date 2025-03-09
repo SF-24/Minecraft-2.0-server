@@ -129,6 +129,10 @@ public final class SpawnerAnimals
                                                 try
                                                 {
                                                     entityliving = (EntityLiving)biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {p_77192_1_});
+                                                    if(worldServerIn.isBloodMoon() && entityliving instanceof EntityZombie && new Random((int)worldServerIn.getTotalWorldTime()).nextInt(20)==0) {
+                                                        // Giant zombie spawning system during a blood moon
+                                                        entityliving = new EntityGiantZombie(worldServerIn);
+                                                    }
                                                 }
                                                 catch (Exception exception)
                                                 {
