@@ -6,6 +6,8 @@ import java.util.Random;
 import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.monster.EntityGiantZombie;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.IEntityLivingData;
@@ -129,9 +131,9 @@ public final class SpawnerAnimals
                                                 try
                                                 {
                                                     entityliving = (EntityLiving)biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {p_77192_1_});
-                                                    if(worldServerIn.isBloodMoon() && entityliving instanceof EntityZombie && new Random((int)worldServerIn.getTotalWorldTime()).nextInt(20)==0) {
+                                                    if(p_77192_1_.isBloodMoon() && entityliving instanceof EntityZombie && new Random((int) p_77192_1_.getTotalWorldTime()).nextInt(20)==0) {
                                                         // Giant zombie spawning system during a blood moon
-                                                        entityliving = new EntityGiantZombie(worldServerIn);
+                                                        entityliving = new EntityGiantZombie(p_77192_1_);
                                                     }
                                                 }
                                                 catch (Exception exception)

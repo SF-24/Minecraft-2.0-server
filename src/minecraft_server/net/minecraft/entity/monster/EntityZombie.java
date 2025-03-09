@@ -538,7 +538,7 @@ public class EntityZombie extends EntityMob
 
         if (livingdata == null)
         {
-            livingdata = new EntityZombie.GroupData((this.worldObj.isBloodMoon() ? 0.2 : 0.05F), this.worldObj.rand.nextFloat() < 0.05F);
+            livingdata = new EntityZombie.GroupData(this.worldObj.rand.nextFloat() < (this.worldObj.isBloodMoon() ? 0.2 : 0.05F), this.worldObj.rand.nextFloat() < 0.05F);
         }
 
         if (livingdata instanceof EntityZombie.GroupData)

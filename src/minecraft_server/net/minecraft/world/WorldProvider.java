@@ -12,6 +12,8 @@ import net.minecraft.world.gen.ChunkProviderFlat;
 import net.minecraft.world.gen.ChunkProviderGenerate;
 import net.minecraft.world.gen.FlatGeneratorInfo;
 
+import java.util.Random;
+
 public abstract class WorldProvider
 {
     public static final float[] moonPhaseFactors = new float[] {1.0F, 0.75F, 0.5F, 0.25F, 0.0F, 0.25F, 0.5F, 0.75F};
@@ -132,7 +134,7 @@ public abstract class WorldProvider
 
     public boolean isBloodMoon()
     {
-        return worldTime / 24000L==0 || (new Random(worldObj.getSeed() + worldTime / 24000L).nextInt()==0);
+        return worldObj.getWorldTime() / 24000L==0 || (new Random(worldObj.getSeed() + worldObj.getWorldTime() / 24000L).nextInt()==0);
     }
 
     public int getMoonPhase(long p_76559_1_)

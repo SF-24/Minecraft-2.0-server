@@ -1476,7 +1476,7 @@ public abstract class World implements IBlockAccess
 
     public boolean isBloodMoon()
     {
-        return this.provider.isBloodMoon(this.worldInfo.getWorldTime());
+        return this.provider.isBloodMoon();
     }
 
     /**

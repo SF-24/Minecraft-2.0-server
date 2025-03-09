@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockEventData;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
@@ -206,11 +207,11 @@ public class WorldServer extends World implements IThreadListener
         if (this.getGameRules().getBoolean("doDaylightCycle"))
         {
             if(this.worldInfo.getWorldTime() % 24000L == 13350) {
-                this.playerEntities.forEach((player)->player.addChatComponentMessage(new ChatComponentTranslation("title.bloodMoon.rise")));
+                this.playerEntities.forEach((player)->player.addChatComponentMessage(new ChatComponentTranslation("title.bloodMoon.rise", new Object[0])));
             } else if(this.worldInfo.getWorldTime() % 24000L == 14450) {
-                this.playerEntities.forEach((player)->player.addChatComponentMessage(new ChatComponentTranslation("title.bloodMoon.risen")));
+                this.playerEntities.forEach((player)->player.addChatComponentMessage(new ChatComponentTranslation("title.bloodMoon.risen", new Object[0])));
             } else if(this.worldInfo.getWorldTime() % 24000L == 22350) {
-                this.playerEntities.forEach((player)->player.addChatComponentMessage(new ChatComponentTranslation("title.bloodMoon.fade")));
+                this.playerEntities.forEach((player)->player.addChatComponentMessage(new ChatComponentTranslation("title.bloodMoon.fade", new Object[0])));
             }
             this.worldInfo.setWorldTime(this.worldInfo.getWorldTime() + 1L);
         }
