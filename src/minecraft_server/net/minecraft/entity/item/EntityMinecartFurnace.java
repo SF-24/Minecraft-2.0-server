@@ -71,7 +71,7 @@ public class EntityMinecartFurnace extends EntityMinecart
      */
     protected double getMaximumSpeed()
     {
-        return 0.2D;
+        return 0.4D;
     }
 
     public void killMinecart(DamageSource p_94095_1_)

@@ -106,6 +106,12 @@ public class GenLayerBiome extends GenLayer
                     } else {
                         aint1[j + i * areaWidth] = BiomeGenBase.mushroomIsland.biomeID;
                     }
+                }  else if(this.worldType.equals(WorldType.ALPHA)) {
+                    if (oceanList[k]) {
+                        aint1[j + i * areaWidth] = k;
+                    } else {
+                        aint1[j + i * areaWidth] = 99;
+                    }
 
                     // End of random biomes
                 } else if (this.chunkProviderSettings != null && this.chunkProviderSettings.fixedBiome >= 0)

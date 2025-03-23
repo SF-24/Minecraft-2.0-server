@@ -398,7 +398,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
      */
     protected double getMaximumSpeed()
     {
-        return 0.4D;
+        return 0.8D;
     }
 
     /**
@@ -518,6 +518,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
         if (flag1)
         {
+            // if it rides over an unpowered powered rail
             double d17 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
 
             if (d17 < 0.03D)
@@ -618,7 +619,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
             if (d15 > 0.01D)
             {
-                double d16 = 0.06D;
+                double d16 = 0.08D; // was 0.06D
                 this.motionX += this.motionX / d15 * d16;
                 this.motionZ += this.motionZ / d15 * d16;
             }

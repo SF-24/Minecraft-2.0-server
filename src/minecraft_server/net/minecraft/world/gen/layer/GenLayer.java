@@ -57,6 +57,13 @@ public abstract class GenLayer
             j = chunkprovidersettings.riverSize;
         }
 
+        if (p_180781_2_ == WorldType.RANDOM_BIOMES || p_180781_2_ == WorldType.ALPHA)
+        {
+            // biome size:
+            i = 5;
+            // To think about
+        }
+
         if (p_180781_2_ == WorldType.LARGE_BIOMES)
         {
             i = 6;
