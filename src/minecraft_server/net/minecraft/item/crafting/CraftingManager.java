@@ -185,7 +185,7 @@ public class CraftingManager
         this.addRecipe(new ItemStack(Blocks.hopper), "I I", "ICI", " I ", 'I', Items.iron_ingot, 'C', Blocks.chest);
         this.addRecipe(new ItemStack(Items.armor_stand, 1), "///", " / ", "/_/", '/', Items.stick, '_', new ItemStack(Blocks.stone_slab, 1, BlockStoneSlab.EnumType.STONE.getMetadata()));
         // new
-        this.addShapelessRecipe(new ItemStack(Items.steel_ingot, 1), Items.steel_nugget, Items.steel_nugget, Items.steel_nugget, Items.nether_ash);
+//        this.addShapelessRecipe(new ItemStack(Items.steel_ingot, 1), Items.steel_nugget, Items.steel_nugget, Items.steel_nugget, Items.nether_ash);
         this.addRecipe(new ItemStack(Items.ender_pouch, 1), "O#O", "#X#", "O#O", '#', Items.leather, 'X', Blocks.ender_chest, 'O', Items.blaze_powder);
         this.addRecipe(new ItemStack(Blocks.observer, 1), "CCC", "RQQ", "CCC", 'C', Blocks.cobblestone, 'Q', Items.quartz, 'R', Items.redstone);
 

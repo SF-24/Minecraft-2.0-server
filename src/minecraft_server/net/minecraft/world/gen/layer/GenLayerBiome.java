@@ -4,7 +4,8 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.ChunkProviderSettings;
 
-import static net.minecraft.world.biome.BiomeGenBase.oceanList;
+import static net.minecraft.world.biome.BiomeGenBase.*;
+import static net.minecraft.world.biome.BiomeGenBase.iceMountains;
 
 public class GenLayerBiome extends GenLayer
 {
@@ -102,6 +103,8 @@ public class GenLayerBiome extends GenLayer
                         // a -> getIntCache? or aint1 or this.nextInt
                         int biome = (this.randomBiomeList[this.nextInt(this.randomBiomeList.length)]).biomeID;
                         if((biome==BiomeGenBase.autumnalForest.biomeID || biome==BiomeGenBase.birchForest.biomeID) && (this.nextInt(4)==0)) biome= BiomeGenBase.lorienForest.biomeID;
+                        if((biome== mesa.biomeID || biome== mesaPlateau.biomeID) && (this.nextInt(5)==0)) biome= mesaPlateau_F.biomeID;
+                        if(((biome== stoneMountains.biomeID) && (this.nextInt(5)==0)) || ((biome== icePlains.biomeID) && (this.nextInt(20)==0))) biome=BiomeGenBase.frozenMesa.biomeID;
                         aint1[j + i * areaWidth] = biome;
                     } else {
                         aint1[j + i * areaWidth] = BiomeGenBase.mushroomIsland.biomeID;

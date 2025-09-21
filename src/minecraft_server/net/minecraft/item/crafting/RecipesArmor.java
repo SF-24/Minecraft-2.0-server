@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 public class RecipesArmor
 {
     private String[][] recipePatterns = new String[][] {{"XXX", "X X"}, {"X X", "XXX", "XXX"}, {"XXX", "X X", "X X"}, {"X X", "X X"}};
-    private Item[][] recipeItems = new Item[][] {{Items.leather, Items.iron_ingot, Items.diamond, Items.gold_ingot, Items.steel_ingot, Items.amethyst}, {Items.leather_helmet, Items.iron_helmet, Items.diamond_helmet, Items.golden_helmet, Items.steel_helmet, Items.amethyst_helmet}, {Items.leather_chestplate, Items.iron_chestplate, Items.diamond_chestplate, Items.golden_chestplate, Items.steel_chestplate, Items.amethyst_chestplate}, {Items.leather_leggings, Items.iron_leggings, Items.diamond_leggings, Items.golden_leggings, Items.steel_leggings, Items.amethyst_leggings}, {Items.leather_boots, Items.iron_boots, Items.diamond_boots, Items.golden_boots, Items.steel_boots, Items.amethyst_boots}};
+    private Item[][] recipeItems = new Item[][] {{Items.leather, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.leather_helmet, Items.iron_helmet, Items.diamond_helmet, Items.golden_helmet}, {Items.leather_chestplate, Items.iron_chestplate, Items.diamond_chestplate, Items.golden_chestplate}, {Items.leather_leggings, Items.iron_leggings, Items.diamond_leggings, Items.golden_leggings}, {Items.leather_boots, Items.iron_boots, Items.diamond_boots, Items.golden_boots}};
 
     /**
      * Adds the armor recipes to the CraftingManager.

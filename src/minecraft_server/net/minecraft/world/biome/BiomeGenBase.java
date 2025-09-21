@@ -38,10 +38,10 @@ public abstract class BiomeGenBase
     protected static final BiomeGenBase.Height height_LowPlains = new BiomeGenBase.Height(0.125F, 0.075F); // was 0.05
     protected static final BiomeGenBase.Height height_MidPlains = new BiomeGenBase.Height(0.2F, 0.2F);
     protected static final BiomeGenBase.Height height_LowHills = new BiomeGenBase.Height(0.45F, 0.45F); // was 0.3
-    protected static final BiomeGenBase.Height height_HighPlateaus = new BiomeGenBase.Height(1.5F, 0.05F); // was 0.025
+    protected static final BiomeGenBase.Height height_HighPlateaus = new BiomeGenBase.Height(1.5F, 0.15F); // was 0.025 then 0.05
     protected static final BiomeGenBase.Height height_MidHills = new BiomeGenBase.Height(1.0F, 0.6F); // was 0.5
     protected static final BiomeGenBase.Height height_HighHills = new BiomeGenBase.Height(1.5F, 0.85F);
-    protected static final BiomeGenBase.Height height_Shores = new BiomeGenBase.Height(-0.1F, 0.01F); // was 0.025F);
+    protected static final BiomeGenBase.Height height_Shores = new BiomeGenBase.Height(-0.01F , 0.01F); // was -0.1F and 0.025F);
     protected static final BiomeGenBase.Height height_RockyWaters = new BiomeGenBase.Height(0.1F, 0.8F);
     protected static final BiomeGenBase.Height height_LowIslands = new BiomeGenBase.Height(0.2F, 0.4F);
     protected static final BiomeGenBase.Height height_PartiallySubmerged = new BiomeGenBase.Height(-0.3F, 0.15F);
@@ -50,9 +50,13 @@ public abstract class BiomeGenBase
     protected static final BiomeGenBase.Height height_Autumnal = new BiomeGenBase.Height(0.1F, 0.4F);
     protected static final BiomeGenBase.Height height_Jungle = new BiomeGenBase.Height(0.1F, 0.45F);
     protected static final BiomeGenBase.Height height_JungleHills = new BiomeGenBase.Height(0.1F, 0.6F);
+    protected static final BiomeGenBase.Height height_Mesa = new BiomeGenBase.Height(0.2F, 0.55F);
+    protected static final BiomeGenBase.Height height_MesaSnow = new BiomeGenBase.Height(0.4F, 0.55F);
 
     protected static final BiomeGenBase.Height height_Desert = new BiomeGenBase.Height(0.1F, 0.35F);
     protected static final BiomeGenBase.Height height_Wasteland = new BiomeGenBase.Height(0.45F, 0.6F); // was 0.3
+
+    protected static final BiomeGenBase.Height height_Alpha = new BiomeGenBase.Height(1.0F, 0.6F);
 
     /** An array of all the biomes, indexed by biome id. */
     public static final BiomeGenBase[] biomeList = new BiomeGenBase[256];
@@ -114,7 +118,7 @@ public abstract class BiomeGenBase
     public static final BiomeGenBase extremeHillsPlus = (new BiomeGenHills(34, true)).setColor(5271632).setBiomeName("Extreme Hills+").setHeight(height_MidHills).setTemperatureRainfall(0.2F, 0.3F);
     public static final BiomeGenBase savanna = (new BiomeGenSavanna(35)).setColor(12431967).setBiomeName("Savanna").setTemperatureRainfall(1.2F, 0.0F).setDisableRain().setHeight(height_LowPlains);
     public static final BiomeGenBase savannaPlateau = (new BiomeGenSavanna(36)).setColor(10984804).setBiomeName("Savanna Plateau").setTemperatureRainfall(1.0F, 0.0F).setDisableRain().setHeight(height_HighPlateaus);
-    public static final BiomeGenBase mesa = (new BiomeGenMesa(37, false, false)).setColor(14238997).setBiomeName("Mesa").setHeight(height_Desert);
+    public static final BiomeGenBase mesa = (new BiomeGenMesa(37, false, false)).setColor(14238997).setBiomeName("Mesa").setHeight(height_Mesa);
     public static final BiomeGenBase mesaPlateau_F = (new BiomeGenMesa(38, false, true)).setColor(11573093).setBiomeName("Mesa Plateau F").setHeight(height_HighPlateaus);
     public static final BiomeGenBase mesaPlateau = (new BiomeGenMesa(39, false, false)).setColor(13274213).setBiomeName("Mesa Plateau").setHeight(height_HighPlateaus);
 
@@ -156,6 +160,15 @@ public abstract class BiomeGenBase
             .setTemperatureRainfall(0.8F, 0.9F)
             .setHeight(height_ArchipelagoHills)
             .setOcean();
+
+    public static final BiomeGenBase frozenMesa = (new BiomeGenMesaSnow(50, false, false)).setColor(747097).setBiomeName("Frozen Hills").setHeight(height_MesaSnow);
+
+    public static final BiomeGenBase alpha = new BiomeGenAlpha(99)
+            .setBiomeName("Neon Plains")
+            .setColor(5470985)
+            .setTemperatureRainfall(0.8F, 0.9F)
+            .setHeight(height_Alpha);
+
 
 
     public static final BiomeGenBase field_180279_ad = ocean;
@@ -656,7 +669,12 @@ public abstract class BiomeGenBase
 
         explorationBiomesList.remove(hell);
         explorationBiomesList.remove(sky);
+        explorationBiomesList.remove(aether);
+        explorationBiomesList.remove(alpha);
         explorationBiomesList.remove(frozenOcean);
+        explorationBiomesList.remove(lorienForestHills);
+        explorationBiomesList.remove(archipelagoHills);
+        explorationBiomesList.remove(autumnalForestHills);
         explorationBiomesList.remove(extremeHillsEdge);
         temperatureNoise = new NoiseGeneratorPerlin(new Random(1234L), 1);
         GRASS_COLOR_NOISE = new NoiseGeneratorPerlin(new Random(2345L), 1);

@@ -3,8 +3,12 @@ package net.minecraft.entity.player;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
+import com.google.gson.JsonElement;
+
+import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
@@ -182,7 +186,31 @@ public abstract class EntityPlayer extends EntityLivingBase
         this.setLocationAndAngles((double)blockpos.getX() + 0.5D, (double)(blockpos.getY() + 1), (double)blockpos.getZ() + 0.5D, 0.0F, 0.0F);
         this.field_70741_aB = 180.0F;
         this.fireResistance = 20;
+
     }
+
+    // TODO: Fix json ids
+
+//    public static String getUserId(GameProfile profile) {
+//
+//        String name = profile.getName();
+//        JsonElement json = getJson("https://api.mojang.com/users/profiles/minecraft/" + name);
+//        if(json != null) {
+//            try {
+//                String id = json.getAsJsonObject().get("id").getAsString();
+//                Field field = profile.getClass().getDeclaredField("id");
+//                field.setAccessible(true);
+//                field.set(null,id);
+//                return id;
+//            } catch (Exception e) {
+//                System.out.println("Error loading uuid for user: " + name);
+//                return null;
+//            }
+//        }
+//        return "default";
+//    }
+
+
 
     protected void applyEntityAttributes()
     {

@@ -14,6 +14,7 @@ import net.minecraft.util.IStringSerializable;
 
 import java.util.List;
 
+@Deprecated()
 public class BlockDungeon extends Block
 {
     public static final PropertyEnum<BlockDungeon.EnumType> TYPE = PropertyEnum.create("type", BlockDungeon.EnumType.class);
@@ -53,7 +54,7 @@ public class BlockDungeon extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return Blocks.compressed_cobblestone.getDefaultState().withProperty(TYPE, BlockDungeon.EnumType.byMetadata(meta));
+        return Blocks.cobblestone.getDefaultState().withProperty(TYPE, BlockDungeon.EnumType.byMetadata(meta));
     }
 
     /**

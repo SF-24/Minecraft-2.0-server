@@ -100,7 +100,7 @@ public class MapGenVillage extends MapGenStructure
         {
             super(x, z);
             int modifier = (int) Math.sqrt(((x))^2 + (z)^2)/100;
-            boolean isAbandoned = true || rand.nextInt((int) ((35-modifier)+2))>=25;
+            boolean isAbandoned = rand.nextInt(8)==0;
 
             List<StructureVillagePieces.PieceWeight> list = StructureVillagePieces.getStructureVillageWeightedPieceList(rand, size);
 

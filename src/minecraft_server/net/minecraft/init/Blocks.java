@@ -204,11 +204,11 @@ public class Blocks
     public static final BlockSlab double_stone_slab2;
     public static final BlockSlab stone_slab2;
     // New stuff
-    public static final Block nether_ash_ore;
-    public static final Block steel_block;
+//    public static final Block nether_ash_ore;
+//    public static final Block steel_block;
     public static final Block nether_gold_ore;
-    public static final Block amethyst_block;
-    public static final Block amethyst_crystal;
+//    public static final Block amethyst_block;
+//    public static final Block amethyst_crystal;
     public static final Block ruby_ore;
     public static final Block ruby_block;
     public static final Block cobweb_block;
@@ -216,7 +216,7 @@ public class Blocks
     public static final Block gold_rail_block;
     public static final Block detector_rail_block;
     public static final Block activator_rail_block;
-    public static final Block compressed_cobblestone;
+//    public static final Block compressed_cobblestone;
     public static final BlockObserver observer;
 
     public static final BlockAetherPortal aether_portal;
@@ -437,11 +437,11 @@ public class Blocks
             double_stone_slab2 = (BlockSlab)getRegisteredBlock("double_stone_slab2");
             stone_slab2 = (BlockSlab)getRegisteredBlock("stone_slab2");
             // New stuff
-            nether_ash_ore = getRegisteredBlock("nether_ash_ore");
-            steel_block = getRegisteredBlock("steel_block");
+//            nether_ash_ore = getRegisteredBlock("nether_ash_ore");
+//            steel_block = getRegisteredBlock("steel_block");
             nether_gold_ore = getRegisteredBlock("nether_gold_ore");
-            amethyst_crystal = getRegisteredBlock("amethyst_crystal");
-            amethyst_block = getRegisteredBlock("amethyst_block");
+//            amethyst_crystal = getRegisteredBlock("amethyst_crystal");
+//            amethyst_block = getRegisteredBlock("amethyst_block");
             ruby_ore = getRegisteredBlock("ruby_ore");
             ruby_block = getRegisteredBlock("ruby_block");
             cobweb_block = getRegisteredBlock("cobweb_block");
@@ -449,7 +449,7 @@ public class Blocks
             gold_rail_block = getRegisteredBlock("powered_rail_block");
             detector_rail_block = getRegisteredBlock("detector_rail_block");
             activator_rail_block = getRegisteredBlock("activator_rail_block");
-            compressed_cobblestone = getRegisteredBlock("compressed_cobblestone");
+//            compressed_cobblestone = getRegisteredBlock("compressed_cobblestone");
             aether_portal = (BlockAetherPortal) getRegisteredBlock("aether_portal");
             observer = (BlockObserver) getRegisteredBlock("observer");
 

@@ -62,7 +62,7 @@ public class ChunkProviderHell implements IChunkProvider
     private final WorldGenGlowStone1 field_177469_u = new WorldGenGlowStone1();
     private final WorldGenGlowStone2 field_177468_v = new WorldGenGlowStone2();
     private final WorldGenerator field_177467_w = new WorldGenMinable(Blocks.quartz_ore.getDefaultState(), 14, BlockHelper.forBlock(Blocks.netherrack));
-    private final WorldGenerator field_177467_wb = new WorldGenMinable(Blocks.nether_ash_ore.getDefaultState(), 12, BlockHelper.forBlock(Blocks.netherrack));
+//    private final WorldGenerator field_177467_wb = new WorldGenMinable(Blocks.nether_ash_ore.getDefaultState(), 12, BlockHelper.forBlock(Blocks.netherrack));
     private final WorldGenerator field_177467_wc = new WorldGenMinable(Blocks.nether_gold_ore.getDefaultState(), 4, BlockHelper.forBlock(Blocks.netherrack));
     private final WorldGenHellLava field_177473_x = new WorldGenHellLava(Blocks.flowing_lava, true);
     private final WorldGenHellLava field_177472_y = new WorldGenHellLava(Blocks.flowing_lava, false);
@@ -430,10 +430,10 @@ public class ChunkProviderHell implements IChunkProvider
         }
 
         // ash ore
-        for (int k1 = 0; k1 < 16; ++k1)
-        {
-            this.field_177467_wb.generate(this.worldObj, this.hellRNG, blockpos.add(this.hellRNG.nextInt(16), this.hellRNG.nextInt(108) + 10, this.hellRNG.nextInt(16)));
-        }
+//        for (int k1 = 0; k1 < 16; ++k1)
+//        {
+//            this.field_177467_wb.generate(this.worldObj, this.hellRNG, blockpos.add(this.hellRNG.nextInt(16), this.hellRNG.nextInt(108) + 10, this.hellRNG.nextInt(16)));
+//        }
 
         // nether gold ore
         for (int f1 = 0; f1 < 16; ++f1)

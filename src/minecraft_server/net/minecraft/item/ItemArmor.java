@@ -253,7 +253,7 @@ public class ItemArmor extends Item
 
         public Item getRepairItem()
         {
-            return this == LEATHER ? Items.leather : (this == CHAIN ? Items.iron_ingot : (this == GOLD ? Items.gold_ingot : (this == IRON ? Items.iron_ingot : (this == DIAMOND ? Items.diamond : (this == STEEL ? Items.steel_ingot : (this == AMETHYST ? Items.amethyst : null))))));
+            return this == LEATHER ? Items.leather : (this == CHAIN ? Items.iron_ingot : (this == GOLD ? Items.gold_ingot : (this == IRON ? Items.iron_ingot : (this == DIAMOND ? Items.diamond : null))));
         }
     }
 }

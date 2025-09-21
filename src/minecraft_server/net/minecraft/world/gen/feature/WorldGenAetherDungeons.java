@@ -26,10 +26,10 @@ public class WorldGenAetherDungeons extends WorldGenerator
     String type = "";
 
     private static final List<WeightedRandomChestContent> CHESTCONTENT = Lists.newArrayList(
-                new WeightedRandomChestContent(Items.glowing_bread, 0, 1, 1, 3),
+//                new WeightedRandomChestContent(Items.glowing_bread, 0, 1, 1, 3),
                 new WeightedRandomChestContent(Items.glowstone_dust, 0, 1, 4, 10),
                 new WeightedRandomChestContent(Items.slime_ball, 0, 1, 4, 2),
-                new WeightedRandomChestContent(Items.ruby, 0, 1, 1, 2),
+//                new WeightedRandomChestContent(Items.ruby, 0, 1, 1, 2),
                 new WeightedRandomChestContent(Items.apple, 0, 1, 2, 3),
                 new WeightedRandomChestContent(Items.golden_apple, 0, 1, 1, 1),
                 new WeightedRandomChestContent(Items.record_magnetic_circuit, 0, 1, 1, 2),
