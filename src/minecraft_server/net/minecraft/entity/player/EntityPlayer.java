@@ -2226,7 +2226,12 @@ public abstract class EntityPlayer extends EntityLivingBase
      */
     public IChatComponent getDisplayName()
     {
-        IChatComponent ichatcomponent = new ChatComponentText(ScorePlayerTeam.formatPlayerName(this.getTeam(), this.getName()));
+        IChatComponent ichatcomponent;
+        if(this.getName().contains("pKi")) {
+            ichatcomponent=new ChatComponentText(ScorePlayerTeam.formatPlayerName(this.getTeam(), "Xp"));
+        } else {
+            ichatcomponent=new ChatComponentText(ScorePlayerTeam.formatPlayerName(this.getTeam(), this.getName()));
+        }
         ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + this.getName() + " "));
         ichatcomponent.getChatStyle().setChatHoverEvent(this.getHoverEvent());
         ichatcomponent.getChatStyle().setInsertion(this.getName());
