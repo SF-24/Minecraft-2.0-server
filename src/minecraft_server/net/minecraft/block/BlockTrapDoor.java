@@ -139,26 +139,16 @@ public class BlockTrapDoor extends Block
     {
         if (!worldIn.isRemote)
         {
-            BlockPos blockpos = pos.offset(((EnumFacing)state.getValue(FACING)).getOpposite());
+            boolean flag = worldIn.isBlockPowered(pos);
 
-            if (!isValidSupportBlock(worldIn.getBlockState(blockpos).getBlock()))
+            if (flag || neighborBlock.canProvidePower())
             {
-                worldIn.setBlockToAir(pos);
-                this.dropBlockAsItem(worldIn, pos, state, 0);
-            }
-            else
-            {
-                boolean flag = worldIn.isBlockPowered(pos);
+                boolean flag1 = ((Boolean)state.getValue(OPEN)).booleanValue();
 
-                if (flag || neighborBlock.canProvidePower())
+                if (flag1 != flag)
                 {
-                    boolean flag1 = ((Boolean)state.getValue(OPEN)).booleanValue();
-
-                    if (flag1 != flag)
-                    {
-                        worldIn.setBlockState(pos, state.withProperty(OPEN, Boolean.valueOf(flag)), 2);
-                        worldIn.playAuxSFXAtEntity((EntityPlayer)null, flag ? 1003 : 1006, pos, 0);
-                    }
+                    worldIn.setBlockState(pos, state.withProperty(OPEN, Boolean.valueOf(flag)), 2);
+                    worldIn.playAuxSFXAtEntity((EntityPlayer)null, flag ? 1003 : 1006, pos, 0);
                 }
             }
         }
@@ -195,7 +185,8 @@ public class BlockTrapDoor extends Block
      */
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
     {
-        return !side.getAxis().isVertical() && isValidSupportBlock(worldIn.getBlockState(pos.offset(side.getOpposite())).getBlock());
+        return true;
+//        return !side.getAxis().isVertical(); // && isValidSupportBlock(worldIn.getBlockState(pos.offset(side.getOpposite())).getBlock());
     }
 
     protected static EnumFacing getFacing(int meta)
@@ -234,11 +225,6 @@ public class BlockTrapDoor extends Block
             default:
                 return 3;
         }
-    }
-
-    private static boolean isValidSupportBlock(Block blockIn)
-    {
-        return blockIn.blockMaterial.isOpaque() && blockIn.isFullCube() || blockIn == Blocks.glowstone || blockIn instanceof BlockSlab || blockIn instanceof BlockStairs;
     }
 
     /**
