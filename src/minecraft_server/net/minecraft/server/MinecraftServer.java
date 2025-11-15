@@ -993,7 +993,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
      */
     public String getMinecraftVersion()
     {
-        return "1.8.8";
+        return "2.0-snapshot-0.3.3h";
     }
 
     /**

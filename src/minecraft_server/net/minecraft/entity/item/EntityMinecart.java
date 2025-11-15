@@ -400,11 +400,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
     protected double getMaximumSpeed()
     {
-        return 1.0D;
-    }
-    protected double getMaximumSpeedAngled()
-    {
-        return 0.70710678118654752440084436210485D;
+        return 0.8D;
     }
 
     protected double getAccelerationConstant() { return 1.0D; }
@@ -582,13 +578,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
         d22 = MathHelper.clamp_double(d22, -getMaximumSpeed(), getMaximumSpeed());
         d23 = MathHelper.clamp_double(d23, -getMaximumSpeed(), getMaximumSpeed());
 
-        System.out.println(Math.sqrt(getSpeedSquared()));
-
         if(this.getMaximumSpeedSquared()<(d22*d22+d23*d23)) {
-            System.out.println("YAW: " + minecartYaw);
             d22 = Math.signum(d22) * this.getMaximumSpeed()*Math.sin(minecartYaw);
             d23 = Math.signum(d23) *this.getMaximumSpeed()*Math.cos(minecartYaw);
-            System.out.println("Slowing minecart");
         }
 
         this.moveEntity(d22, 0.0D, d23);
