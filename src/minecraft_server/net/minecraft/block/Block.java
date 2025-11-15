@@ -151,19 +151,20 @@ public class Block
     private IBlockState defaultBlockState;
     private String unlocalizedName;
 
-    public static short getMappedShortIdFromBlock(Block block) {
+    public static short getMappedShortIdFromBlock(Block block)
+    {
         return BLOCK_IDS.get(block);
     }
 
-    public static short getMultipliedIdFromBlock(Block block) {
-        return (short) (blockRegistry.getIDForObject(block)*16);
+    public static short getMultipliedIdFromBlock(Block block)
+    {
+        return (short)(blockRegistry.getIDForObject(block) * 16);
     }
 
     public static short getShortIdFromBlock(Block blockIn)
     {
         return (short) blockRegistry.getIDForObject(blockIn);
     }
-
 
     public static int getIdFromBlock(Block blockIn)
     {
@@ -1401,7 +1402,9 @@ public class Block
             {
                 int i = blockRegistry.getIDForObject(block14) << 4 | block14.getMetaFromState(iblockstate);
                 BLOCK_STATE_IDS.put(iblockstate, i);
-                if(!BLOCK_IDS.containsKey(block14)) {
+
+                if (!BLOCK_IDS.containsKey(block14))
+                {
                     BLOCK_IDS.put(block14, (short) i);
                 }
             }

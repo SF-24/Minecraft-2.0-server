@@ -188,7 +188,6 @@ public class CraftingManager
 //        this.addShapelessRecipe(new ItemStack(Items.steel_ingot, 1), Items.steel_nugget, Items.steel_nugget, Items.steel_nugget, Items.nether_ash);
         this.addRecipe(new ItemStack(Items.ender_pouch, 1), "O#O", "#X#", "O#O", '#', Items.leather, 'X', Blocks.ender_chest, 'O', Items.blaze_powder);
         this.addRecipe(new ItemStack(Blocks.observer, 1), "CCC", "RQQ", "CCC", 'C', Blocks.cobblestone, 'Q', Items.quartz, 'R', Items.redstone);
-
         Collections.sort(this.recipes, new Comparator<IRecipe>()
         {
             public int compare(IRecipe p_compare_1_, IRecipe p_compare_2_)

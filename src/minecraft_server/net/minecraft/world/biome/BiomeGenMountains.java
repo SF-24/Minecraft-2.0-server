@@ -25,7 +25,7 @@ public class BiomeGenMountains extends BiomeGenBase
     {
         super(id);
         this.field_150638_aH = this.field_150635_aE;
-        this.hasBeach=false;
+        this.hasBeach = false;
 
         if (wooded)
         {
@@ -68,7 +68,7 @@ public class BiomeGenMountains extends BiomeGenBase
 
     public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal)
     {
-        super.genTerrainBlocks(worldIn,rand,chunkPrimerIn,x,z,noiseVal);
+        super.genTerrainBlocks(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
         this.topBlock = Blocks.grass.getDefaultState();
         this.fillerBlock = Blocks.dirt.getDefaultState();
 

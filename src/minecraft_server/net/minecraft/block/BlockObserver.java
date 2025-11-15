@@ -36,7 +36,6 @@ public class BlockObserver extends Block
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-
         // set powered
         if (((Boolean)state.getValue(POWERED)).booleanValue())
         {
@@ -44,7 +43,6 @@ public class BlockObserver extends Block
             worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.FALSE), 2);
             // TODO: \/ remove
 //            worldIn.scheduleUpdate(pos, this.getBlockState().getBlock(), 2);
-
         }
         else
         {
@@ -109,7 +107,11 @@ public class BlockObserver extends Block
 
     public int getWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side)
     {
-        if(state.getValue(POWERED) && state.getValue(FACING) == side) return 15;
+        if (state.getValue(POWERED) && state.getValue(FACING) == side)
+        {
+            return 15;
+        }
+
         return 0;
     }
 
@@ -172,7 +174,4 @@ public class BlockObserver extends Block
     {
         return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
     }
-
-
-
 }

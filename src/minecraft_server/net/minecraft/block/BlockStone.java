@@ -54,10 +54,12 @@ public class BlockStone extends Block
      */
     public int damageDropped(IBlockState state)
     {
+        if (state.getValue(VARIANT) == BlockStone.EnumType.STONE || state.getValue(VARIANT) == EnumType.GRANITE || state.getValue(VARIANT) == EnumType.DIORITE || state.getValue(VARIANT) == EnumType.ANDESITE)
+        {
+            return 0;
+        }
 
-        if(state.getValue(VARIANT) == BlockStone.EnumType.STONE||state.getValue(VARIANT) == EnumType.GRANITE||state.getValue(VARIANT) == EnumType.DIORITE||state.getValue(VARIANT) == EnumType.ANDESITE) return 0;
         return ((BlockStone.EnumType)state.getValue(VARIANT)).getMetadata();
-
     }
 
     /**

@@ -84,9 +84,9 @@ public class ExtendedBlockStorage
 
     public void setId(int x, int y, int z, int id)
     {
-        Block block = this.get(x,y,z).getBlock();
+        Block block = this.get(x, y, z).getBlock();
 
-        if (id!=0)
+        if (id != 0)
         {
             --this.blockRefCount;
 
@@ -95,9 +95,9 @@ public class ExtendedBlockStorage
                 --this.tickRefCount;
             }
         }
+
         this.data[y << 8 | z << 4 | x] = (char)Block.blockRegistry.getIDForObject(block);
     }
-
 
     /**
      * Returns the block for a location in a chunk, with the extended ID merged from a byte array and a NibbleArray to

@@ -562,7 +562,7 @@ public class Chunk
                 {
                     try
                     {
-                        id = extendedblockstorage.getId (x, y & 15, z);
+                        id = extendedblockstorage.getId(x, y & 15, z);
                     }
                     catch (Throwable throwable)
                     {
@@ -571,6 +571,7 @@ public class Chunk
                     }
                 }
             }
+
             return id;
         }
         catch (ReportedException reportedexception)
@@ -678,7 +679,7 @@ public class Chunk
                 {
                     public String call() throws Exception
                     {
-                        return CrashReportCategory.getCoordinateInfo(new BlockPos(x,y,z));
+                        return CrashReportCategory.getCoordinateInfo(new BlockPos(x, y, z));
                     }
                 });
                 throw new ReportedException(crashreport);
@@ -840,7 +841,7 @@ public class Chunk
         }
 
         int i1 = this.heightMap[l];
-        int blockId = this.getBlockId(x,y,z);
+        int blockId = this.getBlockId(x, y, z);
 
         if (blockId == newId)
         {
@@ -853,7 +854,7 @@ public class Chunk
 
             if (extendedblockstorage == null)
             {
-                if (blockId==0)
+                if (blockId == 0)
                 {
                     return null;
                 }
@@ -863,25 +864,25 @@ public class Chunk
             }
 
             extendedblockstorage.setId(i, y & 15, k, newId);
-
             // block is old block
             // block1 is new block
-            Block block = this.getBlock(x,y,z);
+            Block block = this.getBlock(x, y, z);
             Block block1 = Block.getBlockById(newId);
 
-            if (newId!=0)
+            if (newId != 0)
             {
                 if (!this.worldObj.isRemote)
                 {
-                    this.getBlock(x,y,z).breakBlock(this.worldObj,new BlockPos(x,y,z),getBlockStatePrimitive(x,y,z));
+                    this.getBlock(x, y, z).breakBlock(this.worldObj, new BlockPos(x, y, z), getBlockStatePrimitive(x, y, z));
                 }
                 else if (block1 instanceof ITileEntityProvider)
                 {
-                    this.worldObj.removeTileEntity(x,y,z);
+                    this.worldObj.removeTileEntity(x, y, z);
                 }
             }
 
-            BlockPos pos = new BlockPos(x,y,z);
+            BlockPos pos = new BlockPos(x, y, z);
+
             if (extendedblockstorage.getId(i, y & 15, k) != newId)
             {
                 return null;
@@ -947,7 +948,7 @@ public class Chunk
                 }
 
                 this.isModified = true;
-                return this.getBlockStatePrimitive(x,y,z);
+                return this.getBlockStatePrimitive(x, y, z);
             }
         }
     }

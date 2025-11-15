@@ -8,11 +8,12 @@ import static net.minecraft.world.biome.BiomeGenBase.oceanList;
 
 public class GenLayerShore extends GenLayer
 {
-    private final BiomeGenBase[] beaches = {
-            BiomeGenBase.beach,
-            BiomeGenBase.beach,
-            BiomeGenBase.beach,
-            BiomeGenBase.gravelBeach
+    private final BiomeGenBase[] beaches =
+    {
+        BiomeGenBase.beach,
+        BiomeGenBase.beach,
+        BiomeGenBase.beach,
+        BiomeGenBase.gravelBeach
     };
 
     public GenLayerShore(long p_i2130_1_, GenLayer p_i2130_3_)
@@ -34,13 +35,12 @@ public class GenLayerShore extends GenLayer
         {
             for (int j = 0; j < areaWidth; ++j)
             {
-                this.initChunkSeed((long)(j + areaX)>>1, (long)(i + areaY));
+                this.initChunkSeed((long)(j + areaX) >> 1, (long)(i + areaY));
                 // k is var9
                 int k = aint[j + 1 + (i + 1) * (areaWidth + 2)];
 //                BiomeGenBase biomegenbase = BiomeGenBase.getBiome(k);
                 BiomeGenBase biome = BiomeGenBase.getBiome(k);
                 BiomeGenBase beach = this.beaches[this.nextInt(this.beaches.length)];
-
                 // aint1 is var6
                 // aint is var5
                 // j is var8
@@ -51,50 +51,66 @@ public class GenLayerShore extends GenLayer
                 int j3 = aint[j + 1 + 1 + (i + 1) * (areaWidth + 2)];
                 int j4 = aint[j + 1 - 1 + (i + 1) * (areaWidth + 2)];
                 int j5 = aint[j + 1 + (i + 1 + 1) * (areaWidth + 2)];
-
-                int var14 = j + i*areaWidth;
+                int var14 = j + i * areaWidth;
 
                 if (k == BiomeGenBase.mushroomIsland.biomeID)
                 {
-                    if(!oceanList[j2] && !oceanList[j3] && !oceanList[j4] && !oceanList[j5]) {
+                    if (!oceanList[j2] && !oceanList[j3] && !oceanList[j4] && !oceanList[j5])
+                    {
                         aint1[var14] = k;
-                    } else {
+                    }
+                    else
+                    {
                         aint1[var14] = BiomeGenBase.mushroomIslandShore.biomeID;
                     }
                 }
                 else if (k != BiomeGenBase.extremeHills.biomeID && k != BiomeGenBase.extremeHillsPlus.biomeID && k != BiomeGenBase.extremeHillsEdge.biomeID)
                 {
                     boolean coast = oceanList[j2] || oceanList[j3] || oceanList[j4] || oceanList[j5];
-                    boolean frozenCoast = j2==BiomeGenBase.frozenOcean.biomeID||
-                            j3==BiomeGenBase.frozenOcean.biomeID||
-                            j4==BiomeGenBase.frozenOcean.biomeID||
-                            j5==BiomeGenBase.frozenOcean.biomeID;
+                    boolean frozenCoast = j2 == BiomeGenBase.frozenOcean.biomeID ||
+                                          j3 == BiomeGenBase.frozenOcean.biomeID ||
+                                          j4 == BiomeGenBase.frozenOcean.biomeID ||
+                                          j5 == BiomeGenBase.frozenOcean.biomeID;
 
-                    if(!oceanList[k] && biome.hasBeach && biome.edgeVariant==null) {
-                        if(!coast) {
+                    if (!oceanList[k] && biome.hasBeach && biome.edgeVariant == null)
+                    {
+                        if (!coast)
+                        {
                             // aint1 is var6 ; aint is var5
-                            aint1[var14]=k;
-                        } else if(frozenCoast) {
-                            aint1[var14]=BiomeGenBase.coldBeach.biomeID;
-                        } else {
-                            aint1[var14]=beach.biomeID;
-                        }
-
-                    } else if(biome.edgeVariant!=null) {
-                        if (j2 == BiomeGenBase.river.biomeID || j3 == BiomeGenBase.river.biomeID || j4 == BiomeGenBase.river.biomeID || j5 == BiomeGenBase.river.biomeID) {
-                            aint1[var14] = biome.edgeVariant.biomeID;
-                        } else if(j2 == k && j3 == k && j4 == k && j5 == k) {
                             aint1[var14] = k;
-                        } else if(biome.hasBeach && coast) {
-                            aint1[var14] = frozenCoast ? BiomeGenBase.coldBeach.biomeID : beach.biomeID;
-                        } else {
+                        }
+                        else if (frozenCoast)
+                        {
+                            aint1[var14] = BiomeGenBase.coldBeach.biomeID;
+                        }
+                        else
+                        {
+                            aint1[var14] = beach.biomeID;
+                        }
+                    }
+                    else if (biome.edgeVariant != null)
+                    {
+                        if (j2 == BiomeGenBase.river.biomeID || j3 == BiomeGenBase.river.biomeID || j4 == BiomeGenBase.river.biomeID || j5 == BiomeGenBase.river.biomeID)
+                        {
                             aint1[var14] = biome.edgeVariant.biomeID;
                         }
-                    } else {
-                        aint1[var14]=k;
+                        else if (j2 == k && j3 == k && j4 == k && j5 == k)
+                        {
+                            aint1[var14] = k;
+                        }
+                        else if (biome.hasBeach && coast)
+                        {
+                            aint1[var14] = frozenCoast ? BiomeGenBase.coldBeach.biomeID : beach.biomeID;
+                        }
+                        else
+                        {
+                            aint1[var14] = biome.edgeVariant.biomeID;
+                        }
                     }
-
-
+                    else
+                    {
+                        aint1[var14] = k;
+                    }
 
 //                    if (biomegenbase != null && biomegenbase.isSnowyBiome())
 //                    {

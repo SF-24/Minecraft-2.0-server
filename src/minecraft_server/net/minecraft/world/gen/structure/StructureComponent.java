@@ -625,9 +625,9 @@ public abstract class StructureComponent
 
     protected void setBlockId(World worldIn, Block block, int x, int y, int z, StructureBoundingBox boundingboxIn)
     {
-        if (boundingboxIn.isVecInside(x,y,z))
+        if (boundingboxIn.isVecInside(x, y, z))
         {
-            worldIn.setBlockPrimitive(this.getXWithOffset(x, z),this.getYWithOffset(y),this.getZWithOffset(x,z), block, 2);
+            worldIn.setBlockPrimitive(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z), block, 2);
         }
     }
 

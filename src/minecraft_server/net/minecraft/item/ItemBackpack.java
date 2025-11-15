@@ -6,14 +6,14 @@ import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
 
-public class ItemBackpack extends Item {
-
+public class ItemBackpack extends Item
+{
     // meta 0 = ender pouch
     int meta;
 
     public ItemBackpack(int meta)
     {
-        this.meta=meta;
+        this.meta = meta;
         this.setMaxDamage(64);
         this.setMaxStackSize(1);
     }
@@ -24,13 +24,15 @@ public class ItemBackpack extends Item {
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
         // if item is ender pouch
-        if(meta==0) {
+        if (meta == 0)
+        {
             InventoryEnderChest inventoryenderchest = playerIn.getInventoryEnderChest();
             worldIn.playSoundEffect(playerIn.posX, playerIn.posY + 0.5D, playerIn.posZ, "dig.cloth", 0.5F, worldIn.rand.nextFloat() * 0.15F + 0.9F);
             playerIn.displayGUIChest(inventoryenderchest);
-            itemStackIn.damageItem(1,playerIn);
+            itemStackIn.damageItem(1, playerIn);
             playerIn.triggerAchievement(StatList.field_181738_V);
         }
+
         return itemStackIn;
     }
 

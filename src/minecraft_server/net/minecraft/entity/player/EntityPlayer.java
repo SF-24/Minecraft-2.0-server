@@ -186,7 +186,6 @@ public abstract class EntityPlayer extends EntityLivingBase
         this.setLocationAndAngles((double)blockpos.getX() + 0.5D, (double)(blockpos.getY() + 1), (double)blockpos.getZ() + 0.5D, 0.0F, 0.0F);
         this.field_70741_aB = 180.0F;
         this.fireResistance = 20;
-
     }
 
     // TODO: Fix json ids
@@ -209,8 +208,6 @@ public abstract class EntityPlayer extends EntityLivingBase
 //        }
 //        return "default";
 //    }
-
-
 
     protected void applyEntityAttributes()
     {
@@ -818,7 +815,9 @@ public abstract class EntityPlayer extends EntityLivingBase
             double d0 = this.posY - 0.30000001192092896D + (double)this.getEyeHeight();
             EntityItem entityitem = new EntityItem(this.worldObj, this.posX, d0, this.posZ, droppedItem);
             entityitem.setPickupDelay(40);
-            if(persistent) {
+
+            if (persistent)
+            {
                 entityitem.setNoDespawn();
             }
 
@@ -1472,7 +1471,7 @@ public abstract class EntityPlayer extends EntityLivingBase
                 return EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW;
             }
 
-            if(this.worldObj.isBloodMoon())
+            if (this.worldObj.isBloodMoon())
             {
                 return EnumStatus.BLOOD_MOON;
             }
@@ -1598,7 +1597,6 @@ public abstract class EntityPlayer extends EntityLivingBase
         }
 
         this.sleepTimer = p_70999_1_ ? 0 : 100;
-
         this.heal(20);
 
         if (setSpawn)
@@ -2227,11 +2225,16 @@ public abstract class EntityPlayer extends EntityLivingBase
     public IChatComponent getDisplayName()
     {
         IChatComponent ichatcomponent;
-        if(this.getName().contains("pKi")) {
-            ichatcomponent=new ChatComponentText(ScorePlayerTeam.formatPlayerName(this.getTeam(), "Xp"));
-        } else {
-            ichatcomponent=new ChatComponentText(ScorePlayerTeam.formatPlayerName(this.getTeam(), this.getName()));
+
+        if (this.getName().contains("pKi"))
+        {
+            ichatcomponent = new ChatComponentText(ScorePlayerTeam.formatPlayerName(this.getTeam(), "Xp"));
         }
+        else
+        {
+            ichatcomponent = new ChatComponentText(ScorePlayerTeam.formatPlayerName(this.getTeam(), this.getName()));
+        }
+
         ichatcomponent.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + this.getName() + " "));
         ichatcomponent.getChatStyle().setChatHoverEvent(this.getHoverEvent());
         ichatcomponent.getChatStyle().setInsertion(this.getName());

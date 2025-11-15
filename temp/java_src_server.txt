@@ -956,6 +956,7 @@ src\minecraft_server\net\minecraft\world\biome\BiomeGenHills.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenJungle.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenJungleRainforest.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenMesa.java
+src\minecraft_server\net\minecraft\world\biome\BiomeGenMesaSnow.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenMountains.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenMushroomIsland.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenMutated.java

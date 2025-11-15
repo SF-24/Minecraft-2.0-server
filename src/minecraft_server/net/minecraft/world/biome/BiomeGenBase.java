@@ -78,7 +78,6 @@ public abstract class BiomeGenBase
     /** Is the biome used for sky world. */
     public static final BiomeGenBase sky = (new BiomeGenEnd(9)).setColor(8421631).setBiomeName("The End").setDisableRain();
 
-
     public static final BiomeGenBase frozenOcean = (new BiomeGenOcean(10)).setColor(9474208).setBiomeName("FrozenOcean").setEnableSnow().setHeight(height_Oceans).setTemperatureRainfall(0.0F, 0.5F).setOcean();
     public static final BiomeGenBase frozenRiver = (new BiomeGenRiver(11)).setColor(10526975).setBiomeName("FrozenRiver").setEnableSnow().setHeight(height_ShallowWaters).setTemperatureRainfall(0.0F, 0.5F);
     public static final BiomeGenBase icePlains = (new BiomeGenSnow(12, false)).setColor(16777215).setBiomeName("Ice Plains").setEnableSnow().setTemperatureRainfall(0.0F, 0.5F).setHeight(height_LowPlains);
@@ -148,28 +147,26 @@ public abstract class BiomeGenBase
     public static final BiomeGenBase gravelBeach = (new BiomeGenBeach(47, Blocks.gravel.getDefaultState())).setColor(16445632).setBiomeName("Gravel Beach").setTemperatureRainfall(0.3F, 0.3F).setHeight(height_Shores);
 
     public static final BiomeGenBase archipelago = new BiomeGenArchipelago(48)
-            .setBiomeName("Archipelago")
-            .setColor(5470985)
-            .setTemperatureRainfall(0.8F, 0.9F)
-            .setHeight(height_Archipelago)
-            .setOcean();
+    .setBiomeName("Archipelago")
+    .setColor(5470985)
+    .setTemperatureRainfall(0.8F, 0.9F)
+    .setHeight(height_Archipelago)
+    .setOcean();
 
     public static final BiomeGenBase archipelagoHills = new BiomeGenArchipelago(49)
-            .setBiomeName("Archipelago Hills")
-            .setColor(5470985)
-            .setTemperatureRainfall(0.8F, 0.9F)
-            .setHeight(height_ArchipelagoHills)
-            .setOcean();
+    .setBiomeName("Archipelago Hills")
+    .setColor(5470985)
+    .setTemperatureRainfall(0.8F, 0.9F)
+    .setHeight(height_ArchipelagoHills)
+    .setOcean();
 
     public static final BiomeGenBase frozenMesa = (new BiomeGenMesaSnow(50, false, false)).setColor(747097).setBiomeName("Frozen Hills").setHeight(height_MesaSnow);
 
     public static final BiomeGenBase alpha = new BiomeGenAlpha(99)
-            .setBiomeName("Neon Plains")
-            .setColor(5470985)
-            .setTemperatureRainfall(0.8F, 0.9F)
-            .setHeight(height_Alpha);
-
-
+    .setBiomeName("Neon Plains")
+    .setColor(5470985)
+    .setTemperatureRainfall(0.8F, 0.9F)
+    .setHeight(height_Alpha);
 
     public static final BiomeGenBase field_180279_ad = ocean;
     protected static final NoiseGeneratorPerlin temperatureNoise;
@@ -477,7 +474,6 @@ public abstract class BiomeGenBase
     public final void generateBiomeTerrain(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int p_180628_4_, int p_180628_5_, double p_180628_6_)
     {
         int i = worldIn.getSeaLevel();
-
         IBlockState iblockstate = this.topBlock;
         IBlockState iblockstate1 = this.fillerBlock;
         int j = -1;

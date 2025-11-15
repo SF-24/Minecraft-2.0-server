@@ -140,14 +140,19 @@ public class BiomeDecorator
 
     public void decorate(World worldIn, Random random, BiomeGenBase p_180292_3_, BlockPos p_180292_4_)
     {
-        try {
-            if(this.currentWorld==null) {
+        try
+        {
+            if (this.currentWorld == null)
+            {
                 this.currentWorld = worldIn;
                 String s = worldIn.getWorldInfo().getGeneratorOptions();
 
-                if (s != null) {
+                if (s != null)
+                {
                     this.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory(s).func_177864_b();
-                } else {
+                }
+                else
+                {
                     this.chunkProviderSettings = ChunkProviderSettings.Factory.jsonToFactory("").func_177864_b();
                 }
 
@@ -168,7 +173,9 @@ public class BiomeDecorator
                 this.currentWorld = null;
                 this.randomGenerator = null;
             }
-        } catch (RuntimeException e) {
+        }
+        catch (RuntimeException e)
+        {
             throw new RuntimeException("Already decorating");
         }
     }

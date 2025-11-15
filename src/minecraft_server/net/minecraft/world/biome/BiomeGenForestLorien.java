@@ -27,7 +27,6 @@ public class BiomeGenForestLorien extends BiomeGenBase
         super(id);
         this.theBiomeDecorator.treesPerChunk = 4;
         this.theBiomeDecorator.grassPerChunk = 2;
-
         this.setFillerBlockMetadata(5159473);
         this.setTemperatureRainfall(0.7F, 0.8F);
 
@@ -71,12 +70,18 @@ public class BiomeGenForestLorien extends BiomeGenBase
 
     public WorldGenAbstractTree genBigTreeChance(Random rand)
     {
-        if(rand.nextInt(2) == 0 ) {return lorienTree;}
-        else if(rand.nextInt(6) == 0) {return  new WorldGenTreesAnySurface(false, 8, birchLog, acaciaLeaves, false, false);}
+        if (rand.nextInt(2) == 0)
+        {
+            return lorienTree;
+        }
+        else if (rand.nextInt(6) == 0)
+        {
+            return  new WorldGenTreesAnySurface(false, 8, birchLog, acaciaLeaves, false, false);
+        }
+
         //else if(rand.nextInt(8) == 0) {return  new WorldGenTreesAnySurface(false, 8, birchLog, darkOakLeaves, false, false);}
         return smallTree2;
     }
-
 
     public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos)
     {
@@ -94,17 +99,21 @@ public class BiomeGenForestLorien extends BiomeGenBase
 
     public void decorate(World worldIn, Random rand, BlockPos pos)
     {
-        for (int i = 0; i < 4; ++i) {
-            for (int j = 0; j < 4; ++j) {
+        for (int i = 0; i < 4; ++i)
+        {
+            for (int j = 0; j < 4; ++j)
+            {
                 int k = i * 4 + 1 + 8 + rand.nextInt(3);
                 int l = j * 4 + 1 + 8 + rand.nextInt(3);
                 BlockPos blockpos = worldIn.getHeight(pos.add(k, 0, l));
 
-                if(rand.nextInt(5)==0) {
+                if (rand.nextInt(5) == 0)
+                {
                     WorldGenAbstractTree worldgenabstracttree = this.genBigTreeChance(rand);
                     worldgenabstracttree.func_175904_e();
 
-                    if (worldgenabstracttree.generate(worldIn, rand, blockpos)) {
+                    if (worldgenabstracttree.generate(worldIn, rand, blockpos))
+                    {
                         worldgenabstracttree.func_180711_a(worldIn, rand, blockpos);
                     }
                 }

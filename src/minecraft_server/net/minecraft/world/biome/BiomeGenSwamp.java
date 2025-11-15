@@ -15,7 +15,7 @@ public class BiomeGenSwamp extends BiomeGenBase
     protected BiomeGenSwamp(int p_i1988_1_)
     {
         super(p_i1988_1_);
-        this.hasBeach=false;
+        this.hasBeach = false;
         this.theBiomeDecorator.treesPerChunk = 2;
         this.theBiomeDecorator.flowersPerChunk = 1;
         this.theBiomeDecorator.deadBushPerChunk = 1;

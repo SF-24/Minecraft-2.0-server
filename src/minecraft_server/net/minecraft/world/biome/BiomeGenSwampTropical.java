@@ -18,11 +18,10 @@ public class BiomeGenSwampTropical extends BiomeGenBase
     private static final IBlockState JUNGLE_LEAVES = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
     private static final IBlockState OAK_LEAVES = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
 
-
     public BiomeGenSwampTropical(int id)
     {
         super(id);
-        this.hasBeach=false;
+        this.hasBeach = false;
         this.theBiomeDecorator.treesPerChunk = 6;
         this.theBiomeDecorator.flowersPerChunk = 1;
         this.theBiomeDecorator.deadBushPerChunk = 1;
@@ -35,7 +34,8 @@ public class BiomeGenSwampTropical extends BiomeGenBase
         this.spawnableMonsterList.add(new SpawnListEntry(EntitySlime.class, 1, 1, 4));
     }
 
-    public void decorate(World worldIn, Random rand, BlockPos pos) {
+    public void decorate(World worldIn, Random rand, BlockPos pos)
+    {
         super.decorate(worldIn, rand, pos);
 
         if (rand.nextInt(2) == 0)
@@ -50,13 +50,17 @@ public class BiomeGenSwampTropical extends BiomeGenBase
     public WorldGenAbstractTree genBigTreeChance(Random rand)
     {
         return (WorldGenAbstractTree)
-                (rand.nextInt(3) == 0 ? new WorldGenShrub(JUNGLE_LOG, OAK_LEAVES) :
-                        new WorldGenTrees(false, 4 + rand.nextInt(7), JUNGLE_LOG, JUNGLE_LEAVES, true));
+               (rand.nextInt(3) == 0 ? new WorldGenShrub(JUNGLE_LOG, OAK_LEAVES) :
+                new WorldGenTrees(false, 4 + rand.nextInt(7), JUNGLE_LOG, JUNGLE_LEAVES, true));
     }
 
     public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos)
     {
-        if(rand.nextInt(2)==0) return BlockFlower.EnumFlowerType.POPPY;
+        if (rand.nextInt(2) == 0)
+        {
+            return BlockFlower.EnumFlowerType.POPPY;
+        }
+
         return BlockFlower.EnumFlowerType.DANDELION;
     }
 

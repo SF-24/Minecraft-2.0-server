@@ -17,7 +17,7 @@ public class BiomeGenWasteland extends BiomeGenBase
     public BiomeGenWasteland(int id)
     {
         super(id);
-        this.hasBeach=false;
+        this.hasBeach = false;
         this.spawnableCreatureList.clear();
         this.topBlock = Blocks.gravel.getDefaultState();
         this.fillerBlock = Blocks.stone.getDefaultState();
@@ -26,7 +26,6 @@ public class BiomeGenWasteland extends BiomeGenBase
         this.theBiomeDecorator.reedsPerChunk = 50;
         this.theBiomeDecorator.cactiPerChunk = 10;
         this.spawnableCreatureList.clear();
-
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos)
@@ -39,7 +38,8 @@ public class BiomeGenWasteland extends BiomeGenBase
             int j = rand.nextInt(16) + 8;
             BlockPos blockpos = worldIn.getHeight(pos.add(i, 2, j)).up();
             (new WorldGenMeteor()).generate(worldIn, rand, blockpos);
-        } else if (rand.nextInt(3) == 0)
+        }
+        else if (rand.nextInt(3) == 0)
         {
             int i = rand.nextInt(16) + 8;
             int j = rand.nextInt(16) + 8;
@@ -51,9 +51,9 @@ public class BiomeGenWasteland extends BiomeGenBase
     public WorldGenAbstractTree genBigTreeChance(Random rand)
     {
         return (WorldGenAbstractTree)
-                (rand.nextInt(40) == 0 ? new WorldGenRock(Blocks.obsidian.getDefaultState(), Blocks.obsidian.getDefaultState(),rand.nextInt(2)+1) :
-                        (rand.nextInt(11) == 0 ? new WorldGenRock(Blocks.cobblestone.getDefaultState(), Blocks.cobblestone.getDefaultState(),rand.nextInt(2)+1) :
-                                (rand.nextInt(11) == 0 ? new WorldGenTreesAnySurface(false, 3 + rand.nextInt(3), OAK_LOG, Blocks.air.getDefaultState(), true, true):
-                                        (new WorldGenTreesAnySurface(false, 0, Blocks.air.getDefaultState(), Blocks.air.getDefaultState(), false, true)))));
+               (rand.nextInt(40) == 0 ? new WorldGenRock(Blocks.obsidian.getDefaultState(), Blocks.obsidian.getDefaultState(), rand.nextInt(2) + 1) :
+                (rand.nextInt(11) == 0 ? new WorldGenRock(Blocks.cobblestone.getDefaultState(), Blocks.cobblestone.getDefaultState(), rand.nextInt(2) + 1) :
+                 (rand.nextInt(11) == 0 ? new WorldGenTreesAnySurface(false, 3 + rand.nextInt(3), OAK_LOG, Blocks.air.getDefaultState(), true, true) :
+                  (new WorldGenTreesAnySurface(false, 0, Blocks.air.getDefaultState(), Blocks.air.getDefaultState(), false, true)))));
     }
 }

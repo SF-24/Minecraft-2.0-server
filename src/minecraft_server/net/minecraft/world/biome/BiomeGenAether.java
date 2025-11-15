@@ -23,7 +23,7 @@ public class BiomeGenAether extends BiomeGenBase
     public BiomeGenAether(int id)
     {
         super(id);
-        this.hasBeach=false;
+        this.hasBeach = false;
         this.spawnableMonsterList.clear();
         this.spawnableCreatureList.clear();
         this.spawnableWaterCreatureList.clear();

@@ -42,7 +42,7 @@ public class WorldGenTreesAnySurface extends WorldGenAbstractTree
         this.metaWood = p_i46446_3_;
         this.metaLeaves = p_i46446_4_;
         this.vinesGrow = p_i46446_5_;
-        this.allowStone=allowStone;
+        this.allowStone = allowStone;
     }
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
@@ -97,7 +97,11 @@ public class WorldGenTreesAnySurface extends WorldGenAbstractTree
 
                 if ((block1 == Blocks.grass || block1 == Blocks.dirt || block1 == Blocks.farmland || block1 == Blocks.gravel || block1 == Blocks.sand || block1 == Blocks.stone) && position.getY() < 256 - i - 1)
                 {
-                    if(!allowStone && block1==Blocks.stone) return false;
+                    if (!allowStone && block1 == Blocks.stone)
+                    {
+                        return false;
+                    }
+
                     this.func_175921_a(worldIn, position.down());
                     int k2 = 3;
                     int l2 = 0;

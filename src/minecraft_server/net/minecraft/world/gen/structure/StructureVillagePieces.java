@@ -351,7 +351,11 @@ public abstract class StructureVillagePieces
 
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 2, 1, 0, structureBoundingBoxIn);
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 2, 2, 0, structureBoundingBoxIn);
-            if(!abandoned) this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+
+            if (!abandoned)
+            {
+                this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+            }
 
             if (this.getBlockStateFromPos(worldIn, 2, 0, -1, structureBoundingBoxIn).getBlock().getMaterial() == Material.air && this.getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getBlock().getMaterial() != Material.air)
             {
@@ -676,7 +680,11 @@ public abstract class StructureVillagePieces
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 2, 1, 0, structureBoundingBoxIn);
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 2, 2, 0, structureBoundingBoxIn);
             this.setBlockState(worldIn, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, this.coordBaseMode), 2, 3, 1, structureBoundingBoxIn);
-            if(!abandoned) this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+
+            if (!abandoned)
+            {
+                this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+            }
 
             if (this.getBlockStateFromPos(worldIn, 2, 0, -1, structureBoundingBoxIn).getBlock().getMaterial() == Material.air && this.getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getBlock().getMaterial() != Material.air)
             {
@@ -686,7 +694,11 @@ public abstract class StructureVillagePieces
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 6, 1, 5, structureBoundingBoxIn);
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 6, 2, 5, structureBoundingBoxIn);
             this.setBlockState(worldIn, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, this.coordBaseMode.getOpposite()), 6, 3, 4, structureBoundingBoxIn);
-            if(!abandoned) this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 6, 1, 5, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+
+            if (!abandoned)
+            {
+                this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 6, 1, 5, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+            }
 
             for (int i1 = 0; i1 < 5; ++i1)
             {
@@ -804,7 +816,11 @@ public abstract class StructureVillagePieces
             this.setBlockState(worldIn, Blocks.crafting_table.getDefaultState(), 7, 1, 1, structureBoundingBoxIn);
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 1, 1, 0, structureBoundingBoxIn);
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 1, 2, 0, structureBoundingBoxIn);
-            if(!abandoned) this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 1, 1, 0, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+
+            if (!abandoned)
+            {
+                this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 1, 1, 0, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+            }
 
             if (this.getBlockStateFromPos(worldIn, 1, 0, -1, structureBoundingBoxIn).getBlock().getMaterial() == Material.air && this.getBlockStateFromPos(worldIn, 1, -1, -1, structureBoundingBoxIn).getBlock().getMaterial() != Material.air)
             {
@@ -1073,7 +1089,12 @@ public abstract class StructureVillagePieces
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 2, 1, 0, structureBoundingBoxIn);
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 2, 2, 0, structureBoundingBoxIn);
             this.setBlockState(worldIn, Blocks.torch.getDefaultState().withProperty(BlockTorch.FACING, this.coordBaseMode), 2, 3, 1, structureBoundingBoxIn);
-            if(!abandoned) this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+
+            if (!abandoned)
+            {
+                this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 2, 1, 0, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+            }
+
             this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, -1, 3, 2, -1, Blocks.air.getDefaultState(), Blocks.air.getDefaultState(), false);
 
             if (this.getBlockStateFromPos(worldIn, 2, 0, -1, structureBoundingBoxIn).getBlock().getMaterial() == Material.air && this.getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getBlock().getMaterial() != Material.air)
@@ -1424,7 +1445,7 @@ public abstract class StructureVillagePieces
         public Start(WorldChunkManager chunkManagerIn, int p_i2104_2_, Random rand, int p_i2104_4_, int p_i2104_5_, List<StructureVillagePieces.PieceWeight> p_i2104_6_, int p_i2104_7_, boolean abandoned)
         {
             super((StructureVillagePieces.Start)null, 0, rand, p_i2104_4_, p_i2104_5_);
-            this.abandoned=abandoned;
+            this.abandoned = abandoned;
             this.worldChunkMngr = chunkManagerIn;
             this.structureVillageWeightedPieceList = p_i2104_6_;
             this.terrainType = p_i2104_7_;
@@ -1504,7 +1525,7 @@ public abstract class StructureVillagePieces
             if (start != null)
             {
                 this.isDesertVillage = start.inDesert;
-                this.abandoned=start.abandoned;
+                this.abandoned = start.abandoned;
             }
         }
 
@@ -1619,7 +1640,9 @@ public abstract class StructureVillagePieces
                     }
 
                     ++this.villagersSpawned;
-                    if(abandoned) {
+
+                    if (abandoned)
+                    {
                         EntityZombie entityvillager = new EntityZombie(worldIn);
                         entityvillager.setCurrentItemOrArmor(0, new ItemStack(new Random().nextFloat() < 0.2F ? Items.iron_sword : new Random().nextFloat() < 0.6 ? Items.iron_shovel : Item.getItemFromBlock(Blocks.air)));
                         entityvillager.setCurrentItemOrArmor(4, new ItemStack(new Random().nextFloat() < 0.1F ? Items.iron_helmet : new Random().nextFloat() < 0.5F ? Items.golden_helmet :  Items.leather_helmet));
@@ -1627,7 +1650,9 @@ public abstract class StructureVillagePieces
                         entityvillager.setLocationAndAngles((double) j + 0.5D, (double) k, (double) l + 0.5D, 0.0F, 0.0F);
                         entityvillager.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData) null);
                         worldIn.spawnEntityInWorld(entityvillager);
-                    } else {
+                    }
+                    else
+                    {
                         EntityVillager entityvillager = new EntityVillager(worldIn);
                         entityvillager.setLocationAndAngles((double) j + 0.5D, (double) k, (double) l + 0.5D, 0.0F, 0.0F);
                         entityvillager.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData) null);
@@ -1645,7 +1670,8 @@ public abstract class StructureVillagePieces
 
         protected IBlockState func_175847_a(IBlockState p_175847_1_)
         {
-            if(this.isDesertVillage) {
+            if (this.isDesertVillage)
+            {
                 if (p_175847_1_.getBlock() == Blocks.log || p_175847_1_.getBlock() == Blocks.log2)
                 {
                     return Blocks.sandstone.getDefaultState();
@@ -1675,20 +1701,26 @@ public abstract class StructureVillagePieces
                 {
                     return Blocks.sandstone.getDefaultState();
                 }
-            } else {
-                if (abandoned && !isDesertVillage && new Random().nextInt(4) == 0 && p_175847_1_.getBlock() == Blocks.cobblestone) {
+            }
+            else
+            {
+                if (abandoned && !isDesertVillage && new Random().nextInt(4) == 0 && p_175847_1_.getBlock() == Blocks.cobblestone)
+                {
                     return Blocks.mossy_cobblestone.getDefaultState();
                 }
             }
-            if(abandoned) {
-                if (new Random().nextInt(7) == 0 && p_175847_1_.getBlock() == Blocks.planks) {
+
+            if (abandoned)
+            {
+                if (new Random().nextInt(7) == 0 && p_175847_1_.getBlock() == Blocks.planks)
+                {
                     return Blocks.air.getDefaultState();
                 }
 
-                if (new Random().nextInt(7) == 0 && p_175847_1_.getBlock() == Blocks.oak_stairs) {
+                if (new Random().nextInt(7) == 0 && p_175847_1_.getBlock() == Blocks.oak_stairs)
+                {
                     return Blocks.air.getDefaultState();
                 }
-
             }
 
             return p_175847_1_;
@@ -1887,7 +1919,11 @@ public abstract class StructureVillagePieces
 
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 1, 1, 0, structureBoundingBoxIn);
             this.setBlockState(worldIn, Blocks.air.getDefaultState(), 1, 2, 0, structureBoundingBoxIn);
-            if(!abandoned) this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 1, 1, 0, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+
+            if (!abandoned)
+            {
+                this.placeDoorCurrentPosition(worldIn, structureBoundingBoxIn, randomIn, 1, 1, 0, EnumFacing.getHorizontal(this.getMetadataWithOffset(Blocks.oak_door, 1)));
+            }
 
             if (this.getBlockStateFromPos(worldIn, 1, 0, -1, structureBoundingBoxIn).getBlock().getMaterial() == Material.air && this.getBlockStateFromPos(worldIn, 1, -1, -1, structureBoundingBoxIn).getBlock().getMaterial() != Material.air)
             {

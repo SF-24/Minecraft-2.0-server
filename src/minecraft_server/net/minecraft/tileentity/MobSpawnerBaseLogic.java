@@ -118,7 +118,6 @@ public abstract class MobSpawnerBaseLogic
 
                 for (int i = 0; i < this.spawnCount; ++i)
                 {
-
                     Entity entity = EntityList.createEntityByName(this.getEntityNameToSpawn(), this.getSpawnerWorld());
 
                     if (entity == null)

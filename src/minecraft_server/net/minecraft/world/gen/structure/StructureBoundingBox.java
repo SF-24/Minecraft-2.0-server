@@ -176,7 +176,6 @@ public class StructureBoundingBox
         return x >= this.minX && x <= this.maxX && z >= this.minZ && z <= this.maxZ && y >= this.minY && y <= this.maxY;
     }
 
-
     public Vec3i func_175896_b()
     {
         return new Vec3i(this.maxX - this.minX, this.maxY - this.minY, this.maxZ - this.minZ);

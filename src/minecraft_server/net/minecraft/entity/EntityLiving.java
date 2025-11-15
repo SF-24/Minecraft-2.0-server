@@ -712,12 +712,16 @@ public abstract class EntityLiving extends EntityLivingBase
      */
     public int getMaxSpawnedInChunk()
     {
-        if(this.isEntityUndead()) {
-            if (this.worldObj.isBloodMoon()) {
+        if (this.isEntityUndead())
+        {
+            if (this.worldObj.isBloodMoon())
+            {
                 return 10;
             }
+
             return 6;
         }
+
         return 4;
     }
 

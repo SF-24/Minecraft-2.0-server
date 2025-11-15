@@ -65,8 +65,6 @@ public class WorldGenMegaForest extends WorldGenHugeTrees
                     if (this.func_150523_a(worldIn.getBlockState(blockpos1).getBlock()))
                     {
                         this.setBlockAndNotifyAdequately(worldIn, blockpos1, this.woodMetadata);
-
-
                     }
 
                     BlockPos blockpos2 = blockpos.south().east();
@@ -74,7 +72,6 @@ public class WorldGenMegaForest extends WorldGenHugeTrees
                     if (this.func_150523_a(worldIn.getBlockState(blockpos2).getBlock()))
                     {
                         this.setBlockAndNotifyAdequately(worldIn, blockpos2, this.woodMetadata);
-
                     }
 
                     BlockPos blockpos3 = blockpos.south();
@@ -82,7 +79,6 @@ public class WorldGenMegaForest extends WorldGenHugeTrees
                     if (this.func_150523_a(worldIn.getBlockState(blockpos3).getBlock()))
                     {
                         this.setBlockAndNotifyAdequately(worldIn, blockpos3, this.woodMetadata);
-
                     }
                 }
             }

@@ -36,7 +36,6 @@ public class ChunkProviderGenerate implements IChunkProvider
     private NoiseGeneratorPerlin noiseAlt;
     private NoiseGeneratorOctaves beachNoise;
 
-
     /** A NoiseGeneratorOctaves used in generating terrain */
     public NoiseGeneratorOctaves noiseGen5;
 
@@ -660,40 +659,55 @@ public class ChunkProviderGenerate implements IChunkProvider
                 // Mountain snow gen included
                 if (this.worldObj.canSnowAt(blockpos1, true))
                 {
-                    if(biomegenbase.equals(BiomeGenBase.stoneMountains)) {
-                        this.worldObj.setBlockState(blockpos1.add(0,-1,0), Blocks.snow.getDefaultState(), 2);
-                    } else {
+                    if (biomegenbase.equals(BiomeGenBase.stoneMountains))
+                    {
+                        this.worldObj.setBlockState(blockpos1.add(0, -1, 0), Blocks.snow.getDefaultState(), 2);
+                    }
+                    else
+                    {
                         this.worldObj.setBlockState(blockpos1, Blocks.snow_layer.getDefaultState(), 2);
                     }
                 }
 
                 // Mountain snow
-                if(biomegenbase.equals(BiomeGenBase.stoneMountains) && blockpos1.getY()>92) {
+                if (biomegenbase.equals(BiomeGenBase.stoneMountains) && blockpos1.getY() > 92)
+                {
                     IBlockState block;
-                    if (this.worldObj.canSnowAt(blockpos1, false)) {
+
+                    if (this.worldObj.canSnowAt(blockpos1, false))
+                    {
                         block = Blocks.snow.getDefaultState();
-                        while ((worldObj.getBlockState(blockpos1).getBlock()==Blocks.log2||worldObj.getBlockState(blockpos1).getBlock()==Blocks.log) &&blockpos1.getY()>80) {
-                            blockpos1=blockpos1.down();
+
+                        while ((worldObj.getBlockState(blockpos1).getBlock() == Blocks.log2 || worldObj.getBlockState(blockpos1).getBlock() == Blocks.log) && blockpos1.getY() > 80)
+                        {
+                            blockpos1 = blockpos1.down();
                         }
-                        if(blockpos1.getY()>89) {
+
+                        if (blockpos1.getY() > 89)
+                        {
                             blockpos2 = blockpos1.down();
 
-                            if (worldObj.getBlockState(blockpos2).getBlock() != Blocks.air) {
+                            if (worldObj.getBlockState(blockpos2).getBlock() != Blocks.air)
+                            {
                                 this.worldObj.setBlockState(blockpos2, block);
                             }
+
                             BlockPos blockpos3 = blockpos2.down();
-                            if (worldObj.getBlockState(blockpos3).getBlock() != Blocks.air) {
+
+                            if (worldObj.getBlockState(blockpos3).getBlock() != Blocks.air)
+                            {
                                 this.worldObj.setBlockState(blockpos3, block);
                             }
+
                             BlockPos blockpos4 = blockpos3.down();
-                            if (worldObj.getBlockState(blockpos4).getBlock() != Blocks.air) {
+
+                            if (worldObj.getBlockState(blockpos4).getBlock() != Blocks.air)
+                            {
                                 this.worldObj.setBlockState(blockpos4, block);
                             }
                         }
                     }
-
                 }
-
             }
         }
 

@@ -389,10 +389,25 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
     /**
      * Get's the maximum speed for a minecart
      */
+
+    protected double getSpeedSquared() {
+        return (this.motionX * this.motionX + this.motionZ * this.motionZ);
+    }
+
+    protected double getMaximumSpeedSquared() {
+        return getMaximumSpeed()*getMaximumSpeed();
+    }
+
     protected double getMaximumSpeed()
     {
-        return 0.8D;
+        return 1.0D;
     }
+    protected double getMaximumSpeedAngled()
+    {
+        return 0.70710678118654752440084436210485D;
+    }
+
+    protected double getAccelerationConstant() { return 1.0D; }
 
     /**
      * Called every tick the minecart is on an activator rail. Args: x, y, z, is the rail receiving power
@@ -406,15 +421,14 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
      */
     protected void moveDerailedMinecart()
     {
-        double d0 = this.getMaximumSpeed();
-        this.motionX = MathHelper.clamp_double(this.motionX, -d0, d0);
-        this.motionZ = MathHelper.clamp_double(this.motionZ, -d0, d0);
+        this.motionX = MathHelper.clamp_double(this.motionX, -this.getMaximumSpeed(), this.getMaximumSpeed());
+        this.motionZ = MathHelper.clamp_double(this.motionZ, -this.getMaximumSpeed(), this.getMaximumSpeed());
 
         if (this.onGround)
         {
-            this.motionX *= 0.5D;
-            this.motionY *= 0.5D;
-            this.motionZ *= 0.5D;
+            this.motionX *= 0.5;
+            this.motionY *= 0.5;
+            this.motionZ *= 0.5;
         }
 
         this.moveEntity(this.motionX, this.motionY, this.motionZ);
@@ -565,9 +579,18 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
             d23 *= 0.75D;
         }
 
-        double d13 = this.getMaximumSpeed();
-        d22 = MathHelper.clamp_double(d22, -d13, d13);
-        d23 = MathHelper.clamp_double(d23, -d13, d13);
+        d22 = MathHelper.clamp_double(d22, -getMaximumSpeed(), getMaximumSpeed());
+        d23 = MathHelper.clamp_double(d23, -getMaximumSpeed(), getMaximumSpeed());
+
+        System.out.println(Math.sqrt(getSpeedSquared()));
+
+        if(this.getMaximumSpeedSquared()<(d22*d22+d23*d23)) {
+            System.out.println("YAW: " + minecartYaw);
+            d22 = Math.signum(d22) * this.getMaximumSpeed()*Math.sin(minecartYaw);
+            d23 = Math.signum(d23) *this.getMaximumSpeed()*Math.cos(minecartYaw);
+            System.out.println("Slowing minecart");
+        }
+
         this.moveEntity(d22, 0.0D, d23);
 
         if (aint[0][1] != 0 && MathHelper.floor_double(this.posX) - p_180460_1_.getX() == aint[0][0] && MathHelper.floor_double(this.posZ) - p_180460_1_.getZ() == aint[0][2])
@@ -612,9 +635,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
             if (d15 > 0.01D)
             {
-                double d16 = 0.08D; // was 0.06D
-                this.motionX += this.motionX / d15 * d16;
-                this.motionZ += this.motionZ / d15 * d16;
+                // Acceleration // was 0.06D
+                this.motionX += this.motionX / d15 * getAccelerationConstant();
+                this.motionZ += this.motionZ / d15 * getAccelerationConstant();
             }
             else if (blockrailbase$enumraildirection == BlockRailBase.EnumRailDirection.EAST_WEST)
             {

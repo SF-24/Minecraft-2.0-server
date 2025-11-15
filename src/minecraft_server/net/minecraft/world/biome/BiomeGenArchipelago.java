@@ -24,14 +24,13 @@ public class BiomeGenArchipelago extends BiomeGenBase
         this.theBiomeDecorator.treesPerChunk = 1;
         this.theBiomeDecorator.grassPerChunk = 8;
         this.theBiomeDecorator.flowersPerChunk = 3;
-
         this.spawnableCreatureList.add(new SpawnListEntry(EntityChicken.class, 10, 4, 4));
     }
 
     public WorldGenAbstractTree genBigTreeChance(Random rand)
     {
         return (WorldGenAbstractTree)(rand.nextInt(10) == 0 ? this.worldGeneratorBigTree :
-                new WorldGenTrees(false, 4 + rand.nextInt(7), OAK_LOG, OAK_LEAVES, true));
+                                      new WorldGenTrees(false, 4 + rand.nextInt(7), OAK_LOG, OAK_LEAVES, true));
     }
 
     /**
@@ -49,6 +48,5 @@ public class BiomeGenArchipelago extends BiomeGenBase
         int j = rand.nextInt(16) + 8;
         int k = rand.nextInt(worldIn.getHeight(pos.add(i, 0, j)).getY() * 2);
         (new WorldGenPumpkin()).generate(worldIn, rand, pos.add(i, k, j));
-
     }
 }

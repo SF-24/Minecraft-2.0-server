@@ -19,27 +19,29 @@ import org.apache.logging.log4j.Logger;
 public class WorldGenDungeonsNether extends WorldGenerator
 {
     private static final Logger field_175918_a = LogManager.getLogger();
-    private static final String[] SPAWNERTYPES = new String[] {"Witch","Skeleton","Skeleton","Skeleton","PigZombie"};
-    private static final List<WeightedRandomChestContent> CHESTCONTENT = Lists.newArrayList(new WeightedRandomChestContent[] {
-            new WeightedRandomChestContent(Items.gold_ingot, 0, 1, 3, 10),
-            new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 4, 10),
-            new WeightedRandomChestContent(Items.bread, 0, 1, 1, 10),
-            new WeightedRandomChestContent(Items.gunpowder, 0, 1, 4, 10),
-            new WeightedRandomChestContent(Items.glowstone_dust, 0, 1, 4, 10),
-            new WeightedRandomChestContent(Items.string, 0, 1, 4, 10),
-            new WeightedRandomChestContent(Items.bucket, 0, 1, 1, 10),
-            new WeightedRandomChestContent(Items.magma_cream, 0, 1, 2, 2),
-            new WeightedRandomChestContent(Items.golden_apple, 0, 1, 1, 1),
-            new WeightedRandomChestContent(Items.flint_and_steel, 0, 1, 1, 4),
-            new WeightedRandomChestContent(Items.record_alpha, 0, 1, 1, 3),
-            new WeightedRandomChestContent(Items.record_key, 0, 1, 1, 3),
-            new WeightedRandomChestContent(Items.record_11, 0, 1, 1, 2),
-            new WeightedRandomChestContent(Items.record_mellohi, 0, 1, 1, 2),
-            new WeightedRandomChestContent(Items.name_tag, 0, 1, 1, 10),
-            new WeightedRandomChestContent(Items.golden_horse_armor, 0, 1, 1, 2),
-            new WeightedRandomChestContent(Items.water_bucket, 0, 1, 1, 2),
-            new WeightedRandomChestContent(Items.golden_chestplate, 0, 1, 1, 2),
-            new WeightedRandomChestContent(Items.golden_sword, 0, 1, 1, 2)});
+    private static final String[] SPAWNERTYPES = new String[] {"Witch", "Skeleton", "Skeleton", "Skeleton", "PigZombie"};
+    private static final List<WeightedRandomChestContent> CHESTCONTENT = Lists.newArrayList(new WeightedRandomChestContent[]
+            {
+                new WeightedRandomChestContent(Items.gold_ingot, 0, 1, 3, 10),
+                new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 4, 10),
+                new WeightedRandomChestContent(Items.bread, 0, 1, 1, 10),
+                new WeightedRandomChestContent(Items.gunpowder, 0, 1, 4, 10),
+                new WeightedRandomChestContent(Items.glowstone_dust, 0, 1, 4, 10),
+                new WeightedRandomChestContent(Items.string, 0, 1, 4, 10),
+                new WeightedRandomChestContent(Items.bucket, 0, 1, 1, 10),
+                new WeightedRandomChestContent(Items.magma_cream, 0, 1, 2, 2),
+                new WeightedRandomChestContent(Items.golden_apple, 0, 1, 1, 1),
+                new WeightedRandomChestContent(Items.flint_and_steel, 0, 1, 1, 4),
+                new WeightedRandomChestContent(Items.record_alpha, 0, 1, 1, 3),
+                new WeightedRandomChestContent(Items.record_key, 0, 1, 1, 3),
+                new WeightedRandomChestContent(Items.record_11, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.record_mellohi, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.name_tag, 0, 1, 1, 10),
+                new WeightedRandomChestContent(Items.golden_horse_armor, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.water_bucket, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.golden_chestplate, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.golden_sword, 0, 1, 1, 2)
+            });
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
     {

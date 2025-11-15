@@ -23,8 +23,7 @@ public class GenLayerBiome extends GenLayer
     public GenLayerBiome(long varLong, GenLayer genLayer, WorldType worldType, String varString)
     {
         super(varLong);
-        this.worldType=worldType;
-
+        this.worldType = worldType;
         this.parent = genLayer;
 
         if (worldType == WorldType.DEFAULT_1_1)
@@ -39,24 +38,22 @@ public class GenLayerBiome extends GenLayer
         else if (worldType == WorldType.RANDOM_BIOMES)
         {
             // random biomes world generation
-            this.randomBiomeList = new BiomeGenBase[] {
-                    BiomeGenBase.volcanic_wasteland, BiomeGenBase.mesaPlateau, BiomeGenBase.mesa,
-                    BiomeGenBase.desert, BiomeGenBase.desert, BiomeGenBase.desert, BiomeGenBase.savanna, BiomeGenBase.savanna, BiomeGenBase.plains,
-                    BiomeGenBase.jungle,BiomeGenBase.jungle, BiomeGenBase.tropical_swampland, BiomeGenBase.rainforest,
-                    BiomeGenBase.forest, BiomeGenBase.roofedForest, BiomeGenBase.extremeHills, BiomeGenBase.plains, BiomeGenBase.birchForest, BiomeGenBase.swampland, BiomeGenBase.roofedSwamp,
-                    BiomeGenBase.forest, BiomeGenBase.autumnalForest, BiomeGenBase.taiga, BiomeGenBase.megaTaiga, BiomeGenBase.coldTaiga, BiomeGenBase.stoneMountains,
-                    BiomeGenBase.iceMountains, BiomeGenBase.icePlains, BiomeGenBase.icePlains, BiomeGenBase.icePlains
+            this.randomBiomeList = new BiomeGenBase[]
+            {
+                BiomeGenBase.volcanic_wasteland, BiomeGenBase.mesaPlateau, BiomeGenBase.mesa,
+                BiomeGenBase.desert, BiomeGenBase.desert, BiomeGenBase.desert, BiomeGenBase.savanna, BiomeGenBase.savanna, BiomeGenBase.plains,
+                BiomeGenBase.jungle, BiomeGenBase.jungle, BiomeGenBase.tropical_swampland, BiomeGenBase.rainforest,
+                BiomeGenBase.forest, BiomeGenBase.roofedForest, BiomeGenBase.extremeHills, BiomeGenBase.plains, BiomeGenBase.birchForest, BiomeGenBase.swampland, BiomeGenBase.roofedSwamp,
+                BiomeGenBase.forest, BiomeGenBase.autumnalForest, BiomeGenBase.taiga, BiomeGenBase.megaTaiga, BiomeGenBase.coldTaiga, BiomeGenBase.stoneMountains,
+                BiomeGenBase.iceMountains, BiomeGenBase.icePlains, BiomeGenBase.icePlains, BiomeGenBase.icePlains
             };
-
-
-
             /*
             this.randomBiomeList = new BiomeGenBase[] {
                 BiomeGenBase.desert, BiomeGenBase.desert, BiomeGenBase.savanna, BiomeGenBase.plains, BiomeGenBase.plains, BiomeGenBase.forest, BiomeGenBase.forest, BiomeGenBase.roofedForest, BiomeGenBase.extremeHills, BiomeGenBase.extremeHills,
                 BiomeGenBase.birchForest, BiomeGenBase.swampland, BiomeGenBase.swampland, BiomeGenBase.taiga, BiomeGenBase.icePlains, BiomeGenBase.coldTaiga, ?, ?, ?, ?, ?
 
             };*/
-            chunkProviderSettings=null;
+            chunkProviderSettings = null;
         }
         else
         {
@@ -89,35 +86,60 @@ public class GenLayerBiome extends GenLayer
                 k = k & -3841;
 
                 // random biomes world type
-                if(this.worldType==WorldType.RANDOM_BIOMES) {
-
-                    if (oceanList[k]) {
-                        if(this.nextInt(4)==0) {
+                if (this.worldType == WorldType.RANDOM_BIOMES)
+                {
+                    if (oceanList[k])
+                    {
+                        if (this.nextInt(4) == 0)
+                        {
                             aint1[j + i * areaWidth] = (this.oceanBiomeList[this.nextInt(this.oceanBiomeList.length)]).biomeID;
-                        } else {
+                        }
+                        else
+                        {
                             aint1[j + i * areaWidth] = k;
                         }
-                    } else if (k == BiomeGenBase.mushroomIsland.biomeID) {
+                    }
+                    else if (k == BiomeGenBase.mushroomIsland.biomeID)
+                    {
                         aint1[j + i * areaWidth] = k;
-                    } else if (k >= 1 && k <= 4) {
+                    }
+                    else if (k >= 1 && k <= 4)
+                    {
                         // a -> getIntCache? or aint1 or this.nextInt
                         int biome = (this.randomBiomeList[this.nextInt(this.randomBiomeList.length)]).biomeID;
-                        if((biome==BiomeGenBase.autumnalForest.biomeID || biome==BiomeGenBase.birchForest.biomeID) && (this.nextInt(4)==0)) biome= BiomeGenBase.lorienForest.biomeID;
-                        if((biome== mesa.biomeID || biome== mesaPlateau.biomeID) && (this.nextInt(5)==0)) biome= mesaPlateau_F.biomeID;
+
+                        if ((biome == BiomeGenBase.autumnalForest.biomeID || biome == BiomeGenBase.birchForest.biomeID) && (this.nextInt(4) == 0))
+                        {
+                            biome = BiomeGenBase.lorienForest.biomeID;
+                        }
+
+                        if ((biome == mesa.biomeID || biome == mesaPlateau.biomeID) && (this.nextInt(5) == 0))
+                        {
+                            biome = mesaPlateau_F.biomeID;
+                        }
+
 //                        if(((biome== stoneMountains.biomeID) && (this.nextInt(5)==0)) || ((biome== icePlains.biomeID) && (this.nextInt(20)==0))) biome=BiomeGenBase.frozenMesa.biomeID;
                         aint1[j + i * areaWidth] = biome;
-                    } else {
+                    }
+                    else
+                    {
                         aint1[j + i * areaWidth] = BiomeGenBase.mushroomIsland.biomeID;
                     }
-                }  else if(this.worldType.equals(WorldType.ALPHA)) {
-                    if (oceanList[k]) {
+                }
+                else if (this.worldType.equals(WorldType.ALPHA))
+                {
+                    if (oceanList[k])
+                    {
                         aint1[j + i * areaWidth] = k;
-                    } else {
+                    }
+                    else
+                    {
                         aint1[j + i * areaWidth] = 99;
                     }
 
                     // End of random biomes
-                } else if (this.chunkProviderSettings != null && this.chunkProviderSettings.fixedBiome >= 0)
+                }
+                else if (this.chunkProviderSettings != null && this.chunkProviderSettings.fixedBiome >= 0)
                 {
                     aint1[j + i * areaWidth] = this.chunkProviderSettings.fixedBiome;
                 }
@@ -183,4 +205,3 @@ public class GenLayerBiome extends GenLayer
         return aint1;
     }
 }
-

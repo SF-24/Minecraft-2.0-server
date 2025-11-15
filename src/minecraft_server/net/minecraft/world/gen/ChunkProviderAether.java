@@ -331,9 +331,7 @@ public class ChunkProviderAether implements IChunkProvider
         BlockFalling.fallInstantly = true;
         int k = x * 16;
         int l = z * 16;
-
-        BiomeGenBase biomegenbase = this.aetherWorld.getBiomeGenForCoords(new BlockPos(k+16, 0, l+16));
-
+        BiomeGenBase biomegenbase = this.aetherWorld.getBiomeGenForCoords(new BlockPos(k + 16, 0, l + 16));
         long i = (long)x * (long)x + (long)z * (long)z;
 
         // dungeons
@@ -342,41 +340,47 @@ public class ChunkProviderAether implements IChunkProvider
             int i3 = this.aetherRNG.nextInt(16) + 8;
             int l3 = this.aetherRNG.nextInt(256);
             int l1 = this.aetherRNG.nextInt(16) + 8;
-            (new WorldGenAetherDungeons()).generate(this.aetherWorld, this.aetherRNG, new BlockPos(k+i3, l3, l+l1));
+            (new WorldGenAetherDungeons()).generate(this.aetherWorld, this.aetherRNG, new BlockPos(k + i3, l3, l + l1));
         }
 
         //if (i > 4096L) {
-
         // changing value affects how many mini islands there are
-        if (i > 220L) {
+        if (i > 220L)
+        {
             float f = this.getIslandHeightValue(x, z, 1, 1);
 
-            if (f < -20.0F && this.aetherRNG.nextInt(14) == 0) {
-                this.aetherIslands.generate(this.aetherWorld, this.aetherRNG, new BlockPos(k+this.aetherRNG.nextInt(16) + 8,55 + this.aetherRNG.nextInt(16),this.aetherRNG.nextInt(16) + 8));
+            if (f < -20.0F && this.aetherRNG.nextInt(14) == 0)
+            {
+                this.aetherIslands.generate(this.aetherWorld, this.aetherRNG, new BlockPos(k + this.aetherRNG.nextInt(16) + 8, 55 + this.aetherRNG.nextInt(16), this.aetherRNG.nextInt(16) + 8));
 
-                if (this.aetherRNG.nextInt(4) == 0) {
-                    this.aetherIslands.generate(this.aetherWorld, this.aetherRNG, new BlockPos(this.aetherRNG.nextInt(16) + 8,  55 + this.aetherRNG.nextInt(16),this.aetherRNG.nextInt(16) + 8));
+                if (this.aetherRNG.nextInt(4) == 0)
+                {
+                    this.aetherIslands.generate(this.aetherWorld, this.aetherRNG, new BlockPos(this.aetherRNG.nextInt(16) + 8,  55 + this.aetherRNG.nextInt(16), this.aetherRNG.nextInt(16) + 8));
                 }
             }
 
-
-
-            if (this.getIslandHeightValue(x, z, 1, 1) > 40.0F) {
+            if (this.getIslandHeightValue(x, z, 1, 1) > 40.0F)
+            {
                 // tree chance?
                 int j = this.aetherRNG.nextInt(5);
 
-                for (int n = 0; n < j; ++n) {
+                for (int n = 0; n < j; ++n)
+                {
                     int lm = this.aetherRNG.nextInt(16) + 8;
                     int i1 = this.aetherRNG.nextInt(16) + 8;
-                    int j1 = this.aetherWorld.getHeight(new BlockPos(k+lm, 0, l+i1)).getY();
+                    int j1 = this.aetherWorld.getHeight(new BlockPos(k + lm, 0, l + i1)).getY();
 
-                    if (j1 > 0) {
+                    if (j1 > 0)
+                    {
                         int k1 = j1 - 1;
 
-                        if (this.aetherWorld.isAirBlock(new BlockPos(k+lm, k1 + 1, l+i1)) && this.aetherWorld.getBlockState(new BlockPos(lm+k, k1, i1+l)).getBlock() == Blocks.stone) {
-                            aetherWorld.setBlockState(new BlockPos(lm+k,k1,i1+l),GRASS);
-                            if(aetherRNG.nextInt(35)!=0) {
-                                trees.generate(aetherWorld, aetherRNG, new BlockPos(lm+k, k1 + 1, i1+l));
+                        if (this.aetherWorld.isAirBlock(new BlockPos(k + lm, k1 + 1, l + i1)) && this.aetherWorld.getBlockState(new BlockPos(lm + k, k1, i1 + l)).getBlock() == Blocks.stone)
+                        {
+                            aetherWorld.setBlockState(new BlockPos(lm + k, k1, i1 + l), GRASS);
+
+                            if (aetherRNG.nextInt(35) != 0)
+                            {
+                                trees.generate(aetherWorld, aetherRNG, new BlockPos(lm + k, k1 + 1, i1 + l));
                             }
                         }
                     }
@@ -384,19 +388,14 @@ public class ChunkProviderAether implements IChunkProvider
             }
         }
 
-
         // lakes
         int i1 = this.aetherRNG.nextInt(16) + 8;
         int j1 = this.aetherRNG.nextInt(256);
         int k1 = this.aetherRNG.nextInt(16) + 8;
-        (new WorldGenLakes(Blocks.water)).generate(this.aetherWorld, this.aetherRNG, new BlockPos(i1+k, j1, k1+l));
-
-
+        (new WorldGenLakes(Blocks.water)).generate(this.aetherWorld, this.aetherRNG, new BlockPos(i1 + k, j1, k1 + l));
         // glowstone
-        (new WorldGenGlowStone1()).generate(this.aetherWorld, this.aetherRNG, new BlockPos(i1+k, j1, k1+l));
-
-        this.aetherWorld.getBiomeGenForCoords(new BlockPos(k+k+16, 0, l+l+16)).decorate(this.aetherWorld, this.aetherWorld.rand, new BlockPos(k, 0, l));
-
+        (new WorldGenGlowStone1()).generate(this.aetherWorld, this.aetherRNG, new BlockPos(i1 + k, j1, k1 + l));
+        this.aetherWorld.getBiomeGenForCoords(new BlockPos(k + k + 16, 0, l + l + 16)).decorate(this.aetherWorld, this.aetherWorld.rand, new BlockPos(k, 0, l));
         BlockFalling.fallInstantly = false;
     }
 

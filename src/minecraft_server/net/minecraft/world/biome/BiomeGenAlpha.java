@@ -21,12 +21,9 @@ public class BiomeGenAlpha extends BiomeGenBase
         super(id);
         this.theBiomeDecorator.treesPerChunk = 1;
         this.theBiomeDecorator.grassPerChunk = 2;
-
         this.setFillerBlockMetadata(5159473);
         this.setTemperatureRainfall(0.7F, 0.8F);
-
         this.spawnableCreatureList.add(new SpawnListEntry(EntityWolf.class, 5, 4, 4));
-
     }
 
     protected BiomeGenBase func_150557_a(int colorIn, boolean p_150557_2_)
@@ -41,7 +38,7 @@ public class BiomeGenAlpha extends BiomeGenBase
 
     public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos)
     {
-            return rand.nextInt(2)==0 ? BlockFlower.EnumFlowerType.POPPY : BlockFlower.EnumFlowerType.DANDELION;
+        return rand.nextInt(2) == 0 ? BlockFlower.EnumFlowerType.POPPY : BlockFlower.EnumFlowerType.DANDELION;
     }
 
     public void decorate(World worldIn, Random rand, BlockPos pos)
@@ -65,7 +62,6 @@ public class BiomeGenAlpha extends BiomeGenBase
 //                }
 //            }
 //        }
-
         super.decorate(worldIn, rand, pos);
     }
 }

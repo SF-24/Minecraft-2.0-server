@@ -13,9 +13,8 @@ import net.minecraft.world.chunk.ChunkPrimer;
 
 import java.util.Random;
 
-
-public class MapGenCaves extends MapGenBase {
-
+public class MapGenCaves extends MapGenBase
+{
 //    final List<Integer> desertIds = Arrays.asList(2,130,17);
 
     protected void addRoom(long p_180703_1_, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_, double p_180703_6_, double p_180703_8_, double p_180703_10_)
@@ -163,7 +162,6 @@ public class MapGenCaves extends MapGenBase {
                         /**
                          * Block removal:
                          * */
-
                         for (int j3 = k2; j3 < k; ++j3)
                         {
                             double d10 = ((double)(j3 + p_180702_3_ * 16) + 0.5D - p_180702_6_) / d2;
@@ -181,9 +179,8 @@ public class MapGenCaves extends MapGenBase {
 
                                         if (d9 > -0.7D && d10 * d10 + d9 * d9 + d8 * d8 < 1.0D)
                                         {
-
-                                            int id1=p_180702_5_.getBlock(j3,j2,i2);
-                                            int id2=p_180702_5_.getBlock(j3,j2+1,i2);
+                                            int id1 = p_180702_5_.getBlock(j3, j2, i2);
+                                            int id2 = p_180702_5_.getBlock(j3, j2 + 1, i2);
                                             //IBlockState iblockstate1 = p_180702_5_.getBlockState(j3, j2, i2);
                                             IBlockState iblockstate2 = Objects.firstNonNull(p_180702_5_.getBlockState(j3, j2 + 1, i2), Blocks.air.getDefaultState());
 
@@ -205,7 +202,6 @@ public class MapGenCaves extends MapGenBase {
                                                     // set primitive air
                                                     p_180702_5_.setBlockFromId(j3, j2, i2, (short) 0);
 
-
                                                     // replace stone with ice in snowy biomes
 //                                                    if(j2+1>40 && this.worldObj.getBiomeGenForCoords(blockpos$mutableblockpos).isSnowyBiome() && iblockstate2.getBlock() == Blocks.stone) {
 //                                                        iblockstate2=Blocks.snow.getDefaultState();
@@ -223,7 +219,7 @@ public class MapGenCaves extends MapGenBase {
                                                         int x = j3 + p_180702_3_ * 16;
                                                         int z = i2 + p_180702_4_ * 16;
                                                         // was block state
-                                                        p_180702_5_.setBlockState(j3, j2 - 1, i2, this.worldObj.getBiomeGenForCoords(x,z).topBlock.getBlock().getDefaultState());
+                                                        p_180702_5_.setBlockState(j3, j2 - 1, i2, this.worldObj.getBiomeGenForCoords(x, z).topBlock.getBlock().getDefaultState());
                                                     }
                                                 }
                                             }
@@ -246,7 +242,7 @@ public class MapGenCaves extends MapGenBase {
     protected boolean func_175793_a(int p_175793_1_, int p_175793_2_)
     {
         return (p_175793_1_ == 16 || (p_175793_1_ == 48 || (p_175793_1_ == 32 || (p_175793_1_ == Block.getMultipliedIdFromBlock(Blocks.hardened_clay) || (p_175793_1_ == Block.getMultipliedIdFromBlock(Blocks.stained_hardened_clay) || (p_175793_1_ == 384) || (p_175793_1_ == 2864) || (p_175793_1_ == 1760) || (p_175793_1_ == 1248) || (p_175793_1_ == 192) || p_175793_1_ == 208)) &&
-                (p_175793_2_ != Block.getMultipliedIdFromBlock(Blocks.water) && p_175793_2_ != Block.getMultipliedIdFromBlock(Blocks.flowing_water)))));
+                                      (p_175793_2_ != Block.getMultipliedIdFromBlock(Blocks.water) && p_175793_2_ != Block.getMultipliedIdFromBlock(Blocks.flowing_water)))));
     }
 
     /**
@@ -292,5 +288,3 @@ public class MapGenCaves extends MapGenBase {
         }
     }
 }
-
-

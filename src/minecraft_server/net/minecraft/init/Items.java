@@ -216,8 +216,7 @@ public class Items
 //    public static final ItemArmor amethyst_boots;
 //    public static final Item amethyst;
     public static final Item ruby;
-  //  public static final ItemEmptyMap cave_map;
-
+    //  public static final ItemEmptyMap cave_map;
 
     public static final ItemGrenade holy_grenade;
     public static final ItemFood glowing_bread;
@@ -348,7 +347,7 @@ public class Items
             bed = getRegisteredItem("bed");
             repeater = getRegisteredItem("repeater");
             cookie = getRegisteredItem("cookie");
-           // cave_map = (ItemEmptyMap)getRegisteredItem("cave_map");
+            // cave_map = (ItemEmptyMap)getRegisteredItem("cave_map");
             filled_map = (ItemMap)getRegisteredItem("filled_map");
             shears = (ItemShears)getRegisteredItem("shears");
             melon = getRegisteredItem("melon");
@@ -459,7 +458,6 @@ public class Items
             record_magnetic_circuit = getRegisteredItem("record_magnetic_circuit");
             record_key = getRegisteredItem("record_key");
             record_alpha = getRegisteredItem("record_alpha");
-
         }
     }
 }

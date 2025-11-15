@@ -452,7 +452,6 @@ public class Blocks
 //            compressed_cobblestone = getRegisteredBlock("compressed_cobblestone");
             aether_portal = (BlockAetherPortal) getRegisteredBlock("aether_portal");
             observer = (BlockObserver) getRegisteredBlock("observer");
-
         }
     }
 }

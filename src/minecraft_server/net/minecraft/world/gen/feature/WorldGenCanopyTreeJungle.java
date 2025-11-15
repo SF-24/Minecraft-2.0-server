@@ -67,7 +67,6 @@ public class WorldGenCanopyTreeJungle extends WorldGenAbstractTree
                     BlockPos blockpos1 = new BlockPos(k1, k2, l1);
                     Material material = worldIn.getBlockState(blockpos1).getBlock().getMaterial();
 
-
                     if (material == Material.air || material == Material.leaves)
                     {
                         this.setLog(worldIn, blockpos1);
@@ -213,7 +212,6 @@ public class WorldGenCanopyTreeJungle extends WorldGenAbstractTree
         if (block.getMaterial() == Material.air)
         {
             this.setBlockAndNotifyAdequately(worldIn, blockpos, leaves);
-
         }
     }
 

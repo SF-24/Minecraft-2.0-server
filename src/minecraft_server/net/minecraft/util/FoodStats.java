@@ -108,7 +108,7 @@ public class FoodStats
                 this.foodTimer = 0;
             }
         }
-        else if(this.foodTimer>=80)
+        else if (this.foodTimer >= 80)
         {
             this.foodTimer = 0;
         }

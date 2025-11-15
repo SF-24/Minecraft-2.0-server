@@ -20,11 +20,10 @@ public class BiomeGenSwampDark extends BiomeGenBase
     private static final IBlockState OAK_LEAVES = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.OAK).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
     protected static final WorldGenCanopyTree canopyTree = new WorldGenCanopyTree(false);
 
-
     public BiomeGenSwampDark(int id)
     {
         super(id);
-        this.hasBeach=false;
+        this.hasBeach = false;
         this.theBiomeDecorator.treesPerChunk = 8;
         this.theBiomeDecorator.flowersPerChunk = 1;
         this.theBiomeDecorator.deadBushPerChunk = 1;
@@ -37,7 +36,8 @@ public class BiomeGenSwampDark extends BiomeGenBase
         this.spawnableMonsterList.add(new SpawnListEntry(EntitySlime.class, 1, 1, 4));
     }
 
-    public void decorate(World worldIn, Random rand, BlockPos pos) {
+    public void decorate(World worldIn, Random rand, BlockPos pos)
+    {
         super.decorate(worldIn, rand, pos);
 
         if (rand.nextInt(2) == 0)
@@ -47,6 +47,7 @@ public class BiomeGenSwampDark extends BiomeGenBase
             BlockPos blockpos = worldIn.getHeight(pos.add(i, 2, j)).up();
             (new WorldGenLakes(Blocks.water)).generate(worldIn, rand, blockpos);
         }
+
         if (rand.nextInt(2) == 0)
         {
             int i = rand.nextInt(16) + 8;
@@ -54,6 +55,7 @@ public class BiomeGenSwampDark extends BiomeGenBase
             BlockPos blockpos = worldIn.getHeight(pos.add(i, 2, j)).up();
             (new WorldGenLakes(Blocks.water)).generate(worldIn, rand, blockpos);
         }
+
         if (rand.nextInt(2) == 0)
         {
             int i = rand.nextInt(16) + 8;
@@ -61,6 +63,7 @@ public class BiomeGenSwampDark extends BiomeGenBase
             BlockPos blockpos = worldIn.getHeight(pos.add(i, 2, j)).up();
             (new WorldGenLakes(Blocks.water)).generate(worldIn, rand, blockpos);
         }
+
         if (rand.nextInt(2) == 0)
         {
             int i = rand.nextInt(16) + 8;
@@ -73,15 +76,23 @@ public class BiomeGenSwampDark extends BiomeGenBase
     public WorldGenAbstractTree genBigTreeChance(Random rand)
     {
         return (WorldGenAbstractTree)
-                (rand.nextInt(3) == 0 ? new WorldGenShrub(OAK_LOG, OAK_LEAVES) :
-                        (rand.nextInt(3) == 0 ? canopyTree :
-                                new WorldGenTrees(false, 4 + rand.nextInt(7),OAK_LOG , JUNGLE_LEAVES, true)));
+               (rand.nextInt(3) == 0 ? new WorldGenShrub(OAK_LOG, OAK_LEAVES) :
+                (rand.nextInt(3) == 0 ? canopyTree :
+                 new WorldGenTrees(false, 4 + rand.nextInt(7), OAK_LOG , JUNGLE_LEAVES, true)));
     }
 
     public BlockFlower.EnumFlowerType pickRandomFlower(Random rand, BlockPos pos)
     {
-        if(rand.nextInt(3)<=1) return BlockFlower.EnumFlowerType.BLUE_ORCHID;
-        if(rand.nextInt(2)==0) return BlockFlower.EnumFlowerType.DANDELION;
+        if (rand.nextInt(3) <= 1)
+        {
+            return BlockFlower.EnumFlowerType.BLUE_ORCHID;
+        }
+
+        if (rand.nextInt(2) == 0)
+        {
+            return BlockFlower.EnumFlowerType.DANDELION;
+        }
+
         return BlockFlower.EnumFlowerType.POPPY;
     }
 

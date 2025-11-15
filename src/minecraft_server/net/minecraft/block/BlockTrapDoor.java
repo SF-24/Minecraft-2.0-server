@@ -171,10 +171,12 @@ public class BlockTrapDoor extends Block
     {
         IBlockState iblockstate = this.getDefaultState();
 
-        if(facing.getAxis().isVertical()) {
+        if (facing.getAxis().isVertical())
+        {
             iblockstate = iblockstate.withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(OPEN, Boolean.valueOf(false));
             iblockstate = iblockstate.withProperty(HALF, hitY > 0.5F ? BlockTrapDoor.DoorHalf.BOTTOM : BlockTrapDoor.DoorHalf.TOP);
-        } else if (facing.getAxis().isHorizontal())
+        }
+        else if (facing.getAxis().isHorizontal())
         {
             iblockstate = iblockstate.withProperty(FACING, facing).withProperty(OPEN, Boolean.valueOf(false));
             iblockstate = iblockstate.withProperty(HALF, hitY > 0.5F ? BlockTrapDoor.DoorHalf.TOP : BlockTrapDoor.DoorHalf.BOTTOM);

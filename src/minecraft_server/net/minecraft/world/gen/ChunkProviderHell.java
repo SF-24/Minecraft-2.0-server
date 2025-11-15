@@ -25,7 +25,7 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
 public class ChunkProviderHell implements IChunkProvider
 {
-    private final ArrayList<Block> blocks = Lists.newArrayList(Blocks.netherrack,Blocks.soul_sand);
+    private final ArrayList<Block> blocks = Lists.newArrayList(Blocks.netherrack, Blocks.soul_sand);
 
     /** Is the world that the nether is getting generated. */
     private final World worldObj;
@@ -446,15 +446,19 @@ public class ChunkProviderHell implements IChunkProvider
             this.field_177473_x.generate(this.worldObj, this.hellRNG, blockpos.add(this.hellRNG.nextInt(16), this.hellRNG.nextInt(108) + 10, this.hellRNG.nextInt(16)));
         }
 
-        if (hellRNG.nextInt(100) == 0) {
+        if (hellRNG.nextInt(100) == 0)
+        {
             int i = hellRNG.nextInt(16) + 8;
             int j = hellRNG.nextInt(16) + 8;
             BlockPos pos = worldObj.getHeight(blockpos.add(i, 33, j));
 
-            if (blocks.contains(worldObj.getBlockState(pos).getBlock())) {
-                while (blocks.contains(worldObj.getBlockState(pos).getBlock()) && pos.getY() < 67) {
+            if (blocks.contains(worldObj.getBlockState(pos).getBlock()))
+            {
+                while (blocks.contains(worldObj.getBlockState(pos).getBlock()) && pos.getY() < 67)
+                {
                     pos = pos.up();
                 }
+
                 (new WorldGenNetherWells()).generate(worldObj, hellRNG, pos);
 //                (new WorldGenNetherWells()).generate(worldObj, hellRNG, pos.down());
 //                (new WorldGenNetherWells()).generate(worldObj, hellRNG, pos.down(2));

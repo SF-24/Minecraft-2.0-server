@@ -882,10 +882,8 @@ public class Item
         registerItem(valueBase + 2266, "record_11", (new ItemRecord("11")).setUnlocalizedName("record"));
         registerItem(valueBase + 2267, "record_wait", (new ItemRecord("wait")).setUnlocalizedName("record"));
         registerItem(valueBase + 2268, "record_magnetic_circuit", (new ItemRecord("magnetic_circuit")).setUnlocalizedName("record"));
-        registerItem(valueBase+2269, "record_key", (new ItemRecord("key")).setUnlocalizedName("record"));
-        registerItem(valueBase+2270, "record_alpha", (new ItemRecord("alpha")).setUnlocalizedName("record"));
-
-
+        registerItem(valueBase + 2269, "record_key", (new ItemRecord("key")).setUnlocalizedName("record"));
+        registerItem(valueBase + 2270, "record_alpha", (new ItemRecord("alpha")).setUnlocalizedName("record"));
         // moved items
         registerItem(valueBase + 2300, "enchanted_book", (new ItemEnchantedBook()).setMaxStackSize(1).setUnlocalizedName("enchantedBook"));
         // Steel Items
@@ -950,9 +948,7 @@ public class Item
         // Aether items
         registerItem(valueBase + 5001, "holy_hand_grenade", (new ItemGrenade(0)).setUnlocalizedName("grenadeHoly").setCreativeTab(CreativeTabs.tabCombat));
         registerItem(valueBase + 5010, "glowing_bread", (new ItemFood(20, 1.0F, false)).setUnlocalizedName("breadGlowing"));
-
 //        registerItem(valueBase+5011, "cave_map", (new ItemEmptyMap()).setUnlocalizedName("emptyCaveMap"));
-
     }
 
     // custom code

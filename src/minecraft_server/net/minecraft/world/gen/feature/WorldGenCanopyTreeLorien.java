@@ -13,8 +13,7 @@ import java.util.Random;
 public class WorldGenCanopyTreeLorien extends WorldGenAbstractTree
 {
     private static IBlockState field_181640_a = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.BIRCH);;
-    private static IBlockState field_181641_b= Blocks.leaves2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
-
+    private static IBlockState field_181641_b = Blocks.leaves2.getDefaultState().withProperty(BlockNewLeaf.VARIANT, BlockPlanks.EnumType.ACACIA).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
 
     public WorldGenCanopyTreeLorien(boolean p_i45461_1_)
     {

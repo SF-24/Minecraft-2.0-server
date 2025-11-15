@@ -409,7 +409,7 @@ public class EntityZombie extends EntityMob
     {
         super.setEquipmentBasedOnDifficulty(difficulty);
 
-        if (this.rand.nextFloat() < (this.worldObj.isBloodMoon()?3.5F:1.0F)*(this.worldObj.getDifficulty() == EnumDifficulty.HARD ? 0.15F : 0.05F)) // was 0.05F : 0.01F
+        if (this.rand.nextFloat() < (this.worldObj.isBloodMoon() ? 3.5F : 1.0F) * (this.worldObj.getDifficulty() == EnumDifficulty.HARD ? 0.15F : 0.05F)) // was 0.05F : 0.01F
         {
             int i = this.rand.nextInt(this.worldObj.isBloodMoon() ? 2 : 3);
 
@@ -578,11 +578,15 @@ public class EntityZombie extends EntityMob
         }
 
         this.setBreakDoorsAItask(this.rand.nextFloat() < f * 0.1F);
+
         // error here
-        try {
+        try
+        {
             this.setEquipmentBasedOnDifficulty(difficulty);
             this.setEnchantmentBasedOnDifficulty(difficulty);
-        } catch (NullPointerException e) {
+        }
+        catch (NullPointerException e)
+        {
             System.out.println("Error giving zombie equipment!");
         }
 

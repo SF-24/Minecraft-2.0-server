@@ -33,13 +33,12 @@ public class WorldGenDesertWells extends WorldGenerator
     private final IBlockState oreDiamond = Blocks.diamond_ore.getDefaultState();
 
     private static final List<WeightedRandomChestContent> itemsToGenerate = Lists.newArrayList(
-            new WeightedRandomChestContent(Items.gold_nugget, 0, 8, 25, 3),
-            new WeightedRandomChestContent(Items.glass_bottle, 0, 1, 3, 2),
-            new WeightedRandomChestContent(Items.arrow, 0, 1, 8, 2),
-            new WeightedRandomChestContent(Items.gold_ingot, 0, 1, 3, 1),
-            new WeightedRandomChestContent(Items.bone, 0, 1, 12, 3),
-            new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.sand), 0, 3, 24, 4));
-
+                new WeightedRandomChestContent(Items.gold_nugget, 0, 8, 25, 3),
+                new WeightedRandomChestContent(Items.glass_bottle, 0, 1, 3, 2),
+                new WeightedRandomChestContent(Items.arrow, 0, 1, 8, 2),
+                new WeightedRandomChestContent(Items.gold_ingot, 0, 1, 3, 1),
+                new WeightedRandomChestContent(Items.bone, 0, 1, 12, 3),
+                new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.sand), 0, 3, 24, 4));
 
     public boolean generate(World worldIn, Random rand, BlockPos position)
     {
@@ -73,11 +72,17 @@ public class WorldGenDesertWells extends WorldGenerator
                     {
                         //? bottom
                         int probability = rand.nextInt(10000);
-                        if(probability>=9900) {
+
+                        if (probability >= 9900)
+                        {
                             worldIn.setBlockState(position.add(l1, l, k), this.gold, 2);
-                        } else if(probability<5) {
+                        }
+                        else if (probability < 5)
+                        {
                             worldIn.setBlockState(position.add(l1, l, k), this.oreDiamond, 2);
-                        } else {
+                        }
+                        else
+                        {
                             worldIn.setBlockState(position.add(l1, l, k), this.sandstone, 2);
                         }
                     }
@@ -115,15 +120,16 @@ public class WorldGenDesertWells extends WorldGenerator
                     if (j1 == 0 && j2 == 0)
                     {
                         // tip
-                        if(rand.nextInt(1)==0) {
+                        if (rand.nextInt(1) == 0)
+                        {
                             // spawn chest
                             IBlockState chest = Blocks.chest.getDefaultState();
                             int y = -1;
-                            worldIn.setBlockState(position.add(j1,y,j2), chest, 2);
-                            TileEntity tileentity = worldIn.getTileEntity(position.add(j1,y,j2));
-                            WeightedRandomChestContent.generateChestContents(rand,itemsToGenerate,(TileEntityChest) tileentity, 5);
-
+                            worldIn.setBlockState(position.add(j1, y, j2), chest, 2);
+                            TileEntity tileentity = worldIn.getTileEntity(position.add(j1, y, j2));
+                            WeightedRandomChestContent.generateChestContents(rand, itemsToGenerate, (TileEntityChest) tileentity, 5);
                         }
+
                         worldIn.setBlockState(position.add(j1, 4, j2), this.sandstone, 2);
                     }
                     else

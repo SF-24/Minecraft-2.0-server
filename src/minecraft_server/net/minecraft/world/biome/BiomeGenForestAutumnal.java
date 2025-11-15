@@ -96,20 +96,26 @@ public class BiomeGenForestAutumnal extends BiomeGenBase
 
     public void decorate(World worldIn, Random rand, BlockPos pos)
     {
-        for (int i = 0; i < 4; ++i) {
-            for (int j = 0; j < 4; ++j) {
+        for (int i = 0; i < 4; ++i)
+        {
+            for (int j = 0; j < 4; ++j)
+            {
                 int k = i * 4 + 1 + 8 + rand.nextInt(3);
                 int l = j * 4 + 1 + 8 + rand.nextInt(3);
                 BlockPos blockpos = worldIn.getHeight(pos.add(k, 0, l));
 
-                if (rand.nextInt(20) == 0) {
+                if (rand.nextInt(20) == 0)
+                {
                     WorldGenBigMushroom worldgenbigmushroom = new WorldGenBigMushroom();
                     worldgenbigmushroom.generate(worldIn, rand, blockpos);
-                } else {
+                }
+                else
+                {
                     WorldGenAbstractTree worldgenabstracttree = this.genBigTreeChance(rand);
                     worldgenabstracttree.func_175904_e();
 
-                    if (worldgenabstracttree.generate(worldIn, rand, blockpos)) {
+                    if (worldgenabstracttree.generate(worldIn, rand, blockpos))
+                    {
                         worldgenabstracttree.func_180711_a(worldIn, rand, blockpos);
                     }
                 }
@@ -155,7 +161,6 @@ public class BiomeGenForestAutumnal extends BiomeGenBase
 
         super.decorate(worldIn, rand, pos);
     }
-
 
     protected BiomeGenBase createMutatedBiome(final int p_180277_1_)
     {

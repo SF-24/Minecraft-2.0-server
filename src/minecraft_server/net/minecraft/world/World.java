@@ -197,7 +197,8 @@ public abstract class World implements IBlockAccess
 
     public BiomeGenBase getBiomeGenForCoords(int x, int z)
     {
-        BlockPos pos = new BlockPos(x,0,z);
+        BlockPos pos = new BlockPos(x, 0, z);
+
         if (this.isBlockLoaded(pos))
         {
             Chunk chunk = this.getChunkFromBlockCoords(pos);
@@ -415,7 +416,8 @@ public abstract class World implements IBlockAccess
                     {
                         this.updateComparatorOutputLevel(pos, block);
                     }
-                } else if (!this.isRemote && (flags & 16) == 0)
+                }
+                else if (!this.isRemote && (flags & 16) == 0)
                 {
                     this.updateObservingBlocksAt(pos, block);
                 }
@@ -425,15 +427,14 @@ public abstract class World implements IBlockAccess
         }
     }
 
-
     public boolean setBlockPrimitive(int x, int y, int z, Block block)
     {
-        return this.setBlockPrimitive(x,y,z, block, 3);
+        return this.setBlockPrimitive(x, y, z, block, 3);
     }
 
     public boolean setBlockPrimitive(int x, int y, int z, Block block1, int flags)
     {
-        if (!this.isValid(x,y,z))
+        if (!this.isValid(x, y, z))
         {
             return false;
         }
@@ -444,8 +445,8 @@ public abstract class World implements IBlockAccess
         else
         {
             //IBlockState iblockstate = chunk.setBlockState(pos, newState);
-            this.getChunkFromBlockCoords(x,z).setBlockPrimitive(x,y,z,Block.getMultipliedIdFromBlock(block1));
-            Block block = this.getChunkFromBlockCoords(x,z).getBlock(x,y,z);
+            this.getChunkFromBlockCoords(x, z).setBlockPrimitive(x, y, z, Block.getMultipliedIdFromBlock(block1));
+            Block block = this.getChunkFromBlockCoords(x, z).getBlock(x, y, z);
 
             if (block == null)
             {
@@ -454,7 +455,8 @@ public abstract class World implements IBlockAccess
             else
             {
                 ;
-                BlockPos pos = new BlockPos(x,y,z);
+                BlockPos pos = new BlockPos(x, y, z);
+
                 if (block.getLightOpacity() != block1.getLightOpacity() || block.getLightValue() != block1.getLightValue())
                 {
                     this.theProfiler.startSection("checkLight");
@@ -462,7 +464,7 @@ public abstract class World implements IBlockAccess
                     this.theProfiler.endSection();
                 }
 
-                if ((flags & 2) != 0 && (!this.isRemote || (flags & 4) == 0) && this.getChunkFromBlockCoords(x,z).isPopulated())
+                if ((flags & 2) != 0 && (!this.isRemote || (flags & 4) == 0) && this.getChunkFromBlockCoords(x, z).isPopulated())
                 {
                     this.markBlockForUpdate(pos);
                 }
@@ -475,7 +477,8 @@ public abstract class World implements IBlockAccess
                     {
                         this.updateComparatorOutputLevel(pos, block);
                     }
-                } else if (!this.isRemote && (flags & 16) == 0)
+                }
+                else if (!this.isRemote && (flags & 16) == 0)
                 {
                     this.updateObservingBlocksAt(pos, block);
                 }
@@ -522,8 +525,6 @@ public abstract class World implements IBlockAccess
     {
         return this.setBlockState(pos, state, 3);
     }
-
-
 
     public void markBlockForUpdate(BlockPos pos)
     {
@@ -595,9 +596,7 @@ public abstract class World implements IBlockAccess
         this.notifyBlockOfStateChange(pos.up(), blockType);
         this.notifyBlockOfStateChange(pos.north(), blockType);
         this.notifyBlockOfStateChange(pos.south(), blockType);
-
         this.updateObservingBlocksAt(pos, blockType);
-
     }
 
     public void notifyNeighborsOfStateExcept(BlockPos pos, Block blockType, EnumFacing skipSide)
@@ -1470,7 +1469,11 @@ public abstract class World implements IBlockAccess
      */
     public float getCurrentMoonPhaseFactor()
     {
-        if(isBloodMoon()) return 1.25F;
+        if (isBloodMoon())
+        {
+            return 1.25F;
+        }
+
         return WorldProvider.moonPhaseFactors[this.provider.getMoonPhase(this.worldInfo.getWorldTime())];
     }
 
@@ -2272,7 +2275,7 @@ public abstract class World implements IBlockAccess
                 {
                     TileEntity tileentity1 = (TileEntity)this.addedTileEntityList.get(i);
 
-                    if (!tileentity1.isInvalid() && tileentity1.getPos().equals(new BlockPos(x,y,z)))
+                    if (!tileentity1.isInvalid() && tileentity1.getPos().equals(new BlockPos(x, y, z)))
                     {
                         tileentity = tileentity1;
                         break;
@@ -2282,7 +2285,7 @@ public abstract class World implements IBlockAccess
 
             if (tileentity == null)
             {
-                tileentity = this.getChunkFromBlockCoords(x,z).getTileEntity(new BlockPos(x,y,z), Chunk.EnumCreateEntityType.IMMEDIATE);
+                tileentity = this.getChunkFromBlockCoords(x, z).getTileEntity(new BlockPos(x, y, z), Chunk.EnumCreateEntityType.IMMEDIATE);
             }
 
             if (tileentity == null)
@@ -2291,7 +2294,7 @@ public abstract class World implements IBlockAccess
                 {
                     TileEntity tileentity2 = (TileEntity)this.addedTileEntityList.get(j);
 
-                    if (!tileentity2.isInvalid() && tileentity2.getPos().equals(new BlockPos(x,y,z)))
+                    if (!tileentity2.isInvalid() && tileentity2.getPos().equals(new BlockPos(x, y, z)))
                     {
                         tileentity = tileentity2;
                         break;
@@ -2357,7 +2360,7 @@ public abstract class World implements IBlockAccess
 
     public void removeTileEntity(int x, int y, int z)
     {
-        TileEntity tileentity = this.getTileEntity(x,y,z);
+        TileEntity tileentity = this.getTileEntity(x, y, z);
 
         if (tileentity != null && this.processingLoadedTiles)
         {
@@ -2373,7 +2376,7 @@ public abstract class World implements IBlockAccess
                 this.tickableTileEntities.remove(tileentity);
             }
 
-            this.getChunkFromBlockCoords(x,z).removeTileEntity(new BlockPos(x,y,z));
+            this.getChunkFromBlockCoords(x, z).removeTileEntity(new BlockPos(x, y, z));
         }
     }
 
