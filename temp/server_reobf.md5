@@ -566,7 +566,7 @@ net/minecraft/entity/item/EntityItem e0e87f4085752f9725940b634f850e8d
 net/minecraft/entity/item/EntityItemFrame 456c5dc13ce433ab233da43c23267e77
 net/minecraft/entity/item/EntityMinecart$1 9aba9c06a45c1888867573b606708d86
 net/minecraft/entity/item/EntityMinecart$EnumMinecartType 00044494e36a9c5bdebe0dc0b6e0acd4
-net/minecraft/entity/item/EntityMinecart 69fd038d7b13a21e5f1b7a98b94e9bd2
+net/minecraft/entity/item/EntityMinecart 9b8240a00dc2b2531f38dd37e19eb0a9
 net/minecraft/entity/item/EntityMinecartChest c6af0eb17d4ecfc18eccf3b1690195fb
 net/minecraft/entity/item/EntityMinecartContainer e6460c5ea8955b9fc035617ce04f2a29
 net/minecraft/entity/item/EntityMinecartEmpty 35127400d0fb153f0a3bae940b7122fb
