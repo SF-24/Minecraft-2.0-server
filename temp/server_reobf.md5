@@ -564,9 +564,9 @@ net/minecraft/entity/item/EntityFallingBlock 520078f613e18d22d6516e9ff864e275
 net/minecraft/entity/item/EntityFireworkRocket 0f68f44ed3e136a40a2180f793965384
 net/minecraft/entity/item/EntityItem e0e87f4085752f9725940b634f850e8d
 net/minecraft/entity/item/EntityItemFrame 456c5dc13ce433ab233da43c23267e77
-net/minecraft/entity/item/EntityMinecart$1 9aba9c06a45c1888867573b606708d86
-net/minecraft/entity/item/EntityMinecart$EnumMinecartType 00044494e36a9c5bdebe0dc0b6e0acd4
-net/minecraft/entity/item/EntityMinecart 9b8240a00dc2b2531f38dd37e19eb0a9
+net/minecraft/entity/item/EntityMinecart$1 18f94526d30999880a6030e6825943f3
+net/minecraft/entity/item/EntityMinecart$EnumMinecartType a144b4f5f06276254bea8b74be1a1ba0
+net/minecraft/entity/item/EntityMinecart 1cd3e3d900f7d807daf45d45a050a577
 net/minecraft/entity/item/EntityMinecartChest c6af0eb17d4ecfc18eccf3b1690195fb
 net/minecraft/entity/item/EntityMinecartContainer e6460c5ea8955b9fc035617ce04f2a29
 net/minecraft/entity/item/EntityMinecartEmpty 35127400d0fb153f0a3bae940b7122fb

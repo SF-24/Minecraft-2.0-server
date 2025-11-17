@@ -127,6 +127,10 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
      */
     public String currentTask;
 
+    /** Vehicle motion constants and game options */
+    public float minecartAccelerationConstant;
+    public float minecartMaximumSpeed;
+
     /** The percentage of the current task finished so far. */
     public int percentDone;
 
@@ -1382,7 +1386,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
      */
     public boolean isSnooperEnabled()
     {
-        return true;
+        return false;
     }
 
     public abstract boolean isDedicatedServer();
@@ -1401,6 +1405,10 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     {
         return this.canSpawnAnimals;
     }
+
+    public float getMinecartAccelerationConstant() {return this.minecartAccelerationConstant;}
+    public float getMinecartMaximumSpeed() {return this.minecartMaximumSpeed;}
+    public float getMinecartDefaultAccelerationConstant() {return 0.9f;}
 
     public void setCanSpawnAnimals(boolean spawnAnimals)
     {

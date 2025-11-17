@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.ServerCommand;
 import net.minecraft.crash.CrashReport;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.rcon.IServer;
 import net.minecraft.network.rcon.RConConsoleSource;
@@ -138,13 +139,24 @@ public class DedicatedServer extends MinecraftServer implements IServer
             this.setForceGamemode(this.settings.getBooleanProperty("force-gamemode", false));
             this.setPlayerIdleTimeout(this.settings.getIntProperty("player-idle-timeout", 0));
 
+            // Minecart game settings
+            if(this.settings.getFloatProperty("minecart-maximum-speed",0.8f)<0.2f||this.settings.getFloatProperty("minecart-maximum-speed",0.8f)>10.0f) {
+                this.settings.setProperty("minecart-maximum-speed",0.8f);
+            }
+            if(this.settings.getFloatProperty("minecart-acceleration-constant",getMinecartDefaultAccelerationConstant())<0.1f || this.settings.getFloatProperty("minecart-acceleration-constant",getMinecartDefaultAccelerationConstant())>10.0f) {
+                this.settings.setProperty("minecart-acceleration-constant",getMinecartDefaultAccelerationConstant());
+            }
+
+            this.minecartAccelerationConstant=this.settings.getFloatProperty("minecart-acceleration-constant", getMinecartDefaultAccelerationConstant());
+            this.minecartMaximumSpeed=this.settings.getFloatProperty("minecart-maximum-speed",0.8f);
+
             if (this.settings.getIntProperty("difficulty", 1) < 0)
             {
-                this.settings.setProperty("difficulty", Integer.valueOf(0));
+                this.settings.setProperty("difficulty", 0);
             }
             else if (this.settings.getIntProperty("difficulty", 1) > 3)
             {
-                this.settings.setProperty("difficulty", Integer.valueOf(3));
+                this.settings.setProperty("difficulty", 3);
             }
 
             this.canSpawnStructures = this.settings.getBooleanProperty("generate-structures", true);

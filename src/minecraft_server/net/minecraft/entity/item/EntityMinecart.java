@@ -16,6 +16,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.dedicated.DedicatedServer;
 import net.minecraft.util.*;
 import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
@@ -25,6 +26,9 @@ import java.util.Map;
 
 public abstract class EntityMinecart extends Entity implements IWorldNameable
 {
+    private static final float maximumSpeed = DedicatedServer.getServer().getMinecartMaximumSpeed();
+    private static final float minecartAcceleration = DedicatedServer.getServer().getMinecartAccelerationConstant();
+
     private boolean isInReverse;
     private String entityName;
 
@@ -400,10 +404,10 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
     protected double getMaximumSpeed()
     {
-        return 0.8D;
+        return maximumSpeed;
     }
 
-    protected double getAccelerationConstant() { return 1.0D; }
+    protected double getAccelerationConstant() { return minecartAcceleration; }
 
     /**
      * Called every tick the minecart is on an activator rail. Args: x, y, z, is the rail receiving power
@@ -581,10 +585,10 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
         d22 = MathHelper.clamp_double(d22, -getMaximumSpeed(), getMaximumSpeed());
         d23 = MathHelper.clamp_double(d23, -getMaximumSpeed(), getMaximumSpeed());
 
-        if(this.getMaximumSpeedSquared()<(d22*d22+d23*d23)) {
-            d22 = d22/(Math.sqrt(this.getSpeedSquared()))*this.getMaximumSpeed();
-            d23 = d23/(Math.sqrt(this.getSpeedSquared()))*this.getMaximumSpeed();
-        }
+//        if(this.getMaximumSpeedSquared()<(d22*d22+d23*d23)) {
+//            d22 = d22/(Math.sqrt(this.getSpeedSquared()))*this.getMaximumSpeed();
+//            d23 = d23/(Math.sqrt(this.getSpeedSquared()))*this.getMaximumSpeed();
+//        }
 
         this.moveEntity(d22, 0.0D, d23);
 

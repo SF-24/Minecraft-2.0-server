@@ -142,6 +142,23 @@ public class PropertyManager
         }
     }
 
+    /**
+     * Gets a float property. If it does not exist, set it to the specified value.
+     */
+    public float getFloatProperty(String key, float defaultValue)
+    {
+        try
+        {
+            return Float.parseFloat(this.getStringProperty(key, "" + defaultValue));
+        }
+        catch (Exception var4)
+        {
+            this.serverProperties.setProperty(key, "" + defaultValue);
+            this.saveProperties();
+            return defaultValue;
+        }
+    }
+
     public long getLongProperty(String key, long defaultValue)
     {
         try
