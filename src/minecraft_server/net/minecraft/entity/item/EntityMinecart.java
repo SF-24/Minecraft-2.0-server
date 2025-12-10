@@ -435,12 +435,9 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
 
         if (!this.onGround)
         {
-            this.motionX *= 0.996999979019165D;
-            this.motionY *= 0.0D;
-            this.motionZ *= 0.996999979019165D;
-//            this.motionX *= 0.949999988079071D;
-//            this.motionY *= 0.949999988079071D;
-//            this.motionZ *= 0.949999988079071D;
+            this.motionX *= 0.949999988079071D;
+            this.motionY *= 0.949999988079071D;
+            this.motionZ *= 0.949999988079071D;
         }
     }
 

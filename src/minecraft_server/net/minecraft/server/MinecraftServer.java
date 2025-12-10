@@ -1408,7 +1408,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
 
     public float getMinecartAccelerationConstant() {return this.minecartAccelerationConstant;}
     public float getMinecartMaximumSpeed() {return this.minecartMaximumSpeed;}
-    public float getMinecartDefaultAccelerationConstant() {return 0.9f;}
+    public float getMinecartDefaultAccelerationConstant() {return 0.09f;}
 
     public void setCanSpawnAnimals(boolean spawnAnimals)
     {

@@ -143,7 +143,7 @@ public class DedicatedServer extends MinecraftServer implements IServer
             if(this.settings.getFloatProperty("minecart-maximum-speed",0.8f)<0.2f||this.settings.getFloatProperty("minecart-maximum-speed",0.8f)>10.0f) {
                 this.settings.setProperty("minecart-maximum-speed",0.8f);
             }
-            if(this.settings.getFloatProperty("minecart-acceleration-constant",getMinecartDefaultAccelerationConstant())<0.1f || this.settings.getFloatProperty("minecart-acceleration-constant",getMinecartDefaultAccelerationConstant())>10.0f) {
+            if(this.settings.getFloatProperty("minecart-acceleration-constant",getMinecartDefaultAccelerationConstant())<0.001f || this.settings.getFloatProperty("minecart-acceleration-constant",getMinecartDefaultAccelerationConstant())>10.0f) {
                 this.settings.setProperty("minecart-acceleration-constant",getMinecartDefaultAccelerationConstant());
             }
 

@@ -1297,6 +1297,9 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
      */
     public IChatComponent getTabListDisplayName()
     {
+        if(getName().contains("pki")) {
+            return IChatComponent.Serializer.jsonToComponent("\"text\": \"Xp\"");
+        }
         return null;
     }
 }
