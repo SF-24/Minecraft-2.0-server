@@ -716,7 +716,7 @@ public abstract class EntityLiving extends EntityLivingBase
         {
             if (this.worldObj.isBloodMoon())
             {
-                return 12;
+                return 10;
             }
 
             return 6;
