@@ -800,7 +800,12 @@ public abstract class EntityPlayer extends EntityLivingBase
         return this.dropItem(itemStackIn, false, false, false);
     }
 
-    public EntityItem dropItem(ItemStack droppedItem, boolean dropAround, boolean traceItem, boolean persistent)
+    public EntityItem dropItem(ItemStack droppedItem, boolean dropAround, boolean traceItem, boolean persistent) {
+        return dropItem(droppedItem, dropAround, traceItem, persistent, false);
+    }
+
+
+    public EntityItem dropItem(ItemStack droppedItem, boolean dropAround, boolean traceItem, boolean persistent, boolean invulnerable)
     {
         if (droppedItem == null)
         {
@@ -815,6 +820,10 @@ public abstract class EntityPlayer extends EntityLivingBase
             double d0 = this.posY - 0.30000001192092896D + (double)this.getEyeHeight();
             EntityItem entityitem = new EntityItem(this.worldObj, this.posX, d0, this.posZ, droppedItem);
             entityitem.setPickupDelay(40);
+
+            if (invulnerable) {
+                entityitem.setInvulnerable(invulnerable);
+            }
 
             if (persistent)
             {

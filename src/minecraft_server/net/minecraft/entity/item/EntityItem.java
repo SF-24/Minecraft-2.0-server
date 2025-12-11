@@ -521,6 +521,8 @@ public class EntityItem extends Entity
         this.delayBeforeCanPickup = ticks;
     }
 
+    public void setInvulnerable(boolean value) { this.invulnerable=value; }
+
     public boolean cannotPickup()
     {
         return this.delayBeforeCanPickup > 0;

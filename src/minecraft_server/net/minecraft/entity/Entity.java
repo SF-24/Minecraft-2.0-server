@@ -224,7 +224,7 @@ public abstract class Entity implements ICommandSender
     protected BlockPos lastPortalPos;
     protected Vec3 lastPortalVec;
     protected EnumFacing teleportDirection;
-    private boolean invulnerable;
+    protected boolean invulnerable;
     protected UUID entityUniqueID;
 
     /** The command result statistics for this Entity. */
