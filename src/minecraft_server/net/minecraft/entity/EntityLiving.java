@@ -825,7 +825,8 @@ public abstract class EntityLiving extends EntityLivingBase
      */
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
-        if (this.rand.nextFloat() < 0.40F /*was 0.15F*/ * difficulty.getClampedAdditionalDifficulty()  * (this.worldObj.isBloodMoon() ? 2.0F : 1.0F))
+        // Nerfed due to blood moons being too hard
+        if (this.rand.nextFloat() < 0.35F /*was 0.15F*/ * difficulty.getClampedAdditionalDifficulty()  * (this.worldObj.isBloodMoon() ? 2.0F : 1.0F))
         {
             // Made blood moons slightly easier
             int i = this.rand.nextInt(2  + (this.worldObj.isBloodMoon() ? /*this.rand.nextInt(2)+*/1 : 0));
