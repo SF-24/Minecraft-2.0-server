@@ -271,7 +271,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob
     {
         super.setEquipmentBasedOnDifficulty(difficulty);
 
-        if ((this.worldObj.isBloodMoon()&&rand.nextInt(4)==0)) {
+        if (rand.nextInt(20)==0 || (this.worldObj.isBloodMoon()&&rand.nextInt(4)==0)) {
             if((this.worldObj.isBloodMoon()&&rand.nextInt(2)==0)) {
                 this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
                 this.setSkeletonType(1);
