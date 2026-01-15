@@ -997,7 +997,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
      */
     public String getMinecraftVersion()
     {
-        return "2.0-snapshot-0.3.3h";
+        return "2.0-snapshot-0.3.3l";
     }
 
     /**

@@ -19,22 +19,23 @@ import org.apache.logging.log4j.Logger;
 
 public class ContainerRepair extends Container
 {
+    /**
+     * NOTE:
+     * <p>
+     * Item - Initial Item
+     * Item1- Output
+     * Item2 - Repair Item/Enchanted Book
+     * */
+
     private static final Logger logger = LogManager.getLogger();
 
     /** Here comes out item you merged and/or renamed. */
-    private IInventory outputSlot = new InventoryCraftResult();
+    private IInventory outputSlot;
 
     /**
      * The 2slots where you put your items in that you want to merge and/or rename.
      */
-    private IInventory inputSlots = new InventoryBasic("Repair", true, 2)
-    {
-        public void markDirty()
-        {
-            super.markDirty();
-            ContainerRepair.this.onCraftMatrixChanged(this);
-        }
-    };
+    private IInventory inputSlots;
     private World theWorld;
     private BlockPos selfPosition;
 
@@ -48,8 +49,22 @@ public class ContainerRepair extends Container
     /** The player that has this container open. */
     private final EntityPlayer thePlayer;
 
+    public ContainerRepair(InventoryPlayer playerInventory, World worldIn, EntityPlayer player)
+    {
+        this(playerInventory, worldIn, BlockPos.ORIGIN, player);
+    }
+
     public ContainerRepair(InventoryPlayer playerInventory, final World worldIn, final BlockPos blockPosIn, EntityPlayer player)
     {
+        this.outputSlot = new InventoryCraftResult();
+        this.inputSlots = new InventoryBasic("Repair", true, 2)
+        {
+            public void markDirty()
+            {
+                super.markDirty();
+                ContainerRepair.this.onCraftMatrixChanged(this);
+            }
+        };
         this.selfPosition = blockPosIn;
         this.theWorld = worldIn;
         this.thePlayer = player;
@@ -175,6 +190,7 @@ public class ContainerRepair extends Container
             ItemStack itemstack2 = this.inputSlots.getStackInSlot(1);
             Map<Integer, Integer> map = EnchantmentHelper.getEnchantments(itemstack1);
             boolean flag = false;
+            // Makes repair cost increase by a fixed amount each repair.
             i2 = i2 + itemstack.getRepairCost() + (itemstack2 == null ? 0 : itemstack2.getRepairCost());
             this.materialCost = 0;
 
@@ -350,15 +366,28 @@ public class ContainerRepair extends Container
                 itemstack1 = null;
             }
 
+            // Disables too expensive when repairing
+            // Lowers cost if above 20 levels and repairing
+            if (/*j2 == l1 && j2 > 0   && */ l1 > 0 && this.maximumCost > 20 && itemstack2 != null && !itemstack2.isItemEnchanted()) {
+//                System.out.println("above 20");
+//                System.out.println("item0 " + itemstack.toString());
+//                System.out.println("item1 " + itemstack1.toString());
+//                System.out.println("item2 " + itemstack2.toString());
+                this.maximumCost = 20;
+            } else if(itemstack2 == null && j2>0) {
+                this.maximumCost=1;
+            }
+
+
             if (j2 == l1 && j2 > 0 && this.maximumCost >= 40)
             {
                 this.maximumCost = 39;
             }
-
-            if (this.maximumCost >= 40 && !this.thePlayer.capabilities.isCreativeMode)
-            {
-                itemstack1 = null;
-            }
+//
+//            if (this.maximumCost >= 40 && !this.thePlayer.capabilities.isCreativeMode)
+//            {
+//                itemstack1 = null;
+//            }
 
             if (itemstack1 != null)
             {
@@ -369,7 +398,10 @@ public class ContainerRepair extends Container
                     k4 = itemstack2.getRepairCost();
                 }
 
-                k4 = k4 * 2 + 1;
+                // Make the repair cost increase by a fixed amount every time
+                if(itemstack2!=null&&!(maximumCost>=20 && !itemstack2.isItemEnchanted())) {
+                    k4 = k4 /* * 2*/ + 4;
+                }
                 itemstack1.setRepairCost(k4);
                 EnchantmentHelper.setEnchantments(map, itemstack1);
             }
@@ -383,6 +415,14 @@ public class ContainerRepair extends Container
     {
         super.onCraftGuiOpened(listener);
         listener.sendProgressBarUpdate(this, 0, this.maximumCost);
+    }
+
+    public void updateProgressBar(int id, int data)
+    {
+        if (id == 0)
+        {
+            this.maximumCost = data;
+        }
     }
 
     /**

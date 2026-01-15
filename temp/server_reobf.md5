@@ -1123,7 +1123,7 @@ net/minecraft/server/MinecraftServer$1 ece9b4d97e17e26923b0e816d46bbb36
 net/minecraft/server/MinecraftServer$2 0e0e9b32431d3168222c14e3022198b7
 net/minecraft/server/MinecraftServer$3 86deaf7699d80fc3ba7fea4f35988d66
 net/minecraft/server/MinecraftServer$4 fd1b6ef007a678bfb419cf927e655788
-net/minecraft/server/MinecraftServer c6adeeec448378fde3366d681d12944d
+net/minecraft/server/MinecraftServer e25e599c96c77c5e55e9851a44b7c729
 net/minecraft/server/ServerEula d0df623e2c977b176a7c297eb5229036
 net/minecraft/server/dedicated/DedicatedPlayerList 2d689bc02858c52ff5140bf81348b54c
 net/minecraft/server/dedicated/DedicatedServer$1 d1aa4674cbfdfce1c8be8a8ce72b8d2b
@@ -1389,7 +1389,7 @@ net/minecraft/world/biome/BiomeGenBase$1 d33a12df93cf5a7fb2d16774d483686f
 net/minecraft/world/biome/BiomeGenBase$Height 64665258a6a09a946eee40ae04cf77c2
 net/minecraft/world/biome/BiomeGenBase$SpawnListEntry 8cfdaa77c7957415f9eb9fff05d2732a
 net/minecraft/world/biome/BiomeGenBase$TempCategory 70dd8b6717e577c52cede74e28f74a06
-net/minecraft/world/biome/BiomeGenBase df95d507e2a45ee237d8f7ba9d9658c0
+net/minecraft/world/biome/BiomeGenBase 000a3eee5a6c790f33d278a182759fae
 net/minecraft/world/biome/BiomeGenBeach 9e058df0c059e3190115288e65634961
 net/minecraft/world/biome/BiomeGenDesert c899702755cf434148d32a684b082457
 net/minecraft/world/biome/BiomeGenEnd 7b5a81924ef2d4e6389b4399fbf51d69
