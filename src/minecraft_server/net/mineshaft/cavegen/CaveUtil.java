@@ -6,10 +6,20 @@ import java.util.Random;
 
 public class CaveUtil {
 
-    public static void decorateCave(ChunkPrimer chunkPrimer, int localChunkX, int localChunkY, int localChunkZ, Random rand) {
+    public static void decorateCave(CaveType caveType, ChunkPrimer chunkPrimer, int localChunkX, int localChunkY, int localChunkZ, Random rand) {
         // small chance to place cobwebs here
-        if (rand.nextInt(20) == 0) {
-            CaveDecorator.tryPlaceCobweb(chunkPrimer, localChunkX, localChunkY, localChunkZ, rand);
+        switch (rand.nextInt(10)) {
+            case 0:
+                if(rand.nextInt((2))==0) {
+                    CaveDecorator.tryPlaceCobweb(chunkPrimer, localChunkX, localChunkY, localChunkZ, rand);
+                }
+                break;
+            case 1:
+                if(caveType==null) return;
+                caveType.decorateMapGenCaves(chunkPrimer,localChunkX,localChunkY,localChunkZ,rand);
+                break;
+            default:
+                break;
         }
     }
 

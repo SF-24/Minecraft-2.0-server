@@ -3,6 +3,7 @@ package net.mineshaft.cavegen;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.chunk.ChunkPrimer;
 
 import java.util.Random;
 
@@ -18,6 +19,10 @@ public class CaveType {
     }
 
     public void decorate(World worldIn, Random rand, BiomeGenBase biomeGenBase, BlockPos pos) {
+
+    }
+
+    public void decorateMapGenCaves(ChunkPrimer chunkPrimer, int localChunkX, int localChunkY, int localChunkZ, Random rand) {
 
     }
 

@@ -11,6 +11,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
+import net.mineshaft.cavegen.CaveRegistry;
 import net.mineshaft.cavegen.CaveUtil;
 
 public class MapGenCaves extends MapGenBase
@@ -199,8 +200,8 @@ public class MapGenCaves extends MapGenBase
                                                     // And function will only be parsed if the block is near a wall
                                                     // 0.0-> centre, 0.3-> near wall, 1.0-> edge of tunnel
                                                     if(dz*dz+dx*dx < 0.4 && dy > 0.3) {  // Near ceiling
-                                                        if (random.nextInt(12) == 0) {
-                                                            CaveUtil.decorateCave(chunkPrimer, j3, j2, i2, random);
+                                                        if (random.nextInt(24) == 0) {
+                                                            CaveUtil.decorateCave(CaveRegistry.getCaveType(worldObj.getBiomeGenForCoords(blockpos$mutableblockpos), j2), chunkPrimer, j3, j2, i2, random);
                                                         }
                                                     }
 
