@@ -1120,3 +1120,11 @@ src\minecraft_server\net\minecraft\world\storage\SaveFormatOld.java
 src\minecraft_server\net\minecraft\world\storage\SaveHandler.java
 src\minecraft_server\net\minecraft\world\storage\ThreadedFileIOBase.java
 src\minecraft_server\net\minecraft\world\storage\WorldInfo.java
+src\minecraft_server\net\mineshaft\cavegen\CaveConstants.java
+src\minecraft_server\net\mineshaft\cavegen\CaveDecorator.java
+src\minecraft_server\net\mineshaft\cavegen\CaveHeight.java
+src\minecraft_server\net\mineshaft\cavegen\CaveRegistry.java
+src\minecraft_server\net\mineshaft\cavegen\CaveType.java
+src\minecraft_server\net\mineshaft\cavegen\CaveUtil.java
+src\minecraft_server\net\mineshaft\cavegen\cave_types\CaveTypeFrozen.java
+src\minecraft_server\net\mineshaft\cavegen\cave_types\CaveTypeJungle.java

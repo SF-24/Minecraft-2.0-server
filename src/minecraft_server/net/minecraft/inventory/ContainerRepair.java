@@ -399,8 +399,19 @@ public class ContainerRepair extends Container
                 }
 
                 // Make the repair cost increase by a fixed amount every time
-                if(itemstack2!=null&&!(maximumCost>=20 && !itemstack2.isItemEnchanted())) {
+                if(itemstack2!=null&&itemstack2.isItemEnchanted()) {
                     k4 = k4 /* * 2*/ + 4;
+                } else if(itemstack1.isItemEnchanted() && itemstack2 != null && !(maximumCost >= 20 && !itemstack2.isItemEnchanted())) {
+                    int enchantsAboveThirdLevel = 0;
+                    int lowEnchantments = 0;
+                    for(int enchantment : EnchantmentHelper.getEnchantments(itemstack1).keySet()) {
+                        if(EnchantmentHelper.getEnchantments(itemstack1).get(enchantment)>=3) {
+                            enchantsAboveThirdLevel++;
+                        } else {
+                            lowEnchantments++;
+                        }
+                    }
+                    k4 = k4 + 1 + Math.max(0,Math.max(lowEnchantments / 2 + enchantsAboveThirdLevel,2));
                 }
                 itemstack1.setRepairCost(k4);
                 EnchantmentHelper.setEnchantments(map, itemstack1);
