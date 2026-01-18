@@ -205,7 +205,9 @@ public class MapGenCaves extends MapGenBase
                                                 {
                                                     // Set air
                                                     chunkPrimer.setBlockState(j3, j2, i2, Blocks.air.getDefaultState());
-
+                                                    if(chunkPrimer.getBlock(j3,j2+1,i2)==498) {
+                                                        chunkPrimer.setBlockFromId(j3,j2+1,i2, (short) 0);
+                                                    }
                                                     // Cave decoration logic, optimised
                                                     // Only 1/12 blocks attempt to decorate
                                                     // And function will only be parsed if the block is near a wall
