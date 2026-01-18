@@ -18,6 +18,8 @@ public class CaveType {
         this.height = height;
     }
 
+    public String getName() {return this.name;}
+
     public void decorate(World worldIn, Random rand, BiomeGenBase biomeGenBase, BlockPos pos) {
 
     }

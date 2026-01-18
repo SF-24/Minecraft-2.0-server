@@ -16,6 +16,6 @@ public class CaveTypeFrozen extends CaveType {
     @Override
     public void decorateMapGenCaves(ChunkPrimer chunkPrimer, int localChunkX, int localChunkY, int localChunkZ, Random rand) {
         super.decorateMapGenCaves(chunkPrimer, localChunkX, localChunkY, localChunkZ, rand);
-        CaveDecorator.placeBoulder(chunkPrimer, localChunkX, localChunkY, localChunkZ, Blocks.packed_ice.getDefaultState(), Blocks.ice.getDefaultState(), Blocks.ice.getDefaultState(), rand);
+        CaveDecorator.placeBoulder(chunkPrimer, localChunkX, localChunkY, localChunkZ, Blocks.packed_ice.getDefaultState(), Blocks.ice.getDefaultState(), Blocks.air.getDefaultState(), rand);
     }
 }

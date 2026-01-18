@@ -2,7 +2,7 @@
 package net.minecraft.world.gen;
 
 import com.google.common.base.Objects;
-import java.util.Random;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,10 +12,15 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.mineshaft.cavegen.CaveRegistry;
+import net.mineshaft.cavegen.CaveType;
 import net.mineshaft.cavegen.CaveUtil;
+
+import java.util.Random;
 
 public class MapGenCaves extends MapGenBase
 {
+    Random randDecorator = null;
+
     protected void addTunnel(long seed, int p_180703_3_, int p_180703_4_, ChunkPrimer p_180703_5_, double p_180703_6_, double p_180703_8_, double p_180703_10_)
     {
         this.addRoom(seed, p_180703_3_, p_180703_4_, p_180703_5_, p_180703_6_, p_180703_8_, p_180703_10_, 1.0F + this.rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
@@ -23,6 +28,11 @@ public class MapGenCaves extends MapGenBase
 
     protected void addRoom(long seed, int originX, int originZ, ChunkPrimer chunkPrimer, double tunnelCentreX, double tunnelCentreY, double tunnelCentreZ, float baseRadius, float tunnelYaw, float tunnelPitch, int setIncrement, int stepCount, double ellipsoidStretchFactor)
     {
+        // Allocate random decorator if missing.
+        if(randDecorator==null) randDecorator=new Random(seed);
+
+        CaveType caveType = CaveRegistry.getCaveType(worldObj.getBiomeGenForCoords((int) tunnelCentreX, (int) tunnelCentreZ).biomeID, (int) (tunnelCentreY + 0.5) );
+
         double d0 = (double)(originX * 16 + 8);
         double d1 = (double)(originZ * 16 + 8);
         float f = 0.0F;
@@ -184,7 +194,7 @@ public class MapGenCaves extends MapGenBase
                                                 flag1 = true;
                                             }
 
-                                            if (this.func_175793_a(iblockstate1, iblockstate2))
+                                            if (this.isCarvableBlock(iblockstate1, iblockstate2))
                                             {
                                                 if (j2 - 1 < 4 /*was 10*/)
                                                 {
@@ -200,8 +210,8 @@ public class MapGenCaves extends MapGenBase
                                                     // And function will only be parsed if the block is near a wall
                                                     // 0.0-> centre, 0.3-> near wall, 1.0-> edge of tunnel
                                                     if(dz*dz+dx*dx < 0.4 && dy > 0.3) {  // Near ceiling
-                                                        if (random.nextInt(24) == 0) {
-                                                            CaveUtil.decorateCave(CaveRegistry.getCaveType(worldObj.getBiomeGenForCoords(blockpos$mutableblockpos), j2), chunkPrimer, j3, j2, i2, random);
+                                                        if (randDecorator.nextInt(120) == 0) {
+                                                            CaveUtil.decorateCave(caveType, chunkPrimer, j3, j2, i2, randDecorator);
                                                         }
                                                     }
 
@@ -233,10 +243,17 @@ public class MapGenCaves extends MapGenBase
         }
     }
 
-    protected boolean func_175793_a(IBlockState p_175793_1_, IBlockState p_175793_2_)
+    protected boolean isCarvableBlock(IBlockState block, IBlockState blockAbove)
     {
-        return p_175793_1_.getBlock() == Blocks.stone ? true : (p_175793_1_.getBlock() == Blocks.dirt ? true : (p_175793_1_.getBlock() == Blocks.grass ? true : (p_175793_1_.getBlock() == Blocks.hardened_clay ? true : (p_175793_1_.getBlock() == Blocks.stained_hardened_clay ? true : (p_175793_1_.getBlock() == Blocks.sandstone ? true : (p_175793_1_.getBlock() == Blocks.red_sandstone ? true : (p_175793_1_.getBlock() == Blocks.mycelium ? true : (p_175793_1_.getBlock() == Blocks.snow_layer ? true : (p_175793_1_.getBlock() == Blocks.sand || p_175793_1_.getBlock() == Blocks.gravel) && p_175793_2_.getBlock().getMaterial() != Material.water))))))));
+        return block.getBlock() == Blocks.stone ? true : (block.getBlock() == Blocks.dirt ? true : (block.getBlock() == Blocks.grass ? true : (block.getBlock() == Blocks.hardened_clay ? true : (block.getBlock() == Blocks.stained_hardened_clay ? true : (block.getBlock() == Blocks.sandstone ? true : (block.getBlock() == Blocks.red_sandstone ? true : (block.getBlock() == Blocks.mycelium ? true : (block.getBlock() == Blocks.snow_layer ? true : (block.getBlock() == Blocks.sand || block.getBlock() == Blocks.gravel) && blockAbove.getBlock().getMaterial() != Material.water))))))));
     }
+
+    protected boolean isCarvableBlock(int idOfBlockToRemove, int idOfBlockAbove)
+    {
+        return (idOfBlockToRemove == 16 || (idOfBlockToRemove == 48 || (idOfBlockToRemove == 32 || (idOfBlockToRemove == Block.getMultipliedIdFromBlock(Blocks.hardened_clay) || (idOfBlockToRemove == Block.getMultipliedIdFromBlock(Blocks.stained_hardened_clay) || (idOfBlockToRemove == 384) || (idOfBlockToRemove == 2864) || (idOfBlockToRemove == 1760) || (idOfBlockToRemove == 1248) || (idOfBlockToRemove == 192) || idOfBlockToRemove == 208)) &&
+                (idOfBlockAbove != Block.getMultipliedIdFromBlock(Blocks.water) && idOfBlockAbove != Block.getMultipliedIdFromBlock(Blocks.flowing_water)))));
+    }
+
 
     /**
      * Recursively called by generate()
