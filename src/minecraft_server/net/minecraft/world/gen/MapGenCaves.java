@@ -29,9 +29,10 @@ public class MapGenCaves extends MapGenBase
     protected void addRoom(long seed, int originX, int originZ, ChunkPrimer chunkPrimer, double tunnelCentreX, double tunnelCentreY, double tunnelCentreZ, float baseRadius, float tunnelYaw, float tunnelPitch, int setIncrement, int stepCount, double ellipsoidStretchFactor)
     {
         // Allocate random decorator if missing.
+        // Warning: generation of cobwebs and cave decoration will vary and not be tied to the world seed!
         if(randDecorator==null) randDecorator=new Random(seed);
 
-        CaveType caveType = CaveRegistry.getCaveType(worldObj.getBiomeGenForCoords((int) tunnelCentreX, (int) tunnelCentreZ).biomeID, (int) (tunnelCentreY + 0.5) );
+        CaveType caveType = CaveRegistry.getCaveType(worldObj.getBiomeGenForCoords((int) tunnelCentreX, (int) tunnelCentreZ).biomeID, (int) tunnelCentreX, (int) (tunnelCentreY + 0.5), (int) tunnelCentreZ);
 
         double d0 = (double)(originX * 16 + 8);
         double d1 = (double)(originZ * 16 + 8);
@@ -210,7 +211,7 @@ public class MapGenCaves extends MapGenBase
                                                     // And function will only be parsed if the block is near a wall
                                                     // 0.0-> centre, 0.3-> near wall, 1.0-> edge of tunnel
                                                     if(dz*dz+dx*dx < 0.4 && dy > 0.3) {  // Near ceiling
-                                                        if (randDecorator.nextInt(120) == 0) {
+                                                        if (randDecorator.nextInt(120) < (caveType!=null?caveType.getDecorationCount():1)) {
                                                             CaveUtil.decorateCave(caveType, chunkPrimer, j3, j2, i2, randDecorator);
                                                         }
                                                     }
@@ -225,6 +226,9 @@ public class MapGenCaves extends MapGenBase
                                                         blockpos$mutableblockpos.set(j3 + originX * 16, 0, i2 + originZ * 16);
                                                         chunkPrimer.setBlockState(j3, j2 - 1, i2, this.worldObj.getBiomeGenForCoords(blockpos$mutableblockpos).topBlock.getBlock().getDefaultState());
                                                     }
+
+                                                    // Change the surface:
+                                                    CaveUtil.setCaveSurface(caveType,chunkPrimer,j3,j2,i2,randDecorator);
                                                 }
                                             }
                                         }

@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class CaveTypeFrozen extends CaveType {
     public CaveTypeFrozen(CaveHeight height, String name) {
-        super(height, name);
+        super(height, name, false);
     }
 
     @Override
