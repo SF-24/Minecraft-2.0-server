@@ -131,6 +131,19 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob
     }
 
     /**
+     * Get the experience points the entity currently has.
+     */
+    protected int getExperiencePoints(EntityPlayer player)
+    {
+        if (this.getSkeletonType()==1)
+        {
+            this.experienceValue = (int)((float)this.experienceValue * 2.5F);
+        }
+
+        return super.getExperiencePoints(player);
+    }
+
+    /**
      * Called frequently so the entity can update its state every tick as required. For example, zombies and skeletons
      * use this to react to sunlight and start to burn.
      */

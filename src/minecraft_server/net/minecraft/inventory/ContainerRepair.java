@@ -196,6 +196,7 @@ public class ContainerRepair extends Container
 
             if (itemstack2 != null)
             {
+                // If it is an enchanted book
                 flag = itemstack2.getItem() == Items.enchanted_book && Items.enchanted_book.getEnchantments(itemstack2).tagCount() > 0;
 
                 if (itemstack1.isItemStackDamageable() && itemstack1.getItem().getIsRepairable(itemstack, itemstack2))
@@ -378,10 +379,10 @@ public class ContainerRepair extends Container
                 this.maximumCost=1;
             }
 
-
-            if (j2 == l1 && j2 > 0 && this.maximumCost >= 40)
+            // Capped enchant cost at 35 levels.
+            if (j2 == l1 && j2 > 0 && this.maximumCost >= 36)
             {
-                this.maximumCost = 39;
+                this.maximumCost = 35;
             }
 //
 //            if (this.maximumCost >= 40 && !this.thePlayer.capabilities.isCreativeMode)

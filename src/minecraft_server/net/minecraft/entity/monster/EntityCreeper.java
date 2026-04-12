@@ -23,6 +23,8 @@ import net.minecraft.world.World;
 
 public class EntityCreeper extends EntityMob
 {
+    // Creeper state = 1 means it is swelling.
+
     /**
      * Time when this creeper was last in an active state (Messed up code here, probably causes creeper animation to go
      * weird)

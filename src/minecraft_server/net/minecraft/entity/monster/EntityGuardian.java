@@ -472,6 +472,20 @@ public class EntityGuardian extends EntityMob
         }
     }
 
+    // Get the dropped XP
+    /**
+     * Get the experience points the entity currently has.
+     */
+    protected int getExperiencePoints(EntityPlayer player)
+    {
+        if (this.isElder())
+        {
+            this.experienceValue = (int)((float)this.experienceValue * 2.5F);
+        }
+
+        return super.getExperiencePoints(player);
+    }
+
     /**
      * Causes this Entity to drop a random item.
      */

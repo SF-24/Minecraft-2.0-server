@@ -90,7 +90,7 @@ public class EntityCow extends EntityAnimal
      */
     protected void dropFewItems(boolean p_70628_1_, int p_70628_2_)
     {
-        int i = this.rand.nextInt(3) + this.rand.nextInt(1 + p_70628_2_);
+        int i = this.rand.nextInt(4) + 1 + this.rand.nextInt(1 + p_70628_2_);
 
         for (int j = 0; j < i; ++j)
         {
