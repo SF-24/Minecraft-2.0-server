@@ -733,7 +733,7 @@ net/minecraft/inventory/ContainerPlayer$1 98c80147aec29ba041fbb8e8b8572cd9
 net/minecraft/inventory/ContainerPlayer 0dc0ec1466a7c87fe5231ae276dcb425
 net/minecraft/inventory/ContainerRepair$1 f445df80b25d203eeb3282cd780ad7b7
 net/minecraft/inventory/ContainerRepair$2 c3a52b57aa8b54cfdece2e05977bbe6e
-net/minecraft/inventory/ContainerRepair 0ac366ba080f604fa0c8dd0ea77dc8d2
+net/minecraft/inventory/ContainerRepair e467c67b668f62407c17d043699bfc6c
 net/minecraft/inventory/ContainerWorkbench ec4aa48d761430a951821798e680c79f
 net/minecraft/inventory/ICrafting 8535e670e6155f559cb2a491bfa32bb1
 net/minecraft/inventory/IInvBasic 2ec19999124b400613df5642344fd222
@@ -1465,7 +1465,7 @@ net/minecraft/world/gen/FlatGeneratorInfo fec39bfc8e9312983e2537ddf6c90207
 net/minecraft/world/gen/FlatLayerInfo 337cd35e18b2f5123264d86061f0cf82
 net/minecraft/world/gen/GeneratorBushFeature d5e8f60e7ebbe27457b183fc4cfd87ea
 net/minecraft/world/gen/MapGenBase 52ba690cc9f0a9c81d8c69f2af93c10a
-net/minecraft/world/gen/MapGenCaves c316f57ed98e0fc81821d90988b2e31c
+net/minecraft/world/gen/MapGenCaves 71a0865ea29e6890b010db70c71748b8
 net/minecraft/world/gen/MapGenCavesHell 0fb3a25b4d74ab84a599faf69d545b75
 net/minecraft/world/gen/MapGenRavine 7e008d4aa1ded48719ac3b50e01eab8a
 net/minecraft/world/gen/NoiseGenerator 003908bcbd857cc306d3f15f6ba4f41b
@@ -1696,10 +1696,10 @@ net/minecraft/world/storage/WorldInfo$8 0c63d42f5872f19673f5a5416554c32e
 net/minecraft/world/storage/WorldInfo$9 e09149ab04d934a9f1a6e9dcf1fd3977
 net/minecraft/world/storage/WorldInfo e70665f690fda5331169723f916fa0a5
 net/mineshaft/cavegen/CaveConstants fa5d69747ae1b90b8ffa5a0219ad10eb
-net/mineshaft/cavegen/CaveDecorator 2747841ea98fcad437196738d01041a9
-net/mineshaft/cavegen/CaveHeight f76767afb099d737abd5cc5de04f301d
-net/mineshaft/cavegen/CaveRegistry 4bd60ed498d118711cbc273d6f16c0e4
-net/mineshaft/cavegen/CaveType 5235a77964f81c3d5ae804e1483cbc91
-net/mineshaft/cavegen/CaveUtil db75ab3d68cb92b6018b8e92873e5d03
-net/mineshaft/cavegen/cave_types/CaveTypeFrozen a0c03b79a07258b668c1edc2aec846f1
-net/mineshaft/cavegen/cave_types/CaveTypeJungle 082c4a44a92d2c425fc6a6aa1e65048f
+net/mineshaft/cavegen/CaveDecorator e00b926745ab9657e8d262edef74df50
+net/mineshaft/cavegen/CaveHeight ac2561d83c56da8ff385ccdda8e141ff
+net/mineshaft/cavegen/CaveRegistry c8dabc8563c88cc143e2b5d8ce56c935
+net/mineshaft/cavegen/CaveType 0f24f16d2fb6b83189865bce711db73e
+net/mineshaft/cavegen/CaveUtil 6912a750e7572728c4e946de3e707789
+net/mineshaft/cavegen/cave_types/CaveTypeFrozen 78bfa26824d6dc1e4dc2223a5a6a4f3e
+net/mineshaft/cavegen/cave_types/CaveTypeJungle d4c5667ec6ee8bb71dacfc45a971d569

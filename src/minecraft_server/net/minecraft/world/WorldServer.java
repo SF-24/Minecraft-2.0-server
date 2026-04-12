@@ -204,7 +204,8 @@ public class WorldServer extends World implements IThreadListener
 
         this.worldInfo.setWorldTotalTime(this.worldInfo.getWorldTotalTime() + 1L);
 
-        if (this.getGameRules().getBoolean("doDaylightCycle"))
+        // Progress time, if anyone is playing
+        if (this.getGameRules().getBoolean("doDaylightCycle") && !this.playerEntities.isEmpty())
         {
             if (isBloodMoon())
             {

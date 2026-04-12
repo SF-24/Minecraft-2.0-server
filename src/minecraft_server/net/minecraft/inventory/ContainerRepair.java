@@ -411,7 +411,8 @@ public class ContainerRepair extends Container
                             lowEnchantments++;
                         }
                     }
-                    k4 = k4 + 1 + Math.max(0,Math.max(lowEnchantments / 2 + enchantsAboveThirdLevel,2));
+                    System.out.println("Enchant >3: " + enchantsAboveThirdLevel + " Enchants<3: " + lowEnchantments);
+                    k4 = k4 + 1 + Math.max(0,Math.min(lowEnchantments / 2 + enchantsAboveThirdLevel,3));
                 }
                 itemstack1.setRepairCost(k4);
                 EnchantmentHelper.setEnchantments(map, itemstack1);
