@@ -1022,15 +1022,15 @@ public class Item
 
     public static enum ToolMaterial
     {
-        WOOD(0, 32/*59*/, 2.0F, -1.0F, 15),
-        STONE(1, 48/*131*/, 2.5F /*4.0F*/, -1.0F, 5),
+        WOOD(0, 59/*59*/, 2.0F, 0.0F, 15),
+        STONE(1, 131/*131*/, 2.5F /*4.0F*/, 1.0F, 5),
         IRON(2, 250, 6.0F, 2.0F, 14),
         EMERALD(3, 1561, 8.0F, 3.0F, 10),
-        GOLD(0, 32, 12.0F, 0.0F, 22),
-        STEEL(2, 4109, 6.0F, 2.0F, 14),
+        GOLD(0, 131, 10.0F /*was 12*/, 0.0F, 22),
+        STEEL(2, 3109, 6.0F, 2.0F, 0),
         AMETHYST(3, 4109, 8.0F, 3.0F, 0),
-        AETHER_LIGHT(2, 2048, 6.0F, 2.0F, 0),
-        HOLY_WEAK(2, 64, 2.0F, 0.0F, 0);
+//        AETHER_LIGHT(2, 2048, 6.0F, 2.0F, 0),
+        SMITE(2, 64, 2.0F, 0.0F, 0);
 
         private final int harvestLevel;
         private final int maxUses;

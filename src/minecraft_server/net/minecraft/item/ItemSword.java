@@ -53,16 +53,16 @@ public class ItemSword extends Item
      */
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
     {
-        if (this.material.equals(ToolMaterial.HOLY_WEAK) && target.isEntityUndead())
+        if (this.material.equals(ToolMaterial.SMITE) && target.isEntityUndead())
         {
             target.setFire(5);
             target.addVelocity(0, 1, 0);
             target.setHealth(target.getHealth() - 2);
         }
-        else if (this.material.equals(ToolMaterial.AETHER_LIGHT))
-        {
-            target.setInWeb();
-        }
+//        else if (this.material.equals(ToolMaterial.AETHER_LIGHT))
+//        {
+//            target.setInWeb();
+//        }
 
         stack.damageItem(1, attacker);
         return true;

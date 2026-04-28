@@ -1,23 +1,12 @@
 package net.minecraft.entity.monster;
 
-import java.util.Random;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.potion.Potion;
@@ -26,6 +15,10 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.mineshaft.ClimateZone;
+import net.mineshaft.DifficultyManager;
+
+import java.util.Random;
 
 public class EntitySpider extends EntityMob
 {
@@ -85,6 +78,30 @@ public class EntitySpider extends EntityMob
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
         this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.30000001192092896D);
+    }
+
+    // Deal poison damage if a jungle spider
+    public boolean attackEntityAsMob(Entity entityIn)
+    {
+        if (super.attackEntityAsMob(entityIn))
+        {
+            // If it's a jungle spider
+            if (getSpiderType()==2 && entityIn instanceof EntityLivingBase)
+            {
+                DifficultyManager.applyShortDebuff(worldObj.getDifficulty(), Potion.poison.id, (EntityLivingBase) entityIn);
+                DifficultyManager.applyShortDebuff(worldObj.getDifficulty(), Potion.moveSlowdown.id, this, 1);
+
+                // If it's a scorpion - rare and deadly.
+            } else if (getSpiderType()==3 && entityIn instanceof EntityLivingBase)
+            {
+                DifficultyManager.applyShortDebuff(worldObj.getDifficulty(), Potion.moveSlowdown.id, (EntityLivingBase) entityIn);
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -208,7 +225,7 @@ public class EntitySpider extends EntityMob
             entityskeleton.mountEntity(this);
         }
 
-        if (livingdata == null)
+        if (getSpiderType()==0 && livingdata == null)
         {
             livingdata = new EntitySpider.GroupData();
 
@@ -226,6 +243,14 @@ public class EntitySpider extends EntityMob
             {
                 this.addPotionEffect(new PotionEffect(i, Integer.MAX_VALUE));
             }
+        }
+
+        // Set the type
+        if (this.worldObj.getBiomeGenForCoords((int) posX, (int) posZ).getClimateZone() == ClimateZone.JUNGLE || this.worldObj.getBiomeGenForCoords((int) posX, (int) posZ).getClimateZone() == ClimateZone.TROPICAL_OCEAN && this.rand.nextInt(5)==0) //&& this.getRNG().nextInt(4) != 0)
+        {
+            this.setSpiderType(2);
+        } else {
+            this.setSpiderType(0);
         }
 
         return livingdata;
@@ -298,10 +323,70 @@ public class EntitySpider extends EntityMob
             {
                 this.potionEffectId = Potion.regeneration.id;
             }
+            // Temporarily disabled invis
             else if (i <= 4)
             {
-                this.potionEffectId = Potion.invisibility.id;
+                this.potionEffectId = Potion.jump.id;
+//                this.potionEffectId = Potion.invisibility.id;
             }
         }
+    }
+
+    // Spider Type
+    // 0 = default
+    // 1 = brown spider
+    // 2 = jungle spider
+    // 3 = scorpion
+    // Cave spider managed separately
+    /**
+     * Return this skeleton's type.
+     */
+    public int getSpiderType()
+    {
+        return this.dataWatcher.getWatchableObjectByte(13);
+    }
+
+    /**
+     * Set this skeleton's type.
+     */
+    public void setSpiderType(int type)
+    {
+        this.dataWatcher.updateObject(13, (byte) type);
+
+        if (type == 1) {
+            // Brown spider
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(12.0D);
+        } else if(type == 2) {
+            // Jungle Spider
+            this.setSize(1.12F, 0.72F);
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
+            this.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, Integer.MAX_VALUE, 0));
+        } else if(type==3) {
+            // Scorpion
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(10.0D);
+        }
+    }
+
+    /**
+     * (abstract) Protected helper method to read subclass entity data from NBT.
+     */
+    public void readEntityFromNBT(NBTTagCompound tagCompund)
+    {
+        super.readEntityFromNBT(tagCompund);
+
+        if (tagCompund.hasKey("SpiderType", 99))
+        {
+            int i = tagCompund.getByte("SpiderType");
+            this.setSpiderType(i);
+        }
+    }
+
+    /**
+     * (abstract) Protected helper method to write subclass entity data to NBT.
+     */
+    public void writeEntityToNBT(NBTTagCompound tagCompound)
+    {
+        super.writeEntityToNBT(tagCompound);
+        tagCompound.setByte("SpiderType", (byte)this.getSpiderType());
     }
 }

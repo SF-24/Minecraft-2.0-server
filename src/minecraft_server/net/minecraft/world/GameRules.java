@@ -27,6 +27,7 @@ public class GameRules
         this.addGameRule("enableSeasons", "true", GameRules.ValueType.BOOLEAN_VALUE);
         this.addGameRule("logAdminCommands", "true", GameRules.ValueType.BOOLEAN_VALUE);
         this.addGameRule("showDeathMessages", "true", GameRules.ValueType.BOOLEAN_VALUE);
+        this.addGameRule("bloodMoonInterval", "25", ValueType.NUMERICAL_VALUE);
         this.addGameRule("randomTickSpeed", "3", GameRules.ValueType.NUMERICAL_VALUE);
         this.addGameRule("sendCommandFeedback", "true", GameRules.ValueType.BOOLEAN_VALUE);
         this.addGameRule("reducedDebugInfo", "false", GameRules.ValueType.BOOLEAN_VALUE);
@@ -34,6 +35,7 @@ public class GameRules
         this.addGameRule("maxFoodStack", String.valueOf(EnumFoodStackType.NORMAL.getDefaultValue()), ValueType.NUMERICAL_VALUE);
         this.addGameRule("maxFoodStackLarge", String.valueOf(EnumFoodStackType.LARGE.getDefaultValue()), ValueType.NUMERICAL_VALUE);
         this.addGameRule("maxFoodStackSoup", String.valueOf(EnumFoodStackType.SOUP.getDefaultValue()), ValueType.NUMERICAL_VALUE);
+        this.addGameRule("maxFoodStackHealing", String.valueOf(EnumFoodStackType.HEALING.getDefaultValue()), ValueType.NUMERICAL_VALUE);
     }
 
     public void addGameRule(String key, String value, GameRules.ValueType type)
@@ -69,7 +71,16 @@ public class GameRules
                     System.out.println("Value is not integer");
                 }
             }
-
+            if(key.equals("maxFoodStackHealing")) {
+                try {
+                    System.out.println(ruleValue);
+                    int value = Integer.parseInt(String.valueOf(ruleValue));
+                    Item.updateFoodStackCount(value, EnumFoodStackType.HEALING);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    System.out.println("Value is not integer");
+                }
+            }
             if (key.equals("maxFoodStackLarge"))
             {
                 try

@@ -1120,6 +1120,8 @@ src\minecraft_server\net\minecraft\world\storage\SaveFormatOld.java
 src\minecraft_server\net\minecraft\world\storage\SaveHandler.java
 src\minecraft_server\net\minecraft\world\storage\ThreadedFileIOBase.java
 src\minecraft_server\net\minecraft\world\storage\WorldInfo.java
+src\minecraft_server\net\mineshaft\ClimateZone.java
+src\minecraft_server\net\mineshaft\DifficultyManager.java
 src\minecraft_server\net\mineshaft\cavegen\CaveConstants.java
 src\minecraft_server\net\mineshaft\cavegen\CaveDecorator.java
 src\minecraft_server\net\mineshaft\cavegen\CaveHeight.java
