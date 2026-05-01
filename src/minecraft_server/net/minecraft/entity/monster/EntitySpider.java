@@ -57,6 +57,7 @@ public class EntitySpider extends EntityMob
     protected void entityInit()
     {
         super.entityInit();
+        this.dataWatcher.addObject(13, new Byte((byte) 0));
         this.dataWatcher.addObject(16, new Byte((byte)0));
     }
 
@@ -374,10 +375,13 @@ public class EntitySpider extends EntityMob
     {
         super.readEntityFromNBT(tagCompund);
 
-        if (tagCompund.hasKey("SpiderType", 99))
-        {
-            int i = tagCompund.getByte("SpiderType");
-            this.setSpiderType(i);
+        try {
+            if (tagCompund.hasKey("SpiderType", 99)) {
+                int i = tagCompund.getByte("SpiderType");
+                this.setSpiderType(i);
+            }
+        } catch (Exception ignored) {
+            System.out.println("Invalid spider type found");
         }
     }
 
