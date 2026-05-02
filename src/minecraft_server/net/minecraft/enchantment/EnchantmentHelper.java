@@ -490,7 +490,7 @@ public class EnchantmentHelper
         {
             if (enchantment != null && (enchantment.type.canEnchantItem(item) || flag))
             {
-                for (int i = enchantment.getMinLevel(); i <= enchantment.getMaxLevel(); ++i)
+                for (int i = enchantment.getMinLevel(); i <= enchantment.getMaxExtraLevel(); ++i)
                 {
                     if (p_77505_0_ >= enchantment.getMinEnchantability(i) && p_77505_0_ <= enchantment.getMaxEnchantability(i))
                     {

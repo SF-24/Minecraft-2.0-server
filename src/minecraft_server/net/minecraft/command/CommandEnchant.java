@@ -88,7 +88,7 @@ public class CommandEnchant extends CommandBase
                 {
                     if (args.length >= 3)
                     {
-                        j = parseInt(args[2], enchantment1.getMinLevel(), enchantment1.getMaxLevel());
+                        j = parseInt(args[2], enchantment1.getMinLevel(), enchantment1.getMaxExtraLevel());
                     }
 
                     if (itemstack.hasTagCompound())

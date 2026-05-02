@@ -299,9 +299,9 @@ public class ContainerRepair extends Container
 
                             if (flag1)
                             {
-                                if (l3 > enchantment.getMaxLevel())
+                                if (l3 > enchantment.getMaxExtraLevel())
                                 {
-                                    l3 = enchantment.getMaxLevel();
+                                    l3 = enchantment.getMaxExtraLevel();
                                 }
 
                                 enchMap.put(Integer.valueOf(i5), Integer.valueOf(l3));
