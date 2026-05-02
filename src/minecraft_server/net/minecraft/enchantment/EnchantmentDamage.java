@@ -62,6 +62,12 @@ public class EnchantmentDamage extends Enchantment
      */
     public int getMaxLevel()
     {
+        return 4;
+    }
+
+    @Override
+    public int getMaxExtraLevel()
+    {
         return 5;
     }
 
