@@ -908,10 +908,10 @@ public class Item
         registerItem(valueBase + 466, "golden_chestplate", (new ItemArmor(ItemArmor.ArmorMaterial.GOLD, 4, 1)).setUnlocalizedName("chestplateGold"));
         registerItem(valueBase + 467, "golden_leggings", (new ItemArmor(ItemArmor.ArmorMaterial.GOLD, 4, 2)).setUnlocalizedName("leggingsGold"));
         registerItem(valueBase + 468, "golden_boots", (new ItemArmor(ItemArmor.ArmorMaterial.GOLD, 4, 3)).setUnlocalizedName("bootsGold"));
-//        registerItem(valueBase + 469, "steel_helmet", (new ItemArmor(ItemArmor.ArmorMaterial.STEEL, 3, 0)).setUnlocalizedName("helmetSteel"));
-//        registerItem(valueBase + 470, "steel_chestplate", (new ItemArmor(ItemArmor.ArmorMaterial.STEEL, 3, 1)).setUnlocalizedName("chestplateSteel"));
-//        registerItem(valueBase + 471, "steel_leggings", (new ItemArmor(ItemArmor.ArmorMaterial.STEEL, 3, 2)).setUnlocalizedName("leggingsSteel"));
-//        registerItem(valueBase + 472, "steel_boots", (new ItemArmor(ItemArmor.ArmorMaterial.STEEL, 3, 3)).setUnlocalizedName("bootsSteel"));
+        registerItem(valueBase + 469, "steel_helmet", (new ItemArmor(ItemArmor.ArmorMaterial.STEEL, 3, 0)).setUnlocalizedName("helmetSteel"));
+        registerItem(valueBase + 470, "steel_chestplate", (new ItemArmor(ItemArmor.ArmorMaterial.STEEL, 3, 1)).setUnlocalizedName("chestplateSteel"));
+        registerItem(valueBase + 471, "steel_leggings", (new ItemArmor(ItemArmor.ArmorMaterial.STEEL, 3, 2)).setUnlocalizedName("leggingsSteel"));
+        registerItem(valueBase + 472, "steel_boots", (new ItemArmor(ItemArmor.ArmorMaterial.STEEL, 3, 3)).setUnlocalizedName("bootsSteel"));
 //        registerItem(valueBase + 473, "amethyst_helmet", (new ItemArmor(ItemArmor.ArmorMaterial.AMETHYST, 3, 0)).setUnlocalizedName("helmetAmethyst"));
 //        registerItem(valueBase + 474, "amethyst_chestplate", (new ItemArmor(ItemArmor.ArmorMaterial.AMETHYST, 3, 1)).setUnlocalizedName("chestplateAmethyst"));
 //        registerItem(valueBase + 475, "amethyst_leggings", (new ItemArmor(ItemArmor.ArmorMaterial.AMETHYST, 3, 2)).setUnlocalizedName("leggingsAmethyst"));
@@ -939,9 +939,9 @@ public class Item
         registerItem(valueBase + 1303, "clock", (new Item()).setUnlocalizedName("clock").setCreativeTab(CreativeTabs.tabTools));
         registerItem(valueBase + 1304, "lead", (new ItemLead()).setUnlocalizedName("leash"));
         registerItem(valueBase + 1305, "name_tag", (new ItemNameTag()).setUnlocalizedName("nameTag"));
-//        registerItem(valueBase + 4041, "steel_ingot", (new Item()).setUnlocalizedName("ingotSteel").setCreativeTab(CreativeTabs.tabMaterials));
-//        registerItem(valueBase + 4042, "steel_nugget", (new Item()).setUnlocalizedName("nuggetSteel").setCreativeTab(CreativeTabs.tabMaterials));
-//        registerItem(valueBase + 4043, "nether_ash", (new Item()).setUnlocalizedName("netherAsh").setCreativeTab(CreativeTabs.tabMaterials));
+        registerItem(valueBase + 4041, "steel_ingot", (new Item()).setUnlocalizedName("ingotSteel").setCreativeTab(CreativeTabs.tabMaterials));
+        registerItem(valueBase + 4042, "steel_nugget", (new Item()).setUnlocalizedName("nuggetSteel").setCreativeTab(CreativeTabs.tabMaterials));
+        registerItem(valueBase + 4043, "nether_ash", (new Item()).setUnlocalizedName("netherAsh").setCreativeTab(CreativeTabs.tabMaterials));
 //        registerItem(valueBase + 4044, "amethyst", (new Item()).setUnlocalizedName("amethyst").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(valueBase + 4045, "ruby", (new Item()).setUnlocalizedName("ruby").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(valueBase + 5000, "ender_pouch", (new ItemBackpack(0)).setUnlocalizedName("pouchEnder").setUnlocalizedName("pouchEnder").setCreativeTab(CreativeTabs.tabTools));
@@ -1074,7 +1074,7 @@ public class Item
 
         public Item getRepairItem()
         {
-            return this == WOOD ? Item.getItemFromBlock(Blocks.planks) : (this == STONE ? Item.getItemFromBlock(Blocks.cobblestone) : (this == GOLD ? Items.gold_ingot : (this == IRON ? Items.iron_ingot : (this == EMERALD ? Items.diamond : /*(this == STEEL ? Items.steel_ingot : (this == AMETHYST ? Items.amethyst*/ null))));
+            return this == WOOD ? Item.getItemFromBlock(Blocks.planks) : (this == STONE ? Item.getItemFromBlock(Blocks.cobblestone) : (this == GOLD ? Items.gold_ingot : (this == IRON ? Items.iron_ingot : (this == EMERALD ? Items.diamond : (this == STEEL ? Items.steel_ingot : null)))));
         }
     }
 }

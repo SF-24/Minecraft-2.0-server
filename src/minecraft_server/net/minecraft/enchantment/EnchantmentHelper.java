@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import net.minecraft.MineshaftLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -26,14 +28,26 @@ public class EnchantmentHelper
     /**
      * Used to calculate the extra armor of enchantments on armors equipped on player.
      */
-    private static final EnchantmentHelper.ModifierDamage enchantmentModifierDamage = new EnchantmentHelper.ModifierDamage();
+    private static final ModifierDamage enchantmentModifierDamage = new ModifierDamage();
 
     /**
      * Used to calculate the (magic) extra damage done by enchantments on current equipped item of player.
      */
-    private static final EnchantmentHelper.ModifierLiving enchantmentModifierLiving = new EnchantmentHelper.ModifierLiving();
-    private static final EnchantmentHelper.HurtIterator ENCHANTMENT_ITERATOR_HURT = new EnchantmentHelper.HurtIterator();
-    private static final EnchantmentHelper.DamageIterator ENCHANTMENT_ITERATOR_DAMAGE = new EnchantmentHelper.DamageIterator();
+    private static final ModifierLiving enchantmentModifierLiving = new ModifierLiving();
+    private static final HurtIterator ENCHANTMENT_ITERATOR_HURT = new HurtIterator();
+    private static final DamageIterator ENCHANTMENT_ITERATOR_DAMAGE = new DamageIterator();
+
+    public static boolean hasSpecialGlint(ItemStack stack) {
+        for (Integer i5 : getEnchantments(stack).keySet()) {
+            if (Enchantment.getEnchantmentById(i5) == null) {
+                continue;
+            }
+            if (getEnchantments(stack).get(i5) > Enchantment.getEnchantmentById(i5).getMaxLevel()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Returns the level of enchantment on the ItemStack passed.
@@ -158,7 +172,7 @@ public class EnchantmentHelper
     /**
      * Executes the enchantment modifier on the ItemStack passed.
      */
-    private static void applyEnchantmentModifier(EnchantmentHelper.IModifier modifier, ItemStack stack)
+    private static void applyEnchantmentModifier(IModifier modifier, ItemStack stack)
     {
         if (stack != null)
         {
@@ -183,7 +197,7 @@ public class EnchantmentHelper
     /**
      * Executes the enchantment modifier on the array of ItemStack passed.
      */
-    private static void applyEnchantmentModifierArray(EnchantmentHelper.IModifier modifier, ItemStack[] stacks)
+    private static void applyEnchantmentModifierArray(IModifier modifier, ItemStack[] stacks)
     {
         for (ItemStack itemstack : stacks)
         {
@@ -212,7 +226,7 @@ public class EnchantmentHelper
         return (enchantmentModifierDamage.damageModifier + 1 >> 1) + enchantmentRand.nextInt((enchantmentModifierDamage.damageModifier >> 1) + 1);
     }
 
-    public static float func_152377_a(ItemStack p_152377_0_, EnumCreatureAttribute p_152377_1_)
+    public static float getModifierForCreature(ItemStack p_152377_0_, EnumCreatureAttribute p_152377_1_)
     {
         enchantmentModifierLiving.livingModifier = 0.0F;
         enchantmentModifierLiving.entityLiving = p_152377_1_;
@@ -354,12 +368,12 @@ public class EnchantmentHelper
     }
 
     /**
-     * Returns the enchantability of itemstack, it's uses a singular formula for each index (2nd parameter: 0, 1 and 2),
-     * cutting to the max enchantability power of the table (3rd parameter)
+     * Returns the enchantability of itemstack, using a separate calculation for each enchantNum (0, 1 or 2), cutting to
+     * the max enchantability power of the table, which is locked to a max of 15.
      */
-    public static int calcItemStackEnchantability(Random p_77514_0_, int p_77514_1_, int p_77514_2_, ItemStack p_77514_3_)
+    public static int calcItemStackEnchantability(Random rand, int enchantNum, int power, ItemStack stack)
     {
-        Item item = p_77514_3_.getItem();
+        Item item = stack.getItem();
         int i = item.getItemEnchantability();
 
         if (i <= 0)
@@ -368,13 +382,13 @@ public class EnchantmentHelper
         }
         else
         {
-            if (p_77514_2_ > 15)
+            if (power > 15)
             {
-                p_77514_2_ = 15;
+                power = 15;
             }
 
-            int j = p_77514_0_.nextInt(8) + 1 + (p_77514_2_ >> 1) + p_77514_0_.nextInt(p_77514_2_ + 1);
-            return p_77514_1_ == 0 ? Math.max(j / 3, 1) : (p_77514_1_ == 1 ? j * 2 / 3 + 1 : Math.max(j, p_77514_2_ * 2));
+            int j = rand.nextInt(8) + 1 + (power >> 1) + rand.nextInt(power + 1);
+            return enchantNum == 0 ? Math.max(j / 3, 1) : (enchantNum == 1 ? j * 2 / 3 + 1 : Math.max(j, power * 2));
         }
     }
 
@@ -496,10 +510,10 @@ public class EnchantmentHelper
                     {
                         if (map == null)
                         {
-                            map = Maps.<Integer, EnchantmentData>newHashMap();
+                            map = Maps.newHashMap();
                         }
 
-                        map.put(Integer.valueOf(enchantment.effectId), new EnchantmentData(enchantment, i));
+                        map.put(enchantment.effectId, new EnchantmentData(enchantment, i));
                     }
                 }
             }
@@ -508,7 +522,7 @@ public class EnchantmentHelper
         return map;
     }
 
-    static final class DamageIterator implements EnchantmentHelper.IModifier
+    static final class DamageIterator implements IModifier
     {
         public EntityLivingBase user;
         public Entity target;
@@ -523,7 +537,7 @@ public class EnchantmentHelper
         }
     }
 
-    static final class HurtIterator implements EnchantmentHelper.IModifier
+    static final class HurtIterator implements IModifier
     {
         public EntityLivingBase user;
         public Entity attacker;
@@ -543,7 +557,7 @@ public class EnchantmentHelper
         void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel);
     }
 
-    static final class ModifierDamage implements EnchantmentHelper.IModifier
+    static final class ModifierDamage implements IModifier
     {
         public int damageModifier;
         public DamageSource source;
@@ -558,7 +572,7 @@ public class EnchantmentHelper
         }
     }
 
-    static final class ModifierLiving implements EnchantmentHelper.IModifier
+    static final class ModifierLiving implements IModifier
     {
         public float livingModifier;
         public EnumCreatureAttribute entityLiving;
@@ -570,6 +584,20 @@ public class EnchantmentHelper
         public void calculateModifier(Enchantment enchantmentIn, int enchantmentLevel)
         {
             this.livingModifier += enchantmentIn.calcDamageByCreature(enchantmentLevel, this.entityLiving);
+        }
+    }
+
+    public static int getEnchantCost(int enchantmentId, int level) {
+        if(Enchantment.getEnchantmentById(enchantmentId)==null) return 1;
+        switch (Enchantment.getEnchantmentById(enchantmentId).getWeight()) {
+            case 1: return 8*level;
+            case 2: return 4*level;
+            case 5: return 2*level;
+            case 10: return level;
+            default: {
+                MineshaftLogger.logError("Error: Unknown enchantment weight: " + Enchantment.getEnchantmentById(enchantmentId).getWeight() + ", EnchantmentID: " + enchantmentId);
+                return level;
+            }
         }
     }
 }

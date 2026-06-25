@@ -438,7 +438,7 @@ net/minecraft/enchantment/EnchantmentProtection 11f6e45a57ab59371754c247efac2e71
 net/minecraft/enchantment/EnchantmentThorns 9670bee870440db73ee7db6853d718c2
 net/minecraft/enchantment/EnchantmentUntouching bbde0d2602b1859dd9e016410f07b4e7
 net/minecraft/enchantment/EnchantmentWaterWalker b2489b840aedf4471c36dbfea7d02134
-net/minecraft/enchantment/EnchantmentWaterWorker 366be4a9e9502cbe48d1c3d7f440476f
+net/minecraft/enchantment/EnchantmentWaterWorker af4d9991dc10436e24282db4633207cd
 net/minecraft/enchantment/EnumEnchantmentType 93e0a96e647277b5c83d23e9df22939b
 net/minecraft/entity/DataWatcher$WatchableObject 43114bc0be51417fa38d3bf0c093b635
 net/minecraft/entity/DataWatcher e2d1aa3be84aaf4a5a48f10826608915
@@ -618,10 +618,10 @@ net/minecraft/entity/monster/EntitySlime$AISlimeHop 7ab2b7f5304d743363607d7d814c
 net/minecraft/entity/monster/EntitySlime$SlimeMoveHelper 72f1802af59e70d4c9ca4448d93fe0e8
 net/minecraft/entity/monster/EntitySlime e3dbbc50b54aa709e3eac690d416c77c
 net/minecraft/entity/monster/EntitySnowman 4859bcc7f5e1c63695f7ca8bcae1855b
-net/minecraft/entity/monster/EntitySpider$AISpiderAttack c19a3c9e0ce45fc48fe0a6bdb3e4945a
-net/minecraft/entity/monster/EntitySpider$AISpiderTarget fa7746c0121f7f22c6d7734285833a29
-net/minecraft/entity/monster/EntitySpider$GroupData d6eb69f5ef263b29b3f5565ea52a0f72
-net/minecraft/entity/monster/EntitySpider bdf6c99490212ed9105023059b9e2ffc
+net/minecraft/entity/monster/EntitySpider$AISpiderAttack 087fd155f541edb62bb6e47a36c6825d
+net/minecraft/entity/monster/EntitySpider$AISpiderTarget 4f5a714215ac070e9522c2942776665d
+net/minecraft/entity/monster/EntitySpider$GroupData f53992567ff5c9e7bde7cd605d878114
+net/minecraft/entity/monster/EntitySpider 060dae1ca0eab6c0565a1b649aa13cd4
 net/minecraft/entity/monster/EntityWitch ea403ba06f4469bf2ccf6bc0e5dad1ce
 net/minecraft/entity/monster/EntityZombie$1 45d58376bca01d814e46f446c7d71f33
 net/minecraft/entity/monster/EntityZombie$GroupData 93f41d91fb8d42fa67dfa7db45ce3e9b
@@ -731,9 +731,9 @@ net/minecraft/inventory/ContainerHorseInventory f75274e1511df0f114966a3a2e347fcd
 net/minecraft/inventory/ContainerMerchant 06a6958ab16650ca3794eeee3f7c81f8
 net/minecraft/inventory/ContainerPlayer$1 98c80147aec29ba041fbb8e8b8572cd9
 net/minecraft/inventory/ContainerPlayer 0dc0ec1466a7c87fe5231ae276dcb425
-net/minecraft/inventory/ContainerRepair$1 f445df80b25d203eeb3282cd780ad7b7
-net/minecraft/inventory/ContainerRepair$2 c3a52b57aa8b54cfdece2e05977bbe6e
-net/minecraft/inventory/ContainerRepair 3d0866f75e4482181f2109af526e4cba
+net/minecraft/inventory/ContainerRepair$1 4249ad66cd0065b67a14872fd08f1761
+net/minecraft/inventory/ContainerRepair$2 e7aa3322d8de03fccb468ca51df4179f
+net/minecraft/inventory/ContainerRepair 06a46f3f76ecd0b6a6f4a287e7d7a02f
 net/minecraft/inventory/ContainerWorkbench ec4aa48d761430a951821798e680c79f
 net/minecraft/inventory/ICrafting 8535e670e6155f559cb2a491bfa32bb1
 net/minecraft/inventory/IInvBasic 2ec19999124b400613df5642344fd222
@@ -774,7 +774,7 @@ net/minecraft/item/Item$6 67224933f456fb63aca9003a87fbbb58
 net/minecraft/item/Item$7 a78869e4b2807317cb2a378eecf5e1e4
 net/minecraft/item/Item$8 a487198b8099e548084d5e3677dffd18
 net/minecraft/item/Item$9 466297bca7d908950fff8343a511f293
-net/minecraft/item/Item$ToolMaterial 4d88d07e4c58136ffa02e971a5fa1019
+net/minecraft/item/Item$ToolMaterial 284a745397b4acdd3c611cd530613b6a
 net/minecraft/item/Item 9df40e4ea16a569c8e6fcef5837cab22
 net/minecraft/item/ItemAnvilBlock de5278cf194492b6f2d4c0e6fcb6913c
 net/minecraft/item/ItemAppleGold 19641e69f327856595a46d6caad30c27
@@ -849,7 +849,7 @@ net/minecraft/item/ItemSnowball f54d72c5992da64ef1829f3accca2f33
 net/minecraft/item/ItemSoup daac488bc223cdaaf47052f177611c66
 net/minecraft/item/ItemSpade b6f93d80a9ce6b70656075019ab8f1c2
 net/minecraft/item/ItemStack 6b015e1b590150f3571d15d664ac7d19
-net/minecraft/item/ItemSword 403bb8b95e0e23e89226ce254d63430a
+net/minecraft/item/ItemSword 7fd177862a65542af19f925ff63b8d2f
 net/minecraft/item/ItemTool fbf0c7004eb2065696ce7b6c3c7046ef
 net/minecraft/item/ItemWritableBook aa0bc6eda66da63eb940d15225ed2fa1
 net/minecraft/item/crafting/CraftingManager$1 9ff85b9140f3e435e6f541f1fcc7dab5
@@ -1123,7 +1123,7 @@ net/minecraft/server/MinecraftServer$1 ece9b4d97e17e26923b0e816d46bbb36
 net/minecraft/server/MinecraftServer$2 0e0e9b32431d3168222c14e3022198b7
 net/minecraft/server/MinecraftServer$3 86deaf7699d80fc3ba7fea4f35988d66
 net/minecraft/server/MinecraftServer$4 fd1b6ef007a678bfb419cf927e655788
-net/minecraft/server/MinecraftServer e25e599c96c77c5e55e9851a44b7c729
+net/minecraft/server/MinecraftServer 6c2acc5d3dac707fba5ff08cf6e1eb72
 net/minecraft/server/ServerEula d0df623e2c977b176a7c297eb5229036
 net/minecraft/server/dedicated/DedicatedPlayerList 2d689bc02858c52ff5140bf81348b54c
 net/minecraft/server/dedicated/DedicatedServer$1 d1aa4674cbfdfce1c8be8a8ce72b8d2b

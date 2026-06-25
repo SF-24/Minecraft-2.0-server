@@ -1,8 +1,7 @@
 package net.minecraft.world.biome;
 
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockSilverfish;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
@@ -12,7 +11,8 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAetherPillar;
+import net.minecraft.world.chunk.ChunkPrimer;
+import net.minecraft.world.gen.feature.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +20,12 @@ import java.util.Random;
 
 public class BiomeGenAether extends BiomeGenBase
 {
-    public BiomeGenAether(int id)
-    {
+    private WorldGenerator theWorldGenerator = new WorldGenMinable(Blocks.monster_egg.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONE), 9);
+    private WorldGenTreesAnySurface trees = new WorldGenTreesAnySurface(false);
+
+    public BiomeGenAether(int id) {
         super(id);
-        this.hasBeach = false;
+        this.hasBeach=false;
         this.spawnableMonsterList.clear();
         this.spawnableCreatureList.clear();
         this.spawnableWaterCreatureList.clear();
@@ -35,51 +37,57 @@ public class BiomeGenAether extends BiomeGenBase
         this.theBiomeDecorator = new BiomeAetherDecorator();
     }
 
+    public WorldGenAbstractTree genBigTreeChance(Random rand)
+    {
+        return rand.nextInt(2) > 0 ? this.worldGeneratorTrees : super.genBigTreeChance(rand);
+    }
+
+    @Override
     public void decorate(World worldIn, Random rand, BlockPos pos)
     {
         super.decorate(worldIn, rand, pos);
+        genWells(worldIn,rand,pos);
+    }
 
-        for (int k2 = 0; k2 < 16; ++k2)
-        {
-            for (int j3 = 0; j3 < 16; ++j3)
-            {
-                BlockPos blockpos1 = worldIn.getPrecipitationHeight(pos.add(k2, 0, j3)); //ERROR
-                ArrayList<BlockPos> blockPos = new ArrayList<>();
-                blockPos.add(blockpos1.down());
-                blockPos.add(blockpos1.down(2));
-                Block top = worldIn.getBiomeGenForCoords(blockpos1).topBlock.getBlock();
+    public void genTerrainBlocks(World worldIn, Random rand, ChunkPrimer chunkPrimerIn, int x, int z, double noiseVal)
+    {
+        super.genTerrainBlocks(worldIn,rand,chunkPrimerIn,x,z,noiseVal);
+        this.topBlock = Blocks.grass.getDefaultState();
+        this.fillerBlock = Blocks.dirt.getDefaultState();
+        this.generateBiomeTerrain(worldIn, rand, chunkPrimerIn, x, z, noiseVal);
+    }
 
-                if (!top.equals(Blocks.stone_slab) && !top.equals(Blocks.chest) && !top.equals(Blocks.air) && !top.equals(Blocks.water) && !top.equals(Blocks.cobblestone) && !top.equals(Blocks.stonebrick) && !top.equals(Blocks.mossy_cobblestone))
-                {
-                    BlockPos pos1 = blockpos1;
-                    int m = 0;
+    protected BiomeGenBase createMutatedBiome(int p_180277_1_)
+    {
+        return (new BiomeGenAether(p_180277_1_));
+    }
 
-                    while (pos1.equals(Blocks.leaves) || pos.equals(Blocks.leaves2))
-                    {
-                        pos1 = pos1.down();
-                        m++;
 
-                        if (m >= 12)
-                        {
-                            pos1 = blockpos1;
-                            break;
-                        }
-                    }
+    public void genWells(World worldIn, Random rand, BlockPos pos) {
+        if (rand.nextInt(100/*was 10*/) == 0) {
+            int i = rand.nextInt(16) + 8;
+            int j = rand.nextInt(16) + 8;
+            BlockPos blockpos = worldIn.getHeight(pos.add(i, 0, j)).up();
 
-                    Block top1 = worldIn.getBiomeGenForCoords(pos1).topBlock.getBlock();
+            final List<WeightedRandomChestContent> chestContents = Lists.newArrayList(
+                    new WeightedRandomChestContent(Items.glowing_bread, 0, 1, 1, 2),
+                    new WeightedRandomChestContent(Items.glowstone_dust, 0, 1, 6, 30),
+                    new WeightedRandomChestContent(Items.slime_ball, 0, 1, 2, 5),
+//                    new WeightedRandomChestContent(Items.ruby, 0, 1, 1, 2),
+                    new WeightedRandomChestContent(Items.apple, 0, 1, 2, 10),
+                    new WeightedRandomChestContent(Items.golden_apple, 0, 1, 1, 2),
+                    new WeightedRandomChestContent(Items.record_magnetic_circuit, 0, 1, 1, 1),
+                    new WeightedRandomChestContent(Items.bread, 0, 1, 2, 5),
+                    new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 2, 5),
+                    new WeightedRandomChestContent(Items.gold_nugget, 0, 2, 10, 5));
 
-                    if (!(top1 instanceof BlockLeaves && !top1.equals(Blocks.leaves) && !top1.equals(Blocks.leaves2)))
-                    {
-                        worldIn.setBlockState(pos1, Blocks.grass.getDefaultState());
-
-                        for (BlockPos blockPo : blockPos)
-                        {
-                            if (!worldIn.getBlockState(blockPo).getBlock().equals(Blocks.air))
-                            {
-                                worldIn.setBlockState(blockPo, Blocks.dirt.getDefaultState());
-                            }
-                        }
-                    }
+            BlockPos p = worldIn.getPrecipitationHeight(blockpos.add(i, 0, j)).up();
+            // Gen the stuff
+            if((new WorldGenAetherPillar()).generateBlocks(worldIn, rand, p.down())) {
+                worldIn.setBlockState(p.down(2), Blocks.chest.getDefaultState());
+                TileEntity tileentity1 = worldIn.getTileEntity(p.down(2));
+                if (tileentity1 instanceof TileEntityChest) {
+                    WeightedRandomChestContent.generateChestContents(rand, chestContents, (TileEntityChest) tileentity1, 8);
                 }
             }
         }

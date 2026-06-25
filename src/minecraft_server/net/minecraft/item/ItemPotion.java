@@ -1,18 +1,27 @@
 package net.minecraft.item;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityGrenade;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.stats.StatList;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -23,7 +32,7 @@ public class ItemPotion extends Item
 
     public ItemPotion()
     {
-        this.setMaxStackSize(4);
+        this.setMaxStackSize(4 /* WAS 1*/);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(CreativeTabs.tabBrewing);
@@ -76,6 +85,49 @@ public class ItemPotion extends Item
         return list;
     }
 
+    public void onPlayerStoppedUsing(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, int timeLeft)
+    {
+        // TODO: Move to separate class
+
+        // Calculate how long the player charged the potion
+        int chargeDuration = this.getMaxItemUseDuration(itemStackIn) - timeLeft;
+
+        // Convert charge ticks to a generic float scaling between 0.0F and 1.0F (Fully charged at 1 second / 20 ticks)
+        float throwPower = (float)chargeDuration / 20.0F;
+        throwPower = (throwPower * throwPower + throwPower * 2.0F) / 3.0F;
+
+        // Don't throw if they barely clicked
+        if ((double)throwPower < 0.1D)
+        {
+            return;
+        }
+        if (throwPower > 1.0F)
+        {
+            throwPower = 1.0F;
+        }
+
+        worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
+        if (!worldIn.isRemote)
+        {
+            EntityPotion entityPotion = new EntityPotion(worldIn, playerIn, itemStackIn/*, throwPower*0.8F*/);
+            float baseVelocityMultiplier = 1.0f; // was 1.375f;
+
+            double dirX = -Math.sin(Math.toRadians(playerIn.rotationYaw)) * Math.cos(Math.toRadians(playerIn.rotationPitch));
+            double dirY = -Math.sin(Math.toRadians(playerIn.rotationPitch));
+            double dirZ = Math.cos(Math.toRadians(playerIn.rotationYaw)) * Math.cos(Math.toRadians(playerIn.rotationPitch));
+            entityPotion.setThrowableHeading(dirX,dirY,dirZ, throwPower*baseVelocityMultiplier, 1.0f);
+            worldIn.spawnEntityInWorld(entityPotion);
+        }
+        if (!playerIn.capabilities.isCreativeMode)
+        {
+            --itemStackIn.stackSize;
+        }
+
+        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
+    }
+
+
     /**
      * Called when the player finishes using this Item (E.g. finishes eating.). Not called when the player stops using
      * the Item before the action is complete.
@@ -104,12 +156,9 @@ public class ItemPotion extends Item
 
         if (!playerIn.capabilities.isCreativeMode)
         {
-            if (stack.stackSize <= 0)
-            {
+            if(stack.stackSize<=0) {
                 return new ItemStack(Items.glass_bottle);
-            }
-            else
-            {
+            } else {
                 playerIn.inventory.addItemStackToInventory(new ItemStack(Items.glass_bottle));
                 return stack;
             }
@@ -123,6 +172,10 @@ public class ItemPotion extends Item
      */
     public int getMaxItemUseDuration(ItemStack stack)
     {
+        if (isSplash(stack.getMetadata()))
+        {
+            return 72000; // Bow/Grenade charge duration
+        }
         return 20;
     }
 
@@ -131,6 +184,10 @@ public class ItemPotion extends Item
      */
     public EnumAction getItemUseAction(ItemStack stack)
     {
+        if (isSplash(stack.getMetadata()))
+        {
+            return EnumAction.BOW;
+        }
         return EnumAction.DRINK;
     }
 
@@ -139,28 +196,8 @@ public class ItemPotion extends Item
      */
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
-        if (isSplash(itemStackIn.getMetadata()))
-        {
-            if (!playerIn.capabilities.isCreativeMode)
-            {
-                --itemStackIn.stackSize;
-            }
-
-            worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-
-            if (!worldIn.isRemote)
-            {
-                worldIn.spawnEntityInWorld(new EntityPotion(worldIn, playerIn, itemStackIn));
-            }
-
-            playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-            return itemStackIn;
-        }
-        else
-        {
-            playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
-            return itemStackIn;
-        }
+        playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+        return itemStackIn;
     }
 
     /**
@@ -169,6 +206,38 @@ public class ItemPotion extends Item
     public static boolean isSplash(int meta)
     {
         return (meta & 16384) != 0;
+    }
+
+    public int getColorFromDamage(int meta)
+    {
+        return PotionHelper.getLiquidColor(meta, false);
+    }
+
+    public int getColorFromItemStack(ItemStack stack, int renderPass)
+    {
+        return renderPass > 0 ? 16777215 : this.getColorFromDamage(stack.getMetadata());
+    }
+
+    public boolean isEffectInstant(int meta)
+    {
+        List<PotionEffect> list = this.getEffects(meta);
+
+        if (list != null && !list.isEmpty())
+        {
+            for (PotionEffect potioneffect : list)
+            {
+                if (Potion.potionTypes[potioneffect.getPotionID()].isInstant())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public String getItemStackDisplayName(ItemStack stack)
@@ -199,6 +268,160 @@ public class ItemPotion extends Item
                 String s1 = PotionHelper.getPotionPrefix(stack.getMetadata());
                 return StatCollector.translateToLocal(s1).trim() + " " + super.getItemStackDisplayName(stack);
             }
+        }
+    }
+
+    /**
+     * allows items to add custom lines of information to the mouseover description
+     */
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+    {
+        if (stack.getMetadata() != 0)
+        {
+            List<PotionEffect> list = Items.potionitem.getEffects(stack);
+            Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
+
+            if (list != null && !list.isEmpty())
+            {
+                for (PotionEffect potioneffect : list)
+                {
+                    String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
+                    Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
+                    Map<IAttribute, AttributeModifier> map = potion.getAttributeModifierMap();
+
+                    if (map != null && map.size() > 0)
+                    {
+                        for (Entry<IAttribute, AttributeModifier> entry : map.entrySet())
+                        {
+                            AttributeModifier attributemodifier = (AttributeModifier)entry.getValue();
+                            AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.getAttributeModifierAmount(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
+                            multimap.put(((IAttribute)entry.getKey()).getAttributeUnlocalizedName(), attributemodifier1);
+                        }
+                    }
+
+                    if (potioneffect.getAmplifier() > 0)
+                    {
+                        s1 = s1 + " " + StatCollector.translateToLocal("potion.potency." + potioneffect.getAmplifier()).trim();
+                    }
+
+                    if (potioneffect.getDuration() > 20)
+                    {
+                        s1 = s1 + " (" + Potion.getDurationString(potioneffect) + ")";
+                    }
+
+                    if (potion.isBadEffect())
+                    {
+                        tooltip.add(EnumChatFormatting.RED + s1);
+                    }
+                    else
+                    {
+                        tooltip.add(EnumChatFormatting.GRAY + s1);
+                    }
+                }
+            }
+            else
+            {
+                String s = StatCollector.translateToLocal("potion.empty").trim();
+                tooltip.add(EnumChatFormatting.GRAY + s);
+            }
+
+            if (!multimap.isEmpty())
+            {
+                tooltip.add("");
+                tooltip.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
+
+                for (Entry<String, AttributeModifier> entry1 : multimap.entries())
+                {
+                    AttributeModifier attributemodifier2 = (AttributeModifier)entry1.getValue();
+                    double d0 = attributemodifier2.getAmount();
+                    double d1;
+
+                    if (attributemodifier2.getOperation() != 1 && attributemodifier2.getOperation() != 2)
+                    {
+                        d1 = attributemodifier2.getAmount();
+                    }
+                    else
+                    {
+                        d1 = attributemodifier2.getAmount() * 100.0D;
+                    }
+
+                    if (d0 > 0.0D)
+                    {
+                        tooltip.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[] {ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + (String)entry1.getKey())}));
+                    }
+                    else if (d0 < 0.0D)
+                    {
+                        d1 = d1 * -1.0D;
+                        tooltip.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[] {ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + (String)entry1.getKey())}));
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean hasEffect(ItemStack stack)
+    {
+        List<PotionEffect> list = this.getEffects(stack);
+        return list != null && !list.isEmpty();
+    }
+
+    /**
+     * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
+     */
+    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
+    {
+        super.getSubItems(itemIn, tab, subItems);
+
+        if (SUB_ITEMS_CACHE.isEmpty())
+        {
+            for (int i = 0; i <= 15; ++i)
+            {
+                for (int j = 0; j <= 1; ++j)
+                {
+                    int lvt_6_1_;
+
+                    if (j == 0)
+                    {
+                        lvt_6_1_ = i | 8192;
+                    }
+                    else
+                    {
+                        lvt_6_1_ = i | 16384;
+                    }
+
+                    for (int l = 0; l <= 2; ++l)
+                    {
+                        int i1 = lvt_6_1_;
+
+                        if (l != 0)
+                        {
+                            if (l == 1)
+                            {
+                                i1 = lvt_6_1_ | 32;
+                            }
+                            else if (l == 2)
+                            {
+                                i1 = lvt_6_1_ | 64;
+                            }
+                        }
+
+                        List<PotionEffect> list = PotionHelper.getPotionEffects(i1, false);
+
+                        if (list != null && !list.isEmpty())
+                        {
+                            SUB_ITEMS_CACHE.put(list, Integer.valueOf(i1));
+                        }
+                    }
+                }
+            }
+        }
+
+        Iterator iterator = SUB_ITEMS_CACHE.values().iterator();
+
+        while (iterator.hasNext())
+        {
+            int j1 = ((Integer)iterator.next()).intValue();
+            subItems.add(new ItemStack(itemIn, 1, j1));
         }
     }
 }

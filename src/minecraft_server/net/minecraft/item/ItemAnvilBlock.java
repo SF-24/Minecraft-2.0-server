@@ -6,7 +6,22 @@ public class ItemAnvilBlock extends ItemMultiTexture
 {
     public ItemAnvilBlock(Block block)
     {
-        super(block, block, new String[] {"intact", "slightlyDamaged", "veryDamaged"});
+        super(block, block, new String[] {
+                "intact",           // 0
+                "unused",           // 1
+                "slightlyDamaged",  // 2
+                "unused",           // 3
+                "veryDamaged",      // 4
+                "unused",           // 5
+                "unused",           // 6
+                "unused",           // 7
+                "diamond_intact",   // 8
+                "unused",           // 9
+                "diamond_slightlyDamaged", // 10
+                "unused",           // 11
+                "diamond_veryDamaged"      // 12
+        });
+//        super(block, block, new String[] {"intact", "slightlyDamaged", "veryDamaged"});
     }
 
     /**
@@ -15,6 +30,10 @@ public class ItemAnvilBlock extends ItemMultiTexture
      */
     public int getMetadata(int damage)
     {
-        return damage << 2;
+        return damage;
     }
+//    public int getMetadata(int damage)
+//    {
+//        return damage << 2;
+//    }
 }

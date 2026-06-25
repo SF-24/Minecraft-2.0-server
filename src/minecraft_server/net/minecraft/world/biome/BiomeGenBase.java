@@ -161,7 +161,7 @@ public abstract class BiomeGenBase
     .setHeight(height_ArchipelagoHills)
     .setOcean().setClimateZone(ClimateZone.TROPICAL_OCEAN);
 
-    public static final BiomeGenBase frozenMesa = (new BiomeGenMesaSnow(50, false, false)).setColor(747097).setBiomeName("Frozen Hills").setHeight(height_MesaSnow).setEnableSnow();
+    public static final BiomeGenBase frozenMesa = (new BiomeGenMesaSnow(53, false, false)).setColor(747097).setBiomeName("Frozen Hills").setHeight(height_MesaSnow).setEnableSnow();
 
     public static final BiomeGenBase alpha = new BiomeGenAlpha(99)
     .setBiomeName("Neon Plains")
