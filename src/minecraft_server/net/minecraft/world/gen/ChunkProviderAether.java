@@ -26,6 +26,8 @@ public class ChunkProviderAether implements IChunkProvider
     private NoiseGeneratorOctaves noiseGen3;
     public NoiseGeneratorOctaves noiseGen4;
     public NoiseGeneratorOctaves noiseGen5;
+    public NoiseGeneratorSimplex cloudNoiseGen;
+    public NoiseGeneratorSimplex cloudNoiseGen2;
     private World aetherWorld;
     private double[] densities;
 
@@ -46,15 +48,18 @@ public class ChunkProviderAether implements IChunkProvider
         this.noiseGen3 = new NoiseGeneratorOctaves(this.aetherRNG, 8);
         this.noiseGen4 = new NoiseGeneratorOctaves(this.aetherRNG, 10);
         this.noiseGen5 = new NoiseGeneratorOctaves(this.aetherRNG, 16);
+        Random cloudRand = new Random(seed + 676767);
+        this.cloudNoiseGen = new NoiseGeneratorSimplex(cloudRand);
+        this.cloudNoiseGen2 = new NoiseGeneratorSimplex(this.aetherRNG);
     }
 
-    public void func_180520_a(int p_180520_1_, int p_180520_2_, ChunkPrimer p_180520_3_)
+    public void func_180520_a(int chunkX, int chunkZ, ChunkPrimer primer)
     {
         int i = 2;
         int j = i + 1;
         int k = 33;
         int l = i + 1;
-        this.densities = this.initializeNoiseField(this.densities, p_180520_1_ * i, 0, p_180520_2_ * i, j, k, l);
+        this.densities = this.initializeNoiseField(this.densities, chunkX * i, 0, chunkZ * i, j, k, l);
 
         for (int i1 = 0; i1 < i; ++i1)
         {
@@ -98,7 +103,7 @@ public class ChunkProviderAether implements IChunkProvider
                                 int k2 = i2 + i1 * 8;
                                 int l2 = l1 + k1 * 4;
                                 int i3 = j2 + j1 * 8;
-                                p_180520_3_.setBlockState(k2, l2, i3, iblockstate);
+                                primer.setBlockState(k2, l2, i3, iblockstate);
                                 d15 += d16;
                             }
 
@@ -114,6 +119,7 @@ public class ChunkProviderAether implements IChunkProvider
                 }
             }
         }
+        genClouds(primer,chunkX,chunkZ);
     }
 
     public void func_180519_a(ChunkPrimer p_180519_1_)
@@ -301,8 +307,8 @@ public class ChunkProviderAether implements IChunkProvider
         int l = z * 16;
 
         BlockPos blockpos = new BlockPos(x * 16, 0, z * 16);
-        this.aetherWorld.getBiomeGenForCoords(blockpos.add(16, 0, 16)).decorate(this.aetherWorld, this.aetherWorld.rand, blockpos);
         BlockFalling.fallInstantly = false;
+
         // dungeons
         for (int j2 = 0; j2 < 80 /*dungeon chance*/; ++j2)
         {
@@ -311,6 +317,9 @@ public class ChunkProviderAether implements IChunkProvider
             int l1 = this.aetherRNG.nextInt(16) + 8;
             (new WorldGenAetherDungeons()).generate(this.aetherWorld, this.aetherRNG, new BlockPos(k+i3, l3, l+l1));
         }
+
+        this.aetherWorld.getBiomeGenForCoords(blockpos.add(16, 0, 16)).decorate(this.aetherWorld, this.aetherWorld.rand, blockpos);
+
     }
 
     public boolean populateChunk(IChunkProvider chunkProvider, Chunk chunkIn, int x, int z)
@@ -381,5 +390,43 @@ public class ChunkProviderAether implements IChunkProvider
     public Chunk provideChunk(BlockPos blockPosIn)
     {
         return this.provideChunk(blockPosIn.getX() >> 4, blockPosIn.getZ() >> 4);
+    }
+
+    public double getCloudNoise(int x, int z) {
+//        double scale = 0.0625; tiny clouds
+        double scale = 0.00825;
+
+        double simplexNoise = cloudNoiseGen.getValue(x * scale, z * scale);
+        double simplexNoise2 = cloudNoiseGen2.getValue(x * scale, z * scale);
+
+        return 0.45 * simplexNoise2 + simplexNoise * 0.75;
+    }
+
+    public void genClouds(ChunkPrimer primer, int chunkX, int chunkZ)
+    {
+        int baseX = chunkX << 4;
+        int baseZ = chunkZ << 4;
+
+        int cloudY = 25;
+
+        for (int dx = 0; dx < 16; dx++)
+        {
+            for (int dz = 0; dz < 16; dz++)
+            {
+                int wx = baseX + dx;
+                int wz = baseZ + dz;
+
+                double noise = getCloudNoise(wx, wz);
+
+                if (noise > 0.25f)
+                {
+                    primer.setBlockFromId(dx,cloudY-1,dz, (short) 560);
+                }
+                if (noise > 0.55f)
+                {
+                    primer.setBlockFromId(dx,cloudY,dz, (short) 560);
+                }
+            }
+        }
     }
 }

@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.gen.feature.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -25,6 +24,8 @@ public class BiomeGenAether extends BiomeGenBase
 
     public BiomeGenAether(int id) {
         super(id);
+        this.enableRain=false;
+        this.enableSnow=false;
         this.hasBeach=false;
         this.spawnableMonsterList.clear();
         this.spawnableCreatureList.clear();
@@ -64,18 +65,18 @@ public class BiomeGenAether extends BiomeGenBase
 
 
     public void genWells(World worldIn, Random rand, BlockPos pos) {
-        if (rand.nextInt(100/*was 10*/) == 0) {
+        if (rand.nextInt(175 /*was 100; was 10*/) == 0) {
             int i = rand.nextInt(16) + 8;
             int j = rand.nextInt(16) + 8;
             BlockPos blockpos = worldIn.getHeight(pos.add(i, 0, j)).up();
 
             final List<WeightedRandomChestContent> chestContents = Lists.newArrayList(
-                    new WeightedRandomChestContent(Items.glowing_bread, 0, 1, 1, 2),
+//                    new WeightedRandomChestContent(Items.glowing_bread, 0, 1, 1, 2),
                     new WeightedRandomChestContent(Items.glowstone_dust, 0, 1, 6, 30),
                     new WeightedRandomChestContent(Items.slime_ball, 0, 1, 2, 5),
 //                    new WeightedRandomChestContent(Items.ruby, 0, 1, 1, 2),
                     new WeightedRandomChestContent(Items.apple, 0, 1, 2, 10),
-                    new WeightedRandomChestContent(Items.golden_apple, 0, 1, 1, 2),
+                    new WeightedRandomChestContent(Items.golden_apple, 0, 1, 1, 1),
                     new WeightedRandomChestContent(Items.record_magnetic_circuit, 0, 1, 1, 1),
                     new WeightedRandomChestContent(Items.bread, 0, 1, 2, 5),
                     new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 2, 5),
