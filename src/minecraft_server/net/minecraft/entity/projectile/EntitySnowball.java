@@ -10,7 +10,6 @@ import net.minecraft.entity.player.CapabilityWindChargeFall;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,14 @@ public class EntitySnowball extends EntityThrowable
         super(worldIn, throwerIn);
         setProjectileType(type);
     }
+
+    public EntitySnowball(World worldIn, EntityLivingBase throwerIn, int type, EntityLivingBase knockbackImmune)
+    {
+        super(worldIn, throwerIn);
+        setProjectileType(type);
+        this.knockbackImmune=knockbackImmune;
+    }
+
 
     public EntitySnowball(World worldIn, double x, double y, double z, int type)
     {
@@ -78,7 +85,7 @@ public class EntitySnowball extends EntityThrowable
                     }
                 }
 
-                preformKnockbackEffects(0.0);
+                performKnockbackEffects(0.0);
                 checkBlockInteraction(this.getPosition());
 
                 //Spawn the burst
@@ -90,8 +97,6 @@ public class EntitySnowball extends EntityThrowable
                     double y = this.posY + (worldObj.rand.nextFloat() * range - worldObj.rand.nextFloat() * range)/2;
                     double z = this.posZ + worldObj.rand.nextFloat() * range - worldObj.rand.nextFloat() * range;
 
-//                    DeeperDepths.proxy.spawnParticle(6, this.worldObj, x, y, z, 0, 0, 0);
-                    // Bug here:
                     (this.worldObj).spawnParticle(type, x, y, z, 0, 0, 0, 1);
                     // Speed 0, number = 1
                 }
@@ -131,17 +136,17 @@ public class EntitySnowball extends EntityThrowable
      *
      * resistModifier is how much Knockback Resistance is applied.
      * */
-    public void preformKnockbackEffects(double resistModifier)
+    public void performKnockbackEffects(double resistModifier)
     {
         double scale = BURST_RADIUS;
         double knockbackStrength = BURST_POWER + 0.1;
-        float k = MathHelper.floor_double(this.posX - (double) scale - 1.0);
-        float l = MathHelper.floor_double(this.posX + (double) scale + 1.0);
+        double k = MathHelper.floor_double(this.posX - (double) scale - 1.0);
+        double l = MathHelper.floor_double(this.posX + (double) scale + 1.0);
         double i2 = MathHelper.floor_double(this.posY - (double) scale - 1.0);
         double i1 = MathHelper.floor_double(this.posY + (double) scale + 1.0);
         double j2 = MathHelper.floor_double(this.posZ - (double) scale - 1.0);
         double j1 = MathHelper.floor_double(this.posZ + (double) scale + 1.0);
-        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB((double) k, i2, j2, (double) l, i1, j1));
+        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(k, i2, j2, l, i1, j1));
         Vec3 vec3d = new Vec3(this.posX, this.posY, this.posZ);
 
         for (Entity entity : list)
@@ -161,18 +166,22 @@ public class EntitySnowball extends EntityThrowable
                     double dx = entity.posX - this.posX;
                     double dy = entity.posY + (double) entity.getEyeHeight() - this.posY;
                     double dz = entity.posZ - this.posZ;
-                    double distance = (double) MathHelper.sqrt_double(dx * dx + dy * dy + dz * dz);
+                    double horizontalDistance = MathHelper.sqrt_double(dx * dx + dz * dz);
+
+                    double distance = MathHelper.sqrt_double(dx * dx + dy * dy + dz * dz);
                     if (distance != 0.0)
                     {
                         dx /= distance;
                         dy /= distance;
                         dz /= distance;
-                        double blockStoppage = (double) this.checkBlockBlocking(vec3d, entity.getEntityBoundingBox());
+                        double blockStoppage = this.checkBlockBlocking(vec3d, entity.getEntityBoundingBox());
                         double kmult = (knockbackStrength - d12) * blockStoppage;
 
-                        entity.motionX += (dx * kmult) * knockbackResist;
-                        entity.motionY += (dy * kmult) * knockbackResist;
-                        entity.motionZ += (dz * kmult) * knockbackResist;
+                        if(horizontalDistance>0.25) {
+                            entity.motionX += (dx * kmult) * knockbackResist;
+                            entity.motionZ += (dz * kmult) * knockbackResist;
+                        }
+                        entity.motionY += (dy * kmult) * knockbackResist; // Replace dy with 0.4
                         entity.velocityChanged = true;
 
 
