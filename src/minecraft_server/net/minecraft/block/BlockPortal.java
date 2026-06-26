@@ -45,7 +45,7 @@ public class BlockPortal extends BlockBreakable
 
             if (i > 0 && !worldIn.getBlockState(blockpos.up()).getBlock().isNormalCube())
             {
-                Entity entity = ItemMonsterPlacer.spawnCreature(worldIn, 57, (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 1.1D, (double)blockpos.getZ() + 0.5D);
+                Entity entity = ItemMonsterPlacer.spawnCreature(worldIn, null, 57, (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 1.1D, (double)blockpos.getZ() + 0.5D);
 
                 if (entity != null)
                 {

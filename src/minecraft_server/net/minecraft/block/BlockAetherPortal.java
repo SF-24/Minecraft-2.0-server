@@ -48,7 +48,7 @@ public class BlockAetherPortal extends BlockBreakable
             if (i > 0 && !worldIn.getBlockState(blockpos.up()).getBlock().isNormalCube())
             {
                 // Spawn mobs around portal
-                Entity entity = ItemMonsterPlacer.spawnCreature(worldIn, 55, (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 1.1D, (double)blockpos.getZ() + 0.5D);
+                Entity entity = ItemMonsterPlacer.spawnCreature(worldIn, null, 55, (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 1.1D, (double)blockpos.getZ() + 0.5D);
 
                 if (entity != null)
                 {

@@ -219,6 +219,12 @@ public class EntityList
         return integer == null ? 0 : integer.intValue();
     }
 
+    public static int getEntityID(Class<?> entityIn)
+    {
+        Integer integer = (Integer)classToIDMapping.get(entityIn);
+        return integer == null ? 0 : integer.intValue();
+    }
+
     public static Class <? extends Entity > getClassFromID(int entityID)
     {
         return (Class)idToClassMapping.get(Integer.valueOf(entityID));
@@ -230,6 +236,14 @@ public class EntityList
     public static String getEntityString(Entity entityIn)
     {
         return (String)classToStringMapping.get(entityIn.getClass());
+    }
+
+    /**
+     * Gets the string representation of a specific entity.
+     */
+    public static String getEntityString(Class<?> entityIn)
+    {
+        return (String)classToStringMapping.get(entityIn);
     }
 
     /**

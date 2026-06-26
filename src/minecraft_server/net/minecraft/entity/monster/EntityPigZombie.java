@@ -1,11 +1,7 @@
 package net.minecraft.entity.monster;
 
-import java.util.UUID;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -14,10 +10,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+
+import java.util.UUID;
 
 public class EntityPigZombie extends EntityZombie
 {
@@ -58,7 +58,11 @@ public class EntityPigZombie extends EntityZombie
         super.applyEntityAttributes();
         this.getEntityAttribute(reinforcementChance).setBaseValue(0.0D);
         this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.23000000417232513D);
-        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(5.0D);
+        if(getPigmanType()==1) {
+            this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(6.0D);
+        } else {
+            this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(5.0D);
+        }
     }
 
     /**
@@ -135,6 +139,8 @@ public class EntityPigZombie extends EntityZombie
         {
             tagCompound.setString("HurtBy", "");
         }
+        tagCompound.setByte("PigmanType", (byte) this.getPigmanType());
+
     }
 
     /**
@@ -158,6 +164,11 @@ public class EntityPigZombie extends EntityZombie
                 this.recentlyHit = this.getRevengeTimer();
             }
         }
+        if (tagCompund.hasKey("PigmanType", 99)) {
+            int i = tagCompund.getByte("PigmanType");
+            this.setPigmanType(i);
+        }
+
     }
 
     /**
@@ -227,17 +238,21 @@ public class EntityPigZombie extends EntityZombie
 
     /**
      * Drop 0-2 items of this living's type
+     *
+     * @param wasRecentlyHit true if this this entity was recently hit by appropriate entity (generally only if player
+     * or tameable)
+     * @param lootingModifier level of enchanment to be applied to this drop
      */
-    protected void dropFewItems(boolean p_70628_1_, int p_70628_2_)
+    protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier)
     {
-        int i = this.rand.nextInt(2 + p_70628_2_);
+        int i = this.rand.nextInt(2 + lootingModifier);
 
         for (int j = 0; j < i; ++j)
         {
             this.dropItem(Items.rotten_flesh, 1);
         }
 
-        i = this.rand.nextInt(2 + p_70628_2_);
+        i = this.rand.nextInt(2 + lootingModifier);
 
         for (int k = 0; k < i; ++k)
         {
@@ -266,7 +281,12 @@ public class EntityPigZombie extends EntityZombie
      */
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
-        this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
+        if(getPigmanType()==1) {
+            this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_axe));
+            this.setCurrentItemOrArmor(3, new ItemStack(Items.golden_chestplate));
+        } else {
+            this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
+        }
     }
 
     /**
@@ -276,7 +296,14 @@ public class EntityPigZombie extends EntityZombie
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
     {
         super.onInitialSpawn(difficulty, livingdata);
+        this.setPigmanType(this.getPigmanType());
         this.setVillager(false);
+
+        if(getPigmanType()==1) {
+            this.setMaxHealth(30);
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).applyModifier(new AttributeModifier("BruteHealth", 10.0, 0));
+            this.setChild(false);
+        }
         return livingdata;
     }
 
@@ -308,6 +335,32 @@ public class EntityPigZombie extends EntityZombie
         public boolean shouldExecute()
         {
             return ((EntityPigZombie)this.taskOwner).isAngry() && super.shouldExecute();
+        }
+    }
+
+    /**
+     * Return this skeleton's type.
+     */
+    public int getPigmanType() {
+        return this.dataWatcher.getWatchableObjectByte(13);
+    }
+
+    /**
+     * Set this skeleton's type.
+     */
+    public void setPigmanType(int type) {
+        this.dataWatcher.updateObject(13, (byte) type);
+
+        if(type==1) {
+            // Pigman Brute
+            this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_axe));
+            this.setCurrentItemOrArmor(3, new ItemStack(Items.golden_chestplate));
+            this.tasks.addTask(2, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.0D, false));
+            this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {EntityPigZombie.class}));
+            this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+            this.setChild(false);
+            // Give 12 extra health.
+            this.addPotionEffect(new PotionEffect(Potion.absorption.getId(), Integer.MAX_VALUE, 2, false, false));
         }
     }
 }
