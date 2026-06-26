@@ -86,7 +86,14 @@ public class Bootstrap
         {
             protected IProjectile getProjectileEntity(World worldIn, IPosition position)
             {
-                return new EntitySnowball(worldIn, position.getX(), position.getY(), position.getZ());
+                return new EntitySnowball(worldIn, position.getX(), position.getY(), position.getZ(), 0);
+            }
+        });
+        BlockDispenser.dispenseBehaviorRegistry.putObject(Items.wind_charge, new BehaviorProjectileDispense()
+        {
+            protected IProjectile getProjectileEntity(World worldIn, IPosition position)
+            {
+                return new EntitySnowball(worldIn, position.getX(), position.getY(), position.getZ(), 1);
             }
         });
         BlockDispenser.dispenseBehaviorRegistry.putObject(Items.experience_bottle, new BehaviorProjectileDispense()

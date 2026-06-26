@@ -8,10 +8,13 @@ import net.minecraft.world.World;
 
 public class ItemFood extends Item
 {
+
     /** Number of ticks to run while 'EnumAction'ing until result. */
     public int itemUseDuration;
 
-    // food type
+    /** Number of minutes the food lasts in valheim mode */
+    public int itemFoodLast;
+
     public EnumFoodType foodType;
 
     /** The amount this food item heals the player. */
@@ -24,8 +27,10 @@ public class ItemFood extends Item
     /**
      * If this field is true, the food can be consumed even if the player don't need to eat.
      */
-    private boolean alwaysEdible;
-    private boolean alwaysEdibleBase = false;
+    protected boolean alwaysEdible;
+    protected boolean alwaysEdibleBase = false;
+
+
 
     /**
      * represents the potion effect that will occurr upon eating this food. Set by setPotionEffect
@@ -41,18 +46,22 @@ public class ItemFood extends Item
     /** probably of the set potion effect occurring */
     private float potionEffectProbability;
 
-    public ItemFood(int amount, float saturation, boolean isWolfFood)
+    public ItemFood(int amount, float saturation, boolean isWolfFood, EnumFoodType foodType)
     {
         this.itemUseDuration = 32;
+        this.foodType=foodType;
         this.healAmount = amount;
         this.isWolfsFavoriteMeat = isWolfFood;
         this.saturationModifier = saturation;
         this.setCreativeTab(CreativeTabs.tabFood);
         this.maxStackSize = 64;
     }
+
+
+
     public ItemFood(int amount, boolean isWolfFood, EnumFoodType foodType)
     {
-        this(amount, 0.6F, isWolfFood);
+        this(amount, 0.6F, isWolfFood, foodType);
     }
 
     /**
@@ -62,32 +71,21 @@ public class ItemFood extends Item
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn)
     {
         --stack.stackSize;
+
         // custom code
         // ADDED CLASSIC MODE SETTING
-        EnumTweakMode mode = worldIn.getGameRules().getEnumTweakMode("currentMode");
+        // AND VIKING MODE SETTING
 
-        if (mode.equals(EnumTweakMode.DEFAULT) || mode.equals(EnumTweakMode.MODERN))
-        {
+        EnumTweakMode mode = worldIn.getGameRules().getEnumTweakMode("currentMode");
+        if (mode.equals(EnumTweakMode.DEFAULT) || mode.equals(EnumTweakMode.MODERN)) {
             playerIn.getFoodStats().addStats(this, stack);
             worldIn.playSoundAtEntity(playerIn, "random.burp", 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-        }
-        else if (mode.equals(EnumTweakMode.CLASSIC_MODE))
-        {
-            int healLeftOver = (int)(playerIn.getHealth() + this.getHealAmount(stack) - playerIn.getMaxHealth());
-
-            if (healLeftOver < 0)
-            {
-                healLeftOver = 0;
-            }
-
-            playerIn.heal(this.getHealAmount(stack) - healLeftOver);
+        } else if (mode.equals(EnumTweakMode.CLASSIC_MODE)){
+            int healLeftOver = (int) (playerIn.getHealth() + this.getHealAmount(stack) - playerIn.getMaxHealth());
+            if(healLeftOver<0) healLeftOver=0;
+            playerIn.heal(this.getHealAmount(stack)-healLeftOver);
             playerIn.getFoodStats().addStats(healLeftOver, this.getSaturationModifier(stack));
         }
-
-        /*        else if (mode.equals(EnumTweakMode.VIKING_MODE))
-                {
-                }
-        */
         this.onFoodEaten(stack, worldIn, playerIn);
         playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
         return stack;
@@ -106,7 +104,7 @@ public class ItemFood extends Item
      */
     public int getMaxItemUseDuration(ItemStack stack)
     {
-        return 32;
+        return itemUseDuration;
     }
 
     /**
@@ -122,7 +120,8 @@ public class ItemFood extends Item
      */
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
-        if (playerIn.canEat(this.alwaysEdible))
+        EnumTweakMode mode = worldIn.getGameRules().getEnumTweakMode("currentMode");
+        if (playerIn.canEat(this.alwaysEdible) || playerIn.getFoodStats().canEatItem((ItemFood) itemStackIn.getItem()))
         {
             playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
         }
@@ -172,56 +171,36 @@ public class ItemFood extends Item
 
     public ItemFood setAlwaysEdible(boolean value)
     {
-        if (value)
-        {
-            alwaysEdible = true;
-        }
-        else
-        {
-            alwaysEdible = alwaysEdibleBase;
-        }
-
+        if(this.alwaysEdibleBase) { return this; }
+        //alwaysEdible=false;
         return this;
     }
 
-    protected void setFoodStackCount(int value, EnumFoodStackType foodStackType)
-    {
-        System.out.println(this + " | " + value + " | " + foodStackType);
-
-        if (!foodStackType.equals(EnumFoodStackType.NORMAL))
-        {
-            if (foodStackType.getItemList().contains(this))
-            {
+    protected void setFoodStackCount(int value, EnumFoodStackType foodStackType) {
+        //System.out.println(this + " | " + value + " | " + foodStackType);
+        if(!foodStackType.equals(EnumFoodStackType.NORMAL)) {
+            if(foodStackType.getItemList().contains(this)) {
+                this.setMaxStackSize(value);
+            }
+        } else {
+            if(!EnumFoodStackType.SOUP.getItemList().contains(this) && !EnumFoodStackType.LARGE.getItemList().contains(this) && !EnumFoodStackType.HEALING.getItemList().contains(this)) {
                 this.setMaxStackSize(value);
             }
         }
-        else
-        {
-            if (!EnumFoodStackType.SOUP.getItemList().contains(this) && !EnumFoodStackType.LARGE.getItemList().contains(this))
-            {
-                this.setMaxStackSize(value);
-            }
+
+    }
+
+    protected void setTweakMode(EnumTweakMode tweakMode) {
+        if(tweakMode.equals(EnumTweakMode.DEFAULT) || tweakMode.equals(EnumTweakMode.MODERN)) {
+            //  this.setAlwaysEdible(false);
+            this.itemUseDuration=32;
+        }
+        else if(tweakMode.equals(EnumTweakMode.CLASSIC_MODE)) {
+            this.itemUseDuration=48;
+            //   this.setAlwaysEdible(true);
         }
     }
 
-    protected void setTweakMode(EnumTweakMode tweakMode)
-    {
-        if (tweakMode.equals(EnumTweakMode.DEFAULT))
-        {
-            this.itemUseDuration = 32;
-            this.setAlwaysEdible(false);
-        }
+    public EnumFoodType getFoodType() { return foodType; }
 
-        if (tweakMode.equals(EnumTweakMode.CLASSIC_MODE))
-        {
-            this.itemUseDuration = 48;
-            this.setAlwaysEdible(true);
-        }
-
-        /*if (tweakMode.equals(EnumTweakMode.VIKING_MODE))
-        {
-            this.itemUseDuration = 48;
-            this.setAlwaysEdible(false);
-        }*/
-    }
 }

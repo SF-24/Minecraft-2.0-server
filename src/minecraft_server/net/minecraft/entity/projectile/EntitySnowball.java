@@ -1,25 +1,40 @@
 package net.minecraft.entity.projectile;
 
+import net.minecraft.block.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.monster.EntityBlaze;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.entity.player.CapabilityWindChargeFall;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EntitySnowball extends EntityThrowable
 {
+    static final double BURST_POWER = 1.0D;
+    static final double BURST_RADIUS = 2.5D;
+    static final boolean PLAYER_FALL_REDUCTION = true;
+
+    protected EntityLivingBase knockbackImmune;
+
     public EntitySnowball(World worldIn)
     {
         super(worldIn);
     }
 
-    public EntitySnowball(World worldIn, EntityLivingBase throwerIn)
+    public EntitySnowball(World worldIn, EntityLivingBase throwerIn, int type)
     {
         super(worldIn, throwerIn);
+        setProjectileType(type);
     }
 
-    public EntitySnowball(World worldIn, double x, double y, double z)
+    public EntitySnowball(World worldIn, double x, double y, double z, int type)
     {
         super(worldIn, x, y, z);
     }
@@ -27,28 +42,248 @@ public class EntitySnowball extends EntityThrowable
     /**
      * Called when this EntityThrowable hits a block or entity.
      */
-    protected void onImpact(MovingObjectPosition p_70184_1_)
+    protected void onImpact(MovingObjectPosition result)
     {
-        if (p_70184_1_.entityHit != null)
-        {
-            int i = 0;
+        switch (getProjectileType()) {
+            case 0:
+                if (result.entityHit != null)
+                {
+                    int i = 0;
 
-            if (p_70184_1_.entityHit instanceof EntityBlaze)
-            {
-                i = 3;
-            }
+                    if (result.entityHit instanceof EntityBlaze)
+                    {
+                        i = 3;
+                    }
 
-            p_70184_1_.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float)i);
-        }
+                    result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float)i);
+                }
 
-        for (int j = 0; j < 8; ++j)
-        {
-            this.worldObj.spawnParticle(EnumParticleTypes.SNOWBALL, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+                for (int j = 0; j < 8; ++j)
+                {
+                    this.worldObj.spawnParticle(EnumParticleTypes.SNOWBALL, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+                }
+                break;
+            case 1:
+                // TODO:
+                if(!this.worldObj.isRemote) {
+                    if (result.entityHit != null && !(result.entityHit instanceof EntityEnderCrystal) && !(result.entityHit == this.getThrower())) {
+                        // Do 1 damage.
+                        result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float)1);
+                        /*Bedrock specific behaviour */
+                        if(this.isBurning()) result.entityHit.setFire(5);
+                        worldObj.playSound(result.entityHit.getPosition().getX(), result.entityHit.getPosition().getY(), result.entityHit.getPosition().getZ(), "random.explode",0.5F, 0.5F, false);
+
+                    } else if(result.entityHit==null) {
+                        worldObj.playSound(result.getBlockPos().getX(), result.getBlockPos().getY(), result.getBlockPos().getZ(), "random.explode",0.5F, 0.5F, false);
+                    }
+                }
+
+                preformKnockbackEffects(0.0);
+                checkBlockInteraction(this.getPosition());
+
+                //Spawn the burst
+                for (int i = 0; i < BURST_RADIUS * 1.5; i++)
+                {
+                    EnumParticleTypes type = i < BURST_RADIUS * 10 / 10 ? EnumParticleTypes.EXPLOSION_LARGE : EnumParticleTypes.CLOUD;
+                    float range = (float) (BURST_RADIUS/3);
+                    double x = this.posX + worldObj.rand.nextFloat() * range - worldObj.rand.nextFloat() * range;
+                    double y = this.posY + (worldObj.rand.nextFloat() * range - worldObj.rand.nextFloat() * range)/2;
+                    double z = this.posZ + worldObj.rand.nextFloat() * range - worldObj.rand.nextFloat() * range;
+
+//                    DeeperDepths.proxy.spawnParticle(6, this.worldObj, x, y, z, 0, 0, 0);
+                    // Bug here:
+                    (this.worldObj).spawnParticle(type, x, y, z, 0, 0, 0, 1);
+                    // Speed 0, number = 1
+                }
+
+                break;
         }
 
         if (!this.worldObj.isRemote)
         {
             this.setDead();
+        }
+    }
+
+    @Override
+    protected void entityInit() {
+        super.entityInit();
+        this.dataWatcher.addObject(13, new Byte((byte) 0));
+
+    }
+
+    // Projectile types:
+    /**
+     * Return this skeleton's type.
+     */
+    public int getProjectileType() {
+        return this.dataWatcher.getWatchableObjectByte(13);
+    }
+
+    public void setProjectileType(int type) {
+        this.dataWatcher.updateObject(13, (byte) type);
+    }
+
+    /**
+     * Wind charge functions:
+     * */
+    /** Mostly from Minecraft's Explosion Code, as Wind Charges use the same code, but altered a ton for customizability.
+     *
+     * resistModifier is how much Knockback Resistance is applied.
+     * */
+    public void preformKnockbackEffects(double resistModifier)
+    {
+        double scale = BURST_RADIUS;
+        double knockbackStrength = BURST_POWER + 0.1;
+        float k = MathHelper.floor_double(this.posX - (double) scale - 1.0);
+        float l = MathHelper.floor_double(this.posX + (double) scale + 1.0);
+        double i2 = MathHelper.floor_double(this.posY - (double) scale - 1.0);
+        double i1 = MathHelper.floor_double(this.posY + (double) scale + 1.0);
+        double j2 = MathHelper.floor_double(this.posZ - (double) scale - 1.0);
+        double j1 = MathHelper.floor_double(this.posZ + (double) scale + 1.0);
+        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB((double) k, i2, j2, (double) l, i1, j1));
+        Vec3 vec3d = new Vec3(this.posX, this.posY, this.posZ);
+
+        for (Entity entity : list)
+        {
+            /* Multiplied by the knockback to lower it, so low number means lower knockback! */
+            double knockbackResist = 1D;
+            if (entity instanceof EntityLivingBase) knockbackResist -= ((EntityLivingBase) entity).getEntityAttribute(SharedMonsterAttributes.knockbackResistance).getAttributeValue() * resistModifier;
+
+            if (!entity.isImmuneToExplosions() && entity != knockbackImmune)
+            {
+                double d12 = entity.getDistance(this.posX, this.posY, this.posZ) / (double) scale;
+                if (d12 <= 1.0)
+                {
+                    /* The distance to power calculation breaks down if the Wind Charge is spawned within an entity... so we do a little trick called lying >B) */
+                    if (d12 == 0) d12 = 1.85F;
+
+                    double dx = entity.posX - this.posX;
+                    double dy = entity.posY + (double) entity.getEyeHeight() - this.posY;
+                    double dz = entity.posZ - this.posZ;
+                    double distance = (double) MathHelper.sqrt_double(dx * dx + dy * dy + dz * dz);
+                    if (distance != 0.0)
+                    {
+                        dx /= distance;
+                        dy /= distance;
+                        dz /= distance;
+                        double blockStoppage = (double) this.checkBlockBlocking(vec3d, entity.getEntityBoundingBox());
+                        double kmult = (knockbackStrength - d12) * blockStoppage;
+
+                        entity.motionX += (dx * kmult) * knockbackResist;
+                        entity.motionY += (dy * kmult) * knockbackResist;
+                        entity.motionZ += (dz * kmult) * knockbackResist;
+                        entity.velocityChanged = true;
+
+
+                        if (entity instanceof EntityPlayer)
+                        {
+                            CapabilityWindChargeFall capWindCharge = ((EntityPlayer) entity).capabilities.capabilityWindChargeFall;
+
+                            if (PLAYER_FALL_REDUCTION)
+                            {
+                                capWindCharge.setUsedWindCharge(true);
+                                capWindCharge.setWindBurstHeight((int)this.posY);
+                                /** This is the Scheduled time, where the landing must occur BEFORE this, or it wil not be applied. */
+                                int getTime = (int) (entity.ticksExisted + Math.max(entity.motionY * 60, 30));
+                                capWindCharge.setWindBurstTime(getTime);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /** Mostly from getBlockDensity, but it properly ignores non-solid blocks. Checks how much of the entity is exposed to the explosion. */
+    private float checkBlockBlocking(Vec3 vec, AxisAlignedBB bb)
+    {
+        double dx = 1.0 / ((bb.maxX - bb.minX) * 2.0 + 1.0);
+        double dy = 1.0 / ((bb.maxY - bb.minY) * 2.0 + 1.0);
+        double dz = 1.0 / ((bb.maxZ - bb.minZ) * 2.0 + 1.0);
+        double d3 = (1.0 - Math.floor(1.0 / dx) * dx) / 2.0;
+        double d4 = (1.0 - Math.floor(1.0 / dz) * dz) / 2.0;
+        if (dx >= 0.0 && dy >= 0.0 && dz >= 0.0)
+        {
+            int j2 = 0;
+            int k2 = 0;
+            for(float fx = 0.0F; fx <= 1.0F; fx = (float)((double)fx + dx))
+            {
+                for(float fy = 0.0F; fy <= 1.0F; fy = (float)((double)fy + dy))
+                {
+                    for(float fz = 0.0F; fz <= 1.0F; fz = (float)((double)fz + dz))
+                    {
+                        double d5 = bb.minX + (bb.maxX - bb.minX) * (double)fx;
+                        double d6 = bb.minY + (bb.maxY - bb.minY) * (double)fy;
+                        double d7 = bb.minZ + (bb.maxZ - bb.minZ) * (double)fz;
+                        MovingObjectPosition result = this.worldObj.rayTraceBlocks(new Vec3(d5 + d3, d6, d7 + d4), vec, false, true, false);
+
+                        if (result == null)
+                        { ++j2; }
+                        ++k2;
+                    }
+                }
+            }
+            return (float)j2 / (float)k2;
+        } else
+        { return 0.0F; }
+    }
+
+    // Check surrounding blocks
+    /** Ray-trace checks surrounding blocks within range. */
+    private void checkBlockInteraction(BlockPos pos) {
+        double radius = BURST_RADIUS;
+        /* Uses a list, so the same block isn't interacted with multiple times. */
+        List<BlockPos> processedBlocks = new ArrayList<>();
+
+        for (double h1 = -radius; h1 <= radius; h1++) {
+            for (double i1 = -radius; i1 <= radius; i1++) {
+                for (double j1 = -radius; j1 <= radius; j1++) {
+                    BlockPos tPos = pos.add(h1, i1, j1);
+
+                    /* Curves the interaction radius. */
+                    if (pos.distanceSq(tPos) > radius * radius) {
+                        continue;
+                    }
+
+                    /* Toggles between Raytraced interaction, or just anything within this radius. Raytraced has lots of issues currently, likely remove later. */
+                    if (false) {
+                        MovingObjectPosition result = this.worldObj.rayTraceBlocks(new Vec3(pos.getX(), pos.getY(), pos.getZ()), new Vec3(tPos.getX(), tPos.getY(), tPos.getZ()));
+                        if (result != null && result.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+                            if (processedBlocks.contains(result.getBlockPos())) {
+                                continue;
+                            }
+                            activateBlocks(result.getBlockPos());
+                            processedBlocks.add(result.getBlockPos());
+                        }
+                    } else {
+                        if (processedBlocks.contains(tPos)) {
+                            continue;
+                        }
+                        activateBlocks(tPos);
+                        processedBlocks.add(tPos);
+                    }
+                }
+            }
+        }
+    }
+
+    /** Simply activates blocks. */
+    private void activateBlocks(BlockPos pos)
+    {
+        Block block = this.worldObj.getBlockState(pos).getBlock();
+        EntityPlayer countedInteract = thrower instanceof EntityPlayer ? (EntityPlayer) thrower : null;
+
+        if (block instanceof BlockButton || block instanceof BlockTrapDoor || block instanceof BlockDoor && this.worldObj.getBlockState(pos).getValue(BlockDoor.HALF) == BlockDoor.EnumDoorHalf.LOWER || block instanceof BlockLever)
+        { block.onBlockActivated(this.worldObj, pos, this.worldObj.getBlockState(pos), countedInteract, EnumFacing.UP, 0.5F, 0.5F, 0.5F); }
+        /* AAAAAAAHHHHH WHY DOES BlockFenceGate REQUIRE A PLAYER FOR `onBlockActivated`, IT COULD JUST USE THE HIT POS! */
+        else if (block instanceof BlockFenceGate)
+        {
+            boolean isOpen = this.worldObj.getBlockState(pos).getValue(BlockFenceGate.OPEN);
+            EnumFacing getFacing = this.worldObj.getBlockState(pos).getValue(BlockFenceGate.FACING);
+
+            worldObj.setBlockState(pos, this.worldObj.getBlockState(pos).withProperty(BlockFenceGate.OPEN, !isOpen).withProperty(BlockFenceGate.FACING, this.rand.nextBoolean() ? getFacing.getOpposite() : getFacing));
+//            worldObj.playEvent(null, isOpen ? 1014 : 1008, pos, 0);
         }
     }
 }

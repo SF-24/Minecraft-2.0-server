@@ -157,6 +157,7 @@ public class Items
     public static final Item baked_potato;
     public static final Item poisonous_potato;
     public static final ItemEmptyMap map;
+    //    public static final ItemEmptyMap cave_map;
     public static final Item golden_carrot;
     public static final Item skull;
     public static final Item carrot_on_a_stick;
@@ -205,7 +206,7 @@ public class Items
     public static final Item steel_ingot;
     public static final Item steel_nugget;
     public static final Item nether_ash;
-//    public static final Item amethyst_sword;
+    //    public static final Item amethyst_sword;
 //    public static final Item amethyst_shovel;
 //    public static final Item amethyst_pickaxe;
 //    public static final Item amethyst_axe;
@@ -216,16 +217,15 @@ public class Items
 //    public static final ItemArmor amethyst_boots;
 //    public static final Item amethyst;
     public static final Item ruby;
-    //  public static final ItemEmptyMap cave_map;
-
     public static final ItemGrenade holy_grenade;
     public static final ItemFood glowing_bread;
-
     public static final ItemBackpack ender_pouch;
-
     public static final Item record_magnetic_circuit;
-    public static final Item record_key;
     public static final Item record_alpha;
+    public static final Item record_key;
+
+    public static final Item breeze_rod;
+    public static final ItemProjectile wind_charge;
 
     private static Item getRegisteredItem(String name)
     {
@@ -347,7 +347,6 @@ public class Items
             bed = getRegisteredItem("bed");
             repeater = getRegisteredItem("repeater");
             cookie = getRegisteredItem("cookie");
-            // cave_map = (ItemEmptyMap)getRegisteredItem("cave_map");
             filled_map = (ItemMap)getRegisteredItem("filled_map");
             shears = (ItemShears)getRegisteredItem("shears");
             melon = getRegisteredItem("melon");
@@ -393,6 +392,7 @@ public class Items
             baked_potato = getRegisteredItem("baked_potato");
             poisonous_potato = getRegisteredItem("poisonous_potato");
             map = (ItemEmptyMap)getRegisteredItem("map");
+            //cave_map = (ItemEmptyMap)getRegisteredItem("cave_map");
             golden_carrot = getRegisteredItem("golden_carrot");
             skull = getRegisteredItem("skull");
             carrot_on_a_stick = getRegisteredItem("carrot_on_a_stick");
@@ -425,6 +425,9 @@ public class Items
             record_ward = getRegisteredItem("record_ward");
             record_11 = getRegisteredItem("record_11");
             record_wait = getRegisteredItem("record_wait");
+            record_magnetic_circuit = getRegisteredItem("record_magnetic_circuit");
+            record_key = getRegisteredItem("record_key");
+            record_alpha = getRegisteredItem("record_alpha");
             prismarine_shard = getRegisteredItem("prismarine_shard");
             prismarine_crystals = getRegisteredItem("prismarine_crystals");
             banner = getRegisteredItem("banner");
@@ -441,6 +444,9 @@ public class Items
             steel_ingot = getRegisteredItem("steel_ingot");
             steel_nugget = getRegisteredItem("steel_nugget");
             nether_ash = getRegisteredItem("nether_ash");
+
+            ruby = getRegisteredItem("ruby");
+//
 //            amethyst = getRegisteredItem("amethyst");
 //            amethyst_hoe = getRegisteredItem("amethyst_hoe");
 //            amethyst_sword = getRegisteredItem("amethyst_sword");
@@ -451,13 +457,13 @@ public class Items
 //            amethyst_chestplate = (ItemArmor)getRegisteredItem("amethyst_chestplate");
 //            amethyst_leggings = (ItemArmor)getRegisteredItem("amethyst_leggings");
 //            amethyst_boots = (ItemArmor)getRegisteredItem("amethyst_boots");
-            ruby = getRegisteredItem("ruby");
+
             holy_grenade = (ItemGrenade)getRegisteredItem("holy_hand_grenade");
             glowing_bread = (ItemFood) getRegisteredItem("glowing_bread");
+            wind_charge = (ItemProjectile) getRegisteredItem("wind_charge");
+            breeze_rod = getRegisteredItem("breeze_rod");
+
             ender_pouch = (ItemBackpack) getRegisteredItem("ender_pouch");
-            record_magnetic_circuit = getRegisteredItem("record_magnetic_circuit");
-            record_key = getRegisteredItem("record_key");
-            record_alpha = getRegisteredItem("record_alpha");
         }
     }
 }

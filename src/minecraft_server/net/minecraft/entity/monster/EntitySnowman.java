@@ -104,7 +104,7 @@ public class EntitySnowman extends EntityGolem implements IRangedAttackMob
      */
     public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_, float p_82196_2_)
     {
-        EntitySnowball entitysnowball = new EntitySnowball(this.worldObj, this);
+        EntitySnowball entitysnowball = new EntitySnowball(this.worldObj, this,0);
         double d0 = p_82196_1_.posY + (double)p_82196_1_.getEyeHeight() - 1.100000023841858D;
         double d1 = p_82196_1_.posX - this.posX;
         double d2 = d0 - entitysnowball.posY;

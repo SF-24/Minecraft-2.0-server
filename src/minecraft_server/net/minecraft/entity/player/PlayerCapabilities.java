@@ -23,6 +23,8 @@ public class PlayerCapabilities
     private float flySpeed = 0.05F;
     private float walkSpeed = 0.1F;
 
+    public CapabilityWindChargeFall capabilityWindChargeFall = new CapabilityWindChargeFall();
+
     public void writeCapabilitiesToNBT(NBTTagCompound tagCompound)
     {
         NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -34,6 +36,10 @@ public class PlayerCapabilities
         nbttagcompound.setFloat("flySpeed", this.flySpeed);
         nbttagcompound.setFloat("walkSpeed", this.walkSpeed);
         tagCompound.setTag("abilities", nbttagcompound);
+        // Wind charge
+        nbttagcompound.setInteger("wind_burst_height", this.capabilityWindChargeFall.getWindBurstTime());
+        nbttagcompound.setInteger("wind_burst_time", this.capabilityWindChargeFall.getWindBurstHeight());
+        nbttagcompound.setBoolean("wind_charge_used", this.capabilityWindChargeFall.getUsedWindCharge());
     }
 
     public void readCapabilitiesFromNBT(NBTTagCompound tagCompound)
@@ -56,6 +62,16 @@ public class PlayerCapabilities
             {
                 this.allowEdit = nbttagcompound.getBoolean("mayBuild");
             }
+            // Wind charge
+            if(nbttagcompound.hasKey("wind_burst_height")) {
+                this.capabilityWindChargeFall.setWindBurstHeight(nbttagcompound.getInteger("wind_burst_height"));
+            }
+            if(nbttagcompound.hasKey("wind_burst_time")) {
+                this.capabilityWindChargeFall.setWindBurstTime(nbttagcompound.getInteger("wind_burst_time"));
+            }
+            if(nbttagcompound.hasKey("wind_charge_used")) {
+                this.capabilityWindChargeFall.setUsedWindCharge(nbttagcompound.getBoolean("wind_charge_used"));
+            }
         }
     }
 
@@ -64,8 +80,18 @@ public class PlayerCapabilities
         return this.flySpeed;
     }
 
+    public void setFlySpeed(float speed)
+    {
+        this.flySpeed = speed;
+    }
+
     public float getWalkSpeed()
     {
         return this.walkSpeed;
+    }
+
+    public void setPlayerWalkSpeed(float speed)
+    {
+        this.walkSpeed = speed;
     }
 }

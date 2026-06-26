@@ -29,7 +29,7 @@ public abstract class EntityThrowable extends Entity implements IProjectile
     public int throwableShake;
 
     /** The entity that threw this throwable item. */
-    private EntityLivingBase thrower;
+    public EntityLivingBase thrower;
     private String throwerName;
     private int ticksInGround;
     private int ticksInAir;

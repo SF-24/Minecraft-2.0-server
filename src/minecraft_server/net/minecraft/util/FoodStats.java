@@ -2,9 +2,11 @@ package net.minecraft.util;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumTweakMode;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.GameRules;
 
@@ -13,10 +15,13 @@ import java.util.HashMap;
 
 public class FoodStats
 {
+    private int foodDecayTime;
+
     private int healAmount = 2;
 
-    private ArrayList<ItemFood> foodList = new ArrayList<>();
+    public ArrayList<Integer> timers = new ArrayList<>();
     private HashMap<ItemFood, Integer> foodHashMap = new HashMap<>();
+    private ArrayList<ItemFood> foods = new ArrayList<>();
 
     /** The player's food level. */
     private int foodLevel = 20;
@@ -38,7 +43,7 @@ public class FoodStats
     private float healthLevel = 20;
     private float maxHealthLevel = 20;
 
-    EnumTweakMode currentMode = EnumTweakMode.DEFAULT;
+    EnumTweakMode currentMode= EnumTweakMode.DEFAULT;
 
     /**
      * Add food stats.
@@ -59,11 +64,11 @@ public class FoodStats
      */
     public void onUpdate(EntityPlayer player)
     {
-        this.currentMode = player.getEntityWorld().getGameRules().getEnumTweakMode("currentMode");
         EnumDifficulty enumdifficulty = player.worldObj.getDifficulty();
         this.prevFoodLevel = this.foodLevel;
-        this.healthLevel = player.getHealth();
-        this.maxHealthLevel = player.getMaxHealth();
+        this.currentMode=player.getEntityWorld().getGameRules().getEnumTweakMode("currentMode");
+        this.healthLevel=player.getHealth();
+        this.maxHealthLevel=player.getMaxHealth();
 
         if (this.foodExhaustionLevel > 4.0F)
         {
@@ -98,7 +103,7 @@ public class FoodStats
         {
             ++this.foodTimer;
 
-            if ((currentMode.equals(EnumTweakMode.MODERN) && this.foodTimer >= 40) || this.foodTimer >= 80)
+            if ((currentMode.equals(EnumTweakMode.MODERN) && this.foodTimer>=40) || this.foodTimer >= 80)
             {
                 if (currentMode.equals(EnumTweakMode.MODERN) || ((player.getHealth() > 10.0F || enumdifficulty == EnumDifficulty.HARD || player.getHealth() > 1.0F && enumdifficulty == EnumDifficulty.NORMAL)))
                 {
@@ -108,76 +113,72 @@ public class FoodStats
                 this.foodTimer = 0;
             }
         }
-        else if (this.foodTimer >= 80)
+        else if(this.foodTimer>=80)
         {
             this.foodTimer = 0;
         }
 
-        if (currentMode.enableSprintDrain())
-        {
-            if (player.isSprinting() && this.foodLevel > 0)
-            {
+        if(currentMode.enableSprintDrain()) {
+            if (player.isSprinting() && this.foodLevel > 0) {
                 sprintDrainTimer++;
 
-                if (this.sprintDrainTimer >= drainTime)
-                {
-                    this.foodLevel = foodLevel - 1;
-                    this.prevFoodLevel = foodLevel;
+                if (this.sprintDrainTimer >= drainTime) {
+                    this.foodLevel=foodLevel-1;
+                    this.prevFoodLevel=foodLevel;
                     this.sprintDrainTimer = 0;
                 }
             }
         }
 
-//        if (currentMode.enableRegainStamina())
-//        {
-//            /**
-//             * VIKING TWEAKS HEALTH REGENERATION CODE:
-//             * VARIES DEPENDING ON FOOD
-//             * */
-//            if (player.getHealth() < player.getMaxHealth())
-//            {
-//                ++healTimer;
-//
-//                if (healTimer >= 200)
-//                {
-//                    player.heal(this.healAmount);
-//                    this.healTimer = 0;
-//                }
-//            }
-//            else if (healTimer > 0)
-//            {
-//                healTimer = 0;
-//            }
-//
-//            /**
-//             * STAMINA REGENERATION CODE:
-//             * |||
-//             * TEST VALUES ARE SHOWN BELOW
-//             * */
-//            // val: 15/25
-//            // val: 10/20
-//            // val: 10/15
-//            // val: 20/40
-//            foodTimer++;
-//
-//            if (this.foodTimer >= 15)
-//            {
-//                if (!player.isSprinting() && this.foodLevel < 20)
-//                {
-//                    this.foodLevel++;
-//                    this.foodTimer = 0;
-//                }
-//                else if (player.isSprinting() && this.foodTimer >= 25 && this.foodLevel > 0)
-//                {
-//                    this.foodLevel--;
-//                    this.foodTimer = 0;
-//                }
-//            }
-//        }
-//        else
-//        {
-//            this.foodTimer = 0;
-//        }
+        if (currentMode.enableRegainStamina())
+        {
+            /**
+             * VIKING TWEAKS HEALTH REGENERATION CODE:
+             * VARIES DEPENDING ON FOOD
+             * */
+
+            if(player.getHealth()<player.getMaxHealth()) {
+                ++healTimer;
+
+                if(healTimer % 20 == 0) {
+                    System.out.println("TICKING TIMER");
+                    if(foodHashMap.keySet().size()>0) {
+                        for (ItemFood element : foodHashMap.keySet()) {
+                            foodHashMap.replace(element, foodHashMap.get(element) - 1);
+                            System.out.println("TIME LEFT FOR FOOD " + element + ": " + (foodHashMap.get(element) - 1));
+                        }
+                    }
+                }
+
+                if (healTimer >= 200)
+                {
+                    player.heal(this.healAmount);
+                    this.healTimer = 0;
+                }
+
+            } else if(healTimer>0) healTimer=0;
+
+
+            /**
+             * STAMINA REGENERATION CODE:
+             * |||
+             * TEST VALUES ARE SHOWN BELOW
+             * */
+
+            // val: 15/25
+            // val: 10/20
+            // val: 10/15
+            // val: 20/40
+
+            foodTimer++;
+            if (this.foodTimer >= 15)
+            {
+                if(!player.isSprinting() && this.foodLevel<20) {
+                    this.foodLevel++;
+                    this.foodTimer = 0;
+                }
+            }
+        }
     }
 
     /**
@@ -213,12 +214,19 @@ public class FoodStats
         return this.foodLevel;
     }
 
+    public int getPrevFoodLevel()
+    {
+        return this.prevFoodLevel;
+    }
+
     /**
      * Get whether the player must eat food.
      */
     public boolean needFood()
     {
-        return this.foodLevel < 20;
+        boolean value = this.foodLevel < 20;
+        if(!value&&(currentMode.equals(EnumTweakMode.CLASSIC_MODE)) && healthLevel<maxHealthLevel) value=true;
+        return value;
     }
 
     /**
@@ -241,4 +249,121 @@ public class FoodStats
     {
         this.foodLevel = foodLevelIn;
     }
+
+    public void setFoodSaturationLevel(float foodSaturationLevelIn)
+    {
+        this.foodSaturationLevel = foodSaturationLevelIn;
+    }
+
+    /**
+     * VIKING MODE EATING FUNCTIONS
+     *
+     * ALL NICELY DISPLAYED BELOW
+     */
+
+    // update the time of a food, i.e. if player eats a food, that they have eaten previously and is in the food bar,
+    // and have eaten it again, remove tha old one from the hashmap and add the new one
+    public void updateFoodTime(ItemFood itemFood) {
+        foodHashMap.replace(itemFood, itemFood.getFoodType().getFoodLastTime());
+    }
+
+    // run eating functions
+    public void eatItem(ItemFood itemFood) {
+        if(canEatItem(itemFood)) {
+            if(getCurrentFoodCount()<3) {
+                foodHashMap.put(itemFood, itemFood.getFoodType().getFoodLastTime());
+                foods.add(itemFood);
+                timers.add(itemFood.getFoodType().getFoodLastTime());
+            } else {
+                updateFoodTime(itemFood);
+            }
+        }
+    }
+
+    // check if item is replaceable, ie, is included and can have time extended
+    public ItemFood getReplaceableItem() {
+        for(ItemFood itemFood : foodHashMap.keySet()) {
+            if(foodHashMap.get(itemFood)<=foodDecayTime) { return itemFood; }
+        }
+        return null;
+    }
+
+    // check if player can eat item
+    public boolean canEatItem(ItemFood itemFood) {
+        if(canEat()) {
+            if(!foodHashMap.containsKey(itemFood)) {
+                return true;
+            }
+            return foodHashMap.get(itemFood)<=foodDecayTime;
+        }
+        return false;
+    }
+
+    // check if player can eat in general
+    public boolean canEat() {
+        //if(foodHashMap.keySet().size()<3) return true;
+        for(ItemFood itemFood : foodHashMap.keySet()) {
+            if(itemFood==null || foodHashMap.get(itemFood)<=foodDecayTime) { return true; }
+        }
+        return false;
+    }
+
+    // get current player food count. Max = 3
+    public int getCurrentFoodCount() {
+        return foodHashMap.keySet().size();
+    }
+
+    // get food of number in hash map
+    public ItemFood getFoodOfNumber(int number) {
+        int i = 0;
+        for(ItemFood itemFood : foodHashMap.keySet()) {
+            if(i==number){
+                return itemFood;
+            }
+            i++;
+        }
+        return null;
+    }
+
+    // get timer for food of number in hash map
+    public int getFoodTimerOfNumber(int number) {
+        if(getFoodOfNumber(number)==null) return 0;
+        System.out.println(foodHashMap.get(getFoodOfNumber(number)));
+        return foodHashMap.get(getFoodOfNumber(number));
+    }
+
+    // get the food hash map
+    public HashMap<ItemFood, Integer> getFoodHashMap() { return foodHashMap; }
+
+    // get time at which new food can be eaten and food tints transparent
+    public int getFoodDecayTime() {return foodDecayTime;}
+
+    public NBTTagList saveMapToNbt() {
+        NBTTagList nbttaglist = new NBTTagList();
+
+        for (int i = 0; i < foodHashMap.size(); ++i) {
+            NBTTagCompound nbtTagCompound = new NBTTagCompound();
+
+            nbtTagCompound.setInteger("Timer", getFoodTimerOfNumber(i));
+            ResourceLocation resourcelocation = Item.itemRegistry.getNameForObject(getFoodOfNumber(i));
+            nbtTagCompound.setString("id", resourcelocation == null ? "minecraft:air" : resourcelocation.toString());
+            nbttaglist.appendTag(nbtTagCompound);
+        }
+        return nbttaglist;
+    }
+
+    public void readMapFromNbt(NBTTagList tagList) {
+
+        HashMap<ItemFood, Integer> foodMap = new HashMap<>();
+
+        for (int i = 0; i < tagList.tagCount(); ++i) {
+            NBTTagCompound nbtTagCompound = tagList.getCompoundTagAt(i);
+
+            int timer = nbtTagCompound.getInteger("Timer");
+            ItemFood id = (ItemFood) Item.getByNameOrId(nbtTagCompound.getString("id"));
+            foodMap.put(id,timer);
+        }
+        this.foodHashMap=foodMap;
+    }
+
 }

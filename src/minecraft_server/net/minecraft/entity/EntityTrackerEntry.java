@@ -516,7 +516,8 @@ public class EntityTrackerEntry
         }
         else if (this.trackedEntity instanceof EntitySnowball)
         {
-            return new S0EPacketSpawnObject(this.trackedEntity, 61);
+            // Send a custom projectile
+            return new S0EPacketSpawnObject(this.trackedEntity, 61, ((EntitySnowball) this.trackedEntity).getProjectileType());
         }
         // holy hand grenade
         else if (this.trackedEntity instanceof EntityGrenade)

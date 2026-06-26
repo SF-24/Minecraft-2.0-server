@@ -3,15 +3,18 @@ package net.minecraft.item;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntitySnowball;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
 
-public class ItemSnowball extends Item
+public class ItemProjectile extends Item
 {
-    public ItemSnowball()
+    byte variant;
+    public ItemProjectile(byte variant)
     {
         this.maxStackSize = 16;
         this.setCreativeTab(CreativeTabs.tabMisc);
+        this.variant=variant;
     }
 
     /**
@@ -28,7 +31,7 @@ public class ItemSnowball extends Item
 
         if (!worldIn.isRemote)
         {
-            worldIn.spawnEntityInWorld(new EntitySnowball(worldIn, playerIn));
+            worldIn.spawnEntityInWorld(new EntitySnowball(worldIn, playerIn,this.variant));
         }
 
         playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);

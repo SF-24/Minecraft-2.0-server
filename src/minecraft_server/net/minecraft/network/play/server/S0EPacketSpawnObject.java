@@ -19,7 +19,7 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient>
     private int pitch;
     private int yaw;
     private int type;
-    private int field_149020_k;
+    private int dataField;
 
     public S0EPacketSpawnObject()
     {
@@ -30,7 +30,7 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient>
         this(entityIn, typeIn, 0);
     }
 
-    public S0EPacketSpawnObject(Entity entityIn, int typeIn, int p_i45166_3_)
+    public S0EPacketSpawnObject(Entity entityIn, int typeIn, int dataFieldValue)
     {
         this.entityId = entityIn.getEntityId();
         this.x = MathHelper.floor_double(entityIn.posX * 32.0D);
@@ -39,9 +39,9 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient>
         this.pitch = MathHelper.floor_float(entityIn.rotationPitch * 256.0F / 360.0F);
         this.yaw = MathHelper.floor_float(entityIn.rotationYaw * 256.0F / 360.0F);
         this.type = typeIn;
-        this.field_149020_k = p_i45166_3_;
+        this.dataField = dataFieldValue;
 
-        if (p_i45166_3_ > 0)
+        if (dataFieldValue > 0)
         {
             double d0 = entityIn.motionX;
             double d1 = entityIn.motionY;
@@ -96,9 +96,9 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient>
         this.z = buf.readInt();
         this.pitch = buf.readByte();
         this.yaw = buf.readByte();
-        this.field_149020_k = buf.readInt();
+        this.dataField = buf.readInt();
 
-        if (this.field_149020_k > 0)
+        if (this.dataField > 0)
         {
             this.speedX = buf.readShort();
             this.speedY = buf.readShort();
@@ -118,9 +118,9 @@ public class S0EPacketSpawnObject implements Packet<INetHandlerPlayClient>
         buf.writeInt(this.z);
         buf.writeByte(this.pitch);
         buf.writeByte(this.yaw);
-        buf.writeInt(this.field_149020_k);
+        buf.writeInt(this.dataField);
 
-        if (this.field_149020_k > 0)
+        if (this.dataField > 0)
         {
             buf.writeShort(this.speedX);
             buf.writeShort(this.speedY);
