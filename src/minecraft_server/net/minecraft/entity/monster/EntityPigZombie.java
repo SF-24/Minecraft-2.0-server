@@ -300,8 +300,6 @@ public class EntityPigZombie extends EntityZombie
         this.setVillager(false);
 
         if(getPigmanType()==1) {
-            this.setMaxHealth(30);
-            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).applyModifier(new AttributeModifier("BruteHealth", 10.0, 0));
             this.setChild(false);
         }
         return livingdata;
@@ -361,6 +359,7 @@ public class EntityPigZombie extends EntityZombie
             this.setChild(false);
             // Give 12 extra health.
             this.addPotionEffect(new PotionEffect(Potion.absorption.getId(), Integer.MAX_VALUE, 2, false, false));
+            this.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), Integer.MAX_VALUE, 0, false, false));
         }
     }
 }
