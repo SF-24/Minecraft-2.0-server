@@ -63,16 +63,7 @@ import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.FoodStats;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.LockCode;
@@ -157,6 +148,12 @@ public abstract class EntityPlayer extends EntityLivingBase
      * This is the item that is in use when the player is holding down the useItemButton (e.g., bow, food, sword)
      */
     private ItemStack itemInUse;
+
+    /**
+     * The cooldown tracker.
+     * */
+    private final CooldownTracker cooldownTracker = this.createCooldownTracker();
+
 
     /**
      * This field starts off equal to getMaxItemUseDuration and is decremented on each tick
@@ -2412,6 +2409,16 @@ public abstract class EntityPlayer extends EntityLivingBase
                 ID_LOOKUP[entityplayer$enumchatvisibility.chatVisibility] = entityplayer$enumchatvisibility;
             }
         }
+    }
+
+    protected CooldownTracker createCooldownTracker()
+    {
+        return new CooldownTracker();
+    }
+
+    public CooldownTracker getCooldownTracker()
+    {
+        return this.cooldownTracker;
     }
 
     public static enum EnumStatus

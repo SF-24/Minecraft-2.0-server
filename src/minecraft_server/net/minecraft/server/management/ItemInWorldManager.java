@@ -341,6 +341,10 @@ public class ItemInWorldManager
         {
             return false;
         }
+        else if(player.getCooldownTracker().hasCooldown(stack.getItem()))
+        {
+            return false;
+        }
         else
         {
             int i = stack.stackSize;
@@ -426,6 +430,10 @@ public class ItemInWorldManager
             }
 
             if (stack == null)
+            {
+                return false;
+            }
+            else if (player.getCooldownTracker().hasCooldown(stack.getItem()))
             {
                 return false;
             }

@@ -38,7 +38,7 @@ public class ContainerFurnace extends Container
     public void onCraftGuiOpened(ICrafting listener)
     {
         super.onCraftGuiOpened(listener);
-        listener.func_175173_a(this, this.tileFurnace);
+        listener.sendAllWindowProperties(this, this.tileFurnace);
     }
 
     /**

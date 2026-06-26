@@ -77,14 +77,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.stats.StatisticsFile;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.JsonSerializableSet;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ReportedException;
+import net.minecraft.util.*;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.IInteractionObject;
@@ -1301,5 +1294,10 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
             return IChatComponent.Serializer.jsonToComponent("\"text\": \"Xp\"");
         }
         return null;
+    }
+
+    protected CooldownTracker createCooldownTracker()
+    {
+        return new CooldownTrackerServer(this);
     }
 }
