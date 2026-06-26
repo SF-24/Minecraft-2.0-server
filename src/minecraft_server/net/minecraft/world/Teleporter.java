@@ -31,15 +31,19 @@ public class Teleporter
         this.random = new Random(worldIn.getSeed());
     }
 
+    public void invalidatePortal(BlockPos pos)
+    {
+        long key = ChunkCoordIntPair.chunkXZ2Int(pos.getX() >> 4, pos.getZ() >> 4);
+
+        this.destinationCoordinateCache.remove(key);
+        this.destinationCoordinateKeys.remove(Long.valueOf(key));
+    }
+
     // place portal
     public void placeInPortal(Entity entityIn, float rotationYaw, boolean aether)
     {
         Block frame = Blocks.obsidian;
-
-        if (aether)
-        {
-            frame = Blocks.glowstone;
-        }
+        if(aether) frame=Blocks.glowstone;
 
         if (this.worldServerInstance.provider.getDimensionId() != 1)
         {
@@ -67,24 +71,21 @@ public class Teleporter
                         int j2 = j + l1;
                         int k2 = k + k1 * i1 - j1 * l;
                         boolean flag = l1 < 0;
+
                         this.worldServerInstance.setBlockState(new BlockPos(i2, j2, k2), flag ? frame.getDefaultState() : Blocks.air.getDefaultState());
                     }
                 }
             }
 
-            entityIn.setLocationAndAngles((double)i, (double)j, (double)k, entityIn.rotationYaw, 0.0F);
-            entityIn.motionX = entityIn.motionY = entityIn.motionZ = 0.0D;
+            entityIn.setLocationAndAngles((double)i, (double)j+0.1, (double)k, entityIn.rotationYaw, 0.0F);
+            entityIn.motionX = entityIn.    motionY = entityIn.motionZ = 0.0D;
         }
     }
 
     public boolean placeInExistingPortal(Entity entityIn, float rotationYaw, boolean aether)
     {
         Block portal = Blocks.portal;
-
-        if (aether)
-        {
-            portal = Blocks.aether_portal;
-        }
+        if(aether) portal = Blocks.aether_portal;
 
         int i = 128;
         double d0 = -1.0D;
@@ -147,7 +148,12 @@ public class Teleporter
             double d5 = (double)blockpos.getX() + 0.5D;
             double d6 = (double)blockpos.getY() + 0.5D;
             double d7 = (double)blockpos.getZ() + 0.5D;
-            BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.portal.func_181089_f(this.worldServerInstance, blockpos);
+            BlockPattern.PatternHelper blockpattern$patternhelper;
+            if(portal==Blocks.aether_portal) {
+                blockpattern$patternhelper = Blocks.aether_portal.func_181089_f(this.worldServerInstance, blockpos);
+            } else {
+                blockpattern$patternhelper = Blocks.portal.func_181089_f(this.worldServerInstance, blockpos);
+            }
             boolean flag1 = blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;
             double d2 = blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? (double)blockpattern$patternhelper.getPos().getZ() : (double)blockpattern$patternhelper.getPos().getX();
             d6 = (double)(blockpattern$patternhelper.getPos().getY() + 1) - entityIn.func_181014_aG().yCoord * (double)blockpattern$patternhelper.func_181119_e();
@@ -212,15 +218,12 @@ public class Teleporter
         final Block portal;
         final Block frame;
 
-        if (aether)
-        {
-            portal = Blocks.aether_portal;
-            frame = Blocks.glowstone;
-        }
-        else
-        {
-            portal = Blocks.portal;
-            frame = Blocks.obsidian;
+        if(aether) {
+            portal=Blocks.aether_portal;
+            frame=Blocks.glowstone;
+        } else {
+            portal=Blocks.portal;
+            frame=Blocks.obsidian;
         }
 
         int i = 16;
@@ -438,7 +441,7 @@ public class Teleporter
             while (iterator.hasNext())
             {
                 Long olong = (Long)iterator.next();
-                Teleporter.PortalPosition teleporter$portalposition = (Teleporter.PortalPosition)this.destinationCoordinateCache.getValueByKey(olong.longValue());
+                Teleporter.PortalPosition teleporter$portalposition = (Teleporter.PortalPosition)this.destinationCoordinateCache.getValueByKey(olong);
 
                 if (teleporter$portalposition == null || teleporter$portalposition.lastUpdateTime < i)
                 {

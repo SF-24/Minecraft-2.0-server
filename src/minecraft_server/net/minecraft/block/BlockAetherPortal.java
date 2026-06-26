@@ -8,6 +8,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.BlockWorldState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockPattern;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -18,6 +19,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 public class BlockAetherPortal extends BlockBreakable
 {
@@ -60,6 +62,7 @@ public class BlockAetherPortal extends BlockBreakable
     {
         return null;
     }
+
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
     {
@@ -129,6 +132,8 @@ public class BlockAetherPortal extends BlockBreakable
             if (!blockportal$size.func_150860_b() || blockportal$size.field_150864_e < blockportal$size.field_150868_h * blockportal$size.field_150862_g)
             {
                 worldIn.setBlockState(pos, Blocks.air.getDefaultState());
+                WorldServer ws = (WorldServer)worldIn;
+                ws.getDefaultTeleporter().invalidatePortal(pos);
             }
         }
         else if (enumfacing$axis == EnumFacing.Axis.Z)
@@ -197,6 +202,9 @@ public class BlockAetherPortal extends BlockBreakable
         if (entityIn.ridingEntity == null && entityIn.riddenByEntity == null)
         {
             entityIn.setAetherPortal(pos);
+            if(worldIn.getBlockState(pos.add(0,-1,0)).getBlock()==(Blocks.air)) {
+                worldIn.setBlockState(pos.add(0,-1,0),Blocks.glowstone.getDefaultState());
+            }
         }
     }
 
@@ -343,9 +351,10 @@ public class BlockAetherPortal extends BlockBreakable
                 this.field_150866_c = EnumFacing.SOUTH;
             }
 
-            /*for (BlockPos blockpos = p_i45694_2_; p_i45694_2_.getY() > blockpos.getY() - 21 && p_i45694_2_.getY() > 0 && this.func_150857_a(worldIn.getBlockState(p_i45694_2_.down()).getBlock()); p_i45694_2_ = p_i45694_2_.down())
+            for (BlockPos blockpos = p_i45694_2_; p_i45694_2_.getY() > blockpos.getY() - 21 && p_i45694_2_.getY() > 0 && this.func_150857_a(worldIn.getBlockState(p_i45694_2_.down()).getBlock()); p_i45694_2_ = p_i45694_2_.down())
             {
-            }*/
+            }
+
             int i = this.func_180120_a(p_i45694_2_, this.field_150863_d) - 1;
 
             if (i >= 0)
@@ -458,10 +467,9 @@ public class BlockAetherPortal extends BlockBreakable
             }
         }
 
-        protected boolean func_150857_a(Block block)
+        protected boolean func_150857_a(Block p_150857_1_)
         {
-            // made blockMaterial public instead of protected to fix error
-            return block.blockMaterial == Material.air || block == Blocks.water ||  block == Blocks.flowing_water || block == Blocks.aether_portal;
+            return p_150857_1_.blockMaterial == Material.air || p_150857_1_ == Blocks.water ||  p_150857_1_ == Blocks.flowing_water || p_150857_1_ == Blocks.aether_portal;
         }
 
         public boolean func_150860_b()
