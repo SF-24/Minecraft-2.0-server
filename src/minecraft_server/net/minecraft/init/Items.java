@@ -228,10 +228,11 @@ public class Items
     public static final ItemProjectile wind_charge;
     public static final ItemProjectile display_bubble;
     public static final ItemStaff water_staff;
+    public static final ItemStaff fire_staff;
 
     private static Item getRegisteredItem(String name)
     {
-        return (Item)Item.itemRegistry.getObject(new ResourceLocation(name));
+        return Item.itemRegistry.getObject(new ResourceLocation(name));
     }
 
     static
@@ -469,6 +470,7 @@ public class Items
 
             display_bubble = (ItemProjectile) getRegisteredItem("display_bubble");
             water_staff = (ItemStaff) getRegisteredItem("water_staff");
+            fire_staff = (ItemStaff) getRegisteredItem("fire_staff");
         }
     }
 }
