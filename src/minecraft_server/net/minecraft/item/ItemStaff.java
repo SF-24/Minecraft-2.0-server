@@ -25,7 +25,7 @@ public class ItemStaff extends Item {
     @Override
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
         if (!playerIn.capabilities.isCreativeMode) {
-            itemStackIn.damageItem(1, null);
+            itemStackIn.damageItem(1, playerIn);
         }
         if (!worldIn.isRemote) {
             EntitySnowball entitySnowball = new EntitySnowball(worldIn,playerIn,10);
