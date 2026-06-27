@@ -21,6 +21,7 @@ public class EntitySnowball extends EntityThrowable
     static final boolean PLAYER_FALL_REDUCTION = true;
 
     int lifetime = 0;
+    int mountTime = 0;
 
     protected EntityLivingBase knockbackImmune;
 
@@ -55,10 +56,26 @@ public class EntitySnowball extends EntityThrowable
         super.onUpdate();
         // Remove if it exists for too long
         if(getProjectileType()==10) {
-            ++this.lifetime;
-            if (this.lifetime == 12/*300*/) {
-                if(!this.worldObj.isRemote) {
+            if(!this.worldObj.isRemote) {
+                ++this.lifetime;
+                if (this.lifetime == 12 && this.riddenByEntity==null/*300*/) {
                     this.setDead();
+                }
+            }
+
+            if(this.riddenByEntity!=null) {
+                // Slowly move upwards
+                this.motionX = 0.0D;
+                this.motionY = 0.1D;
+                this.motionZ = 0.0D;
+                this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX, this.posY, this.posZ, 0.0D, -1.0D, 0.0D);
+
+                if(!this.worldObj.isRemote) {
+                    ++this.mountTime;
+                    if (this.mountTime >= 70) {
+                        this.riddenByEntity.setPositionAndUpdate(this.riddenByEntity.posX, this.riddenByEntity.posY, this.riddenByEntity.posZ);
+                        this.setDead();
+                    }
                 }
             }
         }
@@ -121,11 +138,19 @@ public class EntitySnowball extends EntityThrowable
 
                 break;
             case 10:
-
+                if(!this.worldObj.isRemote && result.typeOfHit==MovingObjectPosition.MovingObjectType.ENTITY && result.entityHit != this.thrower) {
+                    Entity entity = result.entityHit;
+                    if (entity!=null&&!entity.isDead) {
+                        if(this.riddenByEntity!=null) {
+                            this.riddenByEntity.setDead(); // TODO: CHECK FOR BUGS!
+                        }
+                        entity.mountEntity(this);
+                    }
+                }
                 break;
         }
 
-        if (!this.worldObj.isRemote)
+        if (!this.worldObj.isRemote && this.getProjectileType()!=10)
         {
             this.setDead();
         }
@@ -135,6 +160,11 @@ public class EntitySnowball extends EntityThrowable
     protected void entityInit() {
         super.entityInit();
         this.dataWatcher.addObject(13, (byte) 0);
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return getProjectileType()!=10;
     }
 
     // Projectile types:
