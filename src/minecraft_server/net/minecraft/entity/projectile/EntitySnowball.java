@@ -20,6 +20,8 @@ public class EntitySnowball extends EntityThrowable
     static final double BURST_RADIUS = 2.5D;
     static final boolean PLAYER_FALL_REDUCTION = true;
 
+    int lifetime = 0;
+
     protected EntityLivingBase knockbackImmune;
 
     public EntitySnowball(World worldIn)
@@ -31,6 +33,7 @@ public class EntitySnowball extends EntityThrowable
     {
         super(worldIn, throwerIn);
         setProjectileType(type);
+//        if(type==10) this.hasNoGravity=true;
     }
 
     public EntitySnowball(World worldIn, EntityLivingBase throwerIn, int type, EntityLivingBase knockbackImmune)
@@ -40,10 +43,25 @@ public class EntitySnowball extends EntityThrowable
         this.knockbackImmune=knockbackImmune;
     }
 
-
-    public EntitySnowball(World worldIn, double x, double y, double z, int type)
-    {
+    public EntitySnowball(World worldIn, double x, double y, double z, int type) {
         super(worldIn, x, y, z);
+        this.setProjectileType(type);
+//        if(type==10) this.hasNoGravity=true;
+    }
+
+    // Used to remove objects which exist for too long
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        // Remove if it exists for too long
+        if(getProjectileType()==10) {
+            ++this.lifetime;
+            if (this.lifetime == 12/*300*/) {
+                if(!this.worldObj.isRemote) {
+                    this.setDead();
+                }
+            }
+        }
     }
 
     /**
@@ -102,6 +120,9 @@ public class EntitySnowball extends EntityThrowable
                 }
 
                 break;
+            case 10:
+
+                break;
         }
 
         if (!this.worldObj.isRemote)
@@ -113,8 +134,7 @@ public class EntitySnowball extends EntityThrowable
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.dataWatcher.addObject(13, new Byte((byte) 0));
-
+        this.dataWatcher.addObject(13, (byte) 0);
     }
 
     // Projectile types:
@@ -294,5 +314,10 @@ public class EntitySnowball extends EntityThrowable
             worldObj.setBlockState(pos, this.worldObj.getBlockState(pos).withProperty(BlockFenceGate.OPEN, !isOpen).withProperty(BlockFenceGate.FACING, this.rand.nextBoolean() ? getFacing.getOpposite() : getFacing));
 //            worldObj.playEvent(null, isOpen ? 1014 : 1008, pos, 0);
         }
+    }
+
+    @Override
+    protected boolean hasNoGravity() {
+        return getProjectileType() == 10;
     }
 }

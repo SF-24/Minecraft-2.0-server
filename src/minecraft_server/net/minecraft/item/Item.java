@@ -700,12 +700,13 @@ public class Item {
 //        })).setUnlocalizedName("blockCompressed"));
 
 
-        int valueBase = 4096-256;
+        int valueBase = 512-256;
 
         registerItem(valueBase+256, "iron_shovel", (new ItemSpade(Item.ToolMaterial.IRON)).setUnlocalizedName("shovelIron"));
         registerItem(valueBase+257, "iron_pickaxe", (new ItemPickaxe(Item.ToolMaterial.IRON)).setUnlocalizedName("pickaxeIron"));
         registerItem(valueBase+258, "iron_axe", (new ItemAxe(Item.ToolMaterial.IRON)).setUnlocalizedName("hatchetIron"));
         registerItem(valueBase+259, "flint_and_steel", (new ItemFlintAndSteel()).setUnlocalizedName("flintAndSteel"));
+
         registerItem(valueBase+260, "apple", (new ItemFood(4, 0.3F, false, EnumFoodType.FRUIT)).setUnlocalizedName("apple"));
         registerItem(valueBase+261, "bow", (new ItemBow()).setUnlocalizedName("bow"));
         registerItem(valueBase+262, "arrow", (new Item()).setUnlocalizedName("arrow").setCreativeTab(CreativeTabs.tabCombat));
@@ -743,7 +744,18 @@ public class Item {
         registerItem(valueBase+296, "wheat", (new Item()).setUnlocalizedName("wheat").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(valueBase+297, "bread", (new ItemFood(5, 0.6F, false, EnumFoodType.BAKING)).setUnlocalizedName("bread"));
 
-        // Missing armour
+        // 298 -> 318, 290->294, 345,346,347, 359, 420,421
+
+        registerItem(valueBase+298, "steel_sword", (new ItemSword(Item.ToolMaterial.STEEL)).setUnlocalizedName("swordSteel"));
+//        registerItem(valueBase+299, "amethyst_sword", (new ItemSword(Item.ToolMaterial.AMETHYST)).setUnlocalizedName("swordAmethyst"));
+        registerItem(valueBase+300, "steel_shovel", (new ItemSpade(Item.ToolMaterial.STEEL)).setUnlocalizedName("shovelSteel"));
+        registerItem(valueBase+301, "steel_pickaxe", (new ItemPickaxe(Item.ToolMaterial.STEEL)).setUnlocalizedName("pickaxeSteel"));
+        registerItem(valueBase+302, "steel_axe", (new ItemAxe(Item.ToolMaterial.STEEL)).setUnlocalizedName("hatchetSteel"));
+//        registerItem(valueBase+303, "amethyst_shovel", (new ItemSpade(Item.ToolMaterial.AMETHYST)).setUnlocalizedName("shovelAmethyst"));
+//        registerItem(valueBase+304, "amethyst_pickaxe", (new ItemPickaxe(Item.ToolMaterial.AMETHYST)).setUnlocalizedName("pickaxeAmethyst"));
+//        registerItem(valueBase+305, "amethyst_axe", (new ItemAxe(Item.ToolMaterial.AMETHYST)).setUnlocalizedName("hatchetAmethyst"));
+
+        // Missing 306-317
 
         registerItem(valueBase+318, "flint", (new Item()).setUnlocalizedName("flint").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(valueBase+319, "porkchop", (new ItemFood(3, 0.3F, true, EnumFoodType.RAW_MEAT)).setUnlocalizedName("porkchopRaw"));
@@ -854,29 +866,7 @@ public class Item {
         registerItem(valueBase+430, "acacia_door", (new ItemDoor(Blocks.acacia_door)).setUnlocalizedName("doorAcacia"));
         registerItem(valueBase+431, "dark_oak_door", (new ItemDoor(Blocks.dark_oak_door)).setUnlocalizedName("doorDarkOak"));
 
-        registerItem(valueBase+500, "wind_charge", (new ItemProjectile((byte) 1)).setUnlocalizedName("windCharge"));
-        registerItem(valueBase+ 501, "breeze_rod", (new Item()).setUnlocalizedName("breezeRod").setCreativeTab(CreativeTabs.tabMaterials).setFull3D());
-
-
-        registerItem(valueBase+2256, "record_13", (new ItemRecord("13")).setUnlocalizedName("record"));
-        registerItem(valueBase+2257, "record_cat", (new ItemRecord("cat")).setUnlocalizedName("record"));
-        registerItem(valueBase+2258, "record_blocks", (new ItemRecord("blocks")).setUnlocalizedName("record"));
-        registerItem(valueBase+2259, "record_chirp", (new ItemRecord("chirp")).setUnlocalizedName("record"));
-        registerItem(valueBase+2260, "record_far", (new ItemRecord("far")).setUnlocalizedName("record"));
-        registerItem(valueBase+2261, "record_mall", (new ItemRecord("mall")).setUnlocalizedName("record"));
-        registerItem(valueBase+2262, "record_mellohi", (new ItemRecord("mellohi")).setUnlocalizedName("record"));
-        registerItem(valueBase+2263, "record_stal", (new ItemRecord("stal")).setUnlocalizedName("record"));
-        registerItem(valueBase+2264, "record_strad", (new ItemRecord("strad")).setUnlocalizedName("record"));
-        registerItem(valueBase+2265, "record_ward", (new ItemRecord("ward")).setUnlocalizedName("record"));
-        registerItem(valueBase+2266, "record_11", (new ItemRecord("11")).setUnlocalizedName("record"));
-        registerItem(valueBase+2267, "record_wait", (new ItemRecord("wait")).setUnlocalizedName("record"));
-        registerItem(valueBase+2268, "record_magnetic_circuit", (new ItemRecord("magnetic_circuit")).setUnlocalizedName("record"));
-        registerItem(valueBase+2269, "record_key", (new ItemRecord("key")).setUnlocalizedName("record"));
-        registerItem(valueBase+2270, "record_alpha", (new ItemRecord("alpha")).setUnlocalizedName("record"));
-
-        // moved items
-        registerItem(valueBase+2300, "enchanted_book", (new ItemEnchantedBook()).setMaxStackSize(1).setUnlocalizedName("enchantedBook"));
-
+        // Missing 432-448
 
         // Armour
         registerItem(valueBase+449, "leather_helmet", (new ItemArmor(ItemArmor.ArmorMaterial.LEATHER, 0, 0)).setUnlocalizedName("helmetCloth"));
@@ -908,51 +898,66 @@ public class Item {
 //        registerItem(valueBase+475, "amethyst_leggings", (new ItemArmor(ItemArmor.ArmorMaterial.AMETHYST, 3, 2)).setUnlocalizedName("leggingsAmethyst"));
 //        registerItem(valueBase+476, "amethyst_boots", (new ItemArmor(ItemArmor.ArmorMaterial.AMETHYST, 3, 3)).setUnlocalizedName("bootsAmethyst"));
 
+        // Missing 477-493
 
-        // New items
-        // 298 -> 318, 290->294, 345,346,347, 359, 420,421
-        registerItem(valueBase+298, "steel_sword", (new ItemSword(Item.ToolMaterial.STEEL)).setUnlocalizedName("swordSteel"));
-//        registerItem(valueBase+299, "amethyst_sword", (new ItemSword(Item.ToolMaterial.AMETHYST)).setUnlocalizedName("swordAmethyst"));
+        registerItem(valueBase+494, "ender_pouch", (new ItemBackpack(0)).setUnlocalizedName("pouchEnder").setUnlocalizedName("pouchEnder").setCreativeTab(CreativeTabs.tabTools));
 
-        registerItem(valueBase+300, "steel_shovel", (new ItemSpade(Item.ToolMaterial.STEEL)).setUnlocalizedName("shovelSteel"));
-        registerItem(valueBase+301, "steel_pickaxe", (new ItemPickaxe(Item.ToolMaterial.STEEL)).setUnlocalizedName("pickaxeSteel"));
-        registerItem(valueBase+302, "steel_axe", (new ItemAxe(Item.ToolMaterial.STEEL)).setUnlocalizedName("hatchetSteel"));
-//        registerItem(valueBase+303, "amethyst_shovel", (new ItemSpade(Item.ToolMaterial.AMETHYST)).setUnlocalizedName("shovelAmethyst"));
-//        registerItem(valueBase+304, "amethyst_pickaxe", (new ItemPickaxe(Item.ToolMaterial.AMETHYST)).setUnlocalizedName("pickaxeAmethyst"));
-//        registerItem(valueBase+305, "amethyst_axe", (new ItemAxe(Item.ToolMaterial.AMETHYST)).setUnlocalizedName("hatchetAmethyst"));
+        registerItem(valueBase+495, "steel_ingot", (new Item()).setUnlocalizedName("ingotSteel").setCreativeTab(CreativeTabs.tabMaterials));
+        registerItem(valueBase+496, "steel_nugget", (new Item()).setUnlocalizedName("nuggetSteel").setCreativeTab(CreativeTabs.tabMaterials));
+        registerItem(valueBase+497, "nether_ash", (new Item()).setUnlocalizedName("netherAsh").setCreativeTab(CreativeTabs.tabMaterials));
+//        registerItem(valueBase+498, "amethyst", (new Item()).setUnlocalizedName("amethyst").setCreativeTab(CreativeTabs.tabMaterials));
+        registerItem(valueBase+499, "ruby", (new Item()).setUnlocalizedName("ruby").setCreativeTab(CreativeTabs.tabMaterials));
 
-        // space up to 317
+        registerItem(valueBase+500, "wind_charge", (new ItemProjectile((byte) 1)).setUnlocalizedName("windCharge"));
+        registerItem(valueBase+ 501, "breeze_rod", (new Item()).setUnlocalizedName("breezeRod").setCreativeTab(CreativeTabs.tabMaterials).setFull3D());
 
-        registerItem(valueBase+1290, "wooden_hoe", (new ItemHoe(Item.ToolMaterial.WOOD)).setUnlocalizedName("hoeWood"));
-        registerItem(valueBase+1291, "stone_hoe", (new ItemHoe(Item.ToolMaterial.STONE)).setUnlocalizedName("hoeStone"));
-        registerItem(valueBase+1292, "iron_hoe", (new ItemHoe(Item.ToolMaterial.IRON)).setUnlocalizedName("hoeIron"));
-        registerItem(valueBase+1293, "diamond_hoe", (new ItemHoe(Item.ToolMaterial.EMERALD)).setUnlocalizedName("hoeDiamond"));
-        registerItem(valueBase+1294, "golden_hoe", (new ItemHoe(Item.ToolMaterial.GOLD)).setUnlocalizedName("hoeGold"));
-        registerItem(valueBase+1295, "steel_hoe", (new ItemHoe(Item.ToolMaterial.STEEL)).setUnlocalizedName("hoeSteel"));
-//        registerItem(valueBase+1296, "amethyst_hoe", (new ItemHoe(Item.ToolMaterial.AMETHYST)).setUnlocalizedName("hoeAmethyst"));
-        registerItem(valueBase+1300, "shears", (new ItemShears()).setUnlocalizedName("shears"));
-        registerItem(valueBase+1301, "compass", (new Item()).setUnlocalizedName("compass").setCreativeTab(CreativeTabs.tabTools));
-        registerItem(valueBase+1302, "fishing_rod", (new ItemFishingRod()).setUnlocalizedName("fishingRod"));
-        registerItem(valueBase+1303, "clock", (new Item()).setUnlocalizedName("clock").setCreativeTab(CreativeTabs.tabTools));
-        registerItem(valueBase+1304, "lead", (new ItemLead()).setUnlocalizedName("leash"));
-        registerItem(valueBase+1305, "name_tag", (new ItemNameTag()).setUnlocalizedName("nameTag"));
+        // Missing: 502-589
 
-        registerItem(valueBase+4041, "steel_ingot", (new Item()).setUnlocalizedName("ingotSteel").setCreativeTab(CreativeTabs.tabMaterials));
-        registerItem(valueBase+4042, "steel_nugget", (new Item()).setUnlocalizedName("nuggetSteel").setCreativeTab(CreativeTabs.tabMaterials));
-        registerItem(valueBase+4043, "nether_ash", (new Item()).setUnlocalizedName("netherAsh").setCreativeTab(CreativeTabs.tabMaterials));
-//        registerItem(valueBase+4044, "amethyst", (new Item()).setUnlocalizedName("amethyst").setCreativeTab(CreativeTabs.tabMaterials));
-        registerItem(valueBase+4045, "ruby", (new Item()).setUnlocalizedName("ruby").setCreativeTab(CreativeTabs.tabMaterials));
+        registerItem(valueBase+510, "glowing_bread", (new ItemFood(20, 1.0F, false, EnumFoodType.BAKING)).setUnlocalizedName("breadGlowing"));
+        registerItem(valueBase+ 520, "water_staff", (new ItemStaff(0)).setUnlocalizedName("staffWater").setCreativeTab(CreativeTabs.tabCombat).setFull3D());
 
-        registerItem(valueBase+5000, "ender_pouch", (new ItemBackpack(0)).setUnlocalizedName("pouchEnder").setUnlocalizedName("pouchEnder").setCreativeTab(CreativeTabs.tabTools));
+        registerItem(valueBase+590, "wooden_hoe", (new ItemHoe(Item.ToolMaterial.WOOD)).setUnlocalizedName("hoeWood"));
+        registerItem(valueBase+591, "stone_hoe", (new ItemHoe(Item.ToolMaterial.STONE)).setUnlocalizedName("hoeStone"));
+        registerItem(valueBase+592, "iron_hoe", (new ItemHoe(Item.ToolMaterial.IRON)).setUnlocalizedName("hoeIron"));
+        registerItem(valueBase+593, "diamond_hoe", (new ItemHoe(Item.ToolMaterial.EMERALD)).setUnlocalizedName("hoeDiamond"));
+        registerItem(valueBase+594, "golden_hoe", (new ItemHoe(Item.ToolMaterial.GOLD)).setUnlocalizedName("hoeGold"));
+        registerItem(valueBase+595, "steel_hoe", (new ItemHoe(Item.ToolMaterial.STEEL)).setUnlocalizedName("hoeSteel"));
+//        registerItem(valueBase+596, "amethyst_hoe", (new ItemHoe(Item.ToolMaterial.AMETHYST)).setUnlocalizedName("hoeAmethyst"));
 
-        // Aether items
-        registerItem(valueBase+5001, "holy_hand_grenade", (new ItemGrenade(0)).setUnlocalizedName("grenadeHoly").setCreativeTab(CreativeTabs.tabCombat));
-        registerItem(valueBase+5010, "glowing_bread", (new ItemFood(20, 1.0F, false, EnumFoodType.BAKING)).setUnlocalizedName("breadGlowing"));
+        // Missing: 597,598
+
+        registerItem(valueBase+599, "holy_hand_grenade", (new ItemGrenade(0)).setUnlocalizedName("grenadeHoly").setCreativeTab(CreativeTabs.tabCombat));
+
+        registerItem(valueBase+600, "shears", (new ItemShears()).setUnlocalizedName("shears"));
+        registerItem(valueBase+601, "compass", (new Item()).setUnlocalizedName("compass").setCreativeTab(CreativeTabs.tabTools));
+        registerItem(valueBase+602, "fishing_rod", (new ItemFishingRod()).setUnlocalizedName("fishingRod"));
+        registerItem(valueBase+603, "clock", (new Item()).setUnlocalizedName("clock").setCreativeTab(CreativeTabs.tabTools));
+        registerItem(valueBase+604, "lead", (new ItemLead()).setUnlocalizedName("leash"));
+        registerItem(valueBase+605, "name_tag", (new ItemNameTag()).setUnlocalizedName("nameTag"));
+
+        // moved items
+        registerItem(valueBase+606, "enchanted_book", (new ItemEnchantedBook()).setMaxStackSize(1).setUnlocalizedName("enchantedBook"));
+
+        // Unusable items:
+        registerItem(valueBase+700, "display_bubble", (new ItemProjectile((byte) 10)).setUnlocalizedName("displayBubble"));
+
+        registerItem(valueBase+2256, "record_13", (new ItemRecord("13")).setUnlocalizedName("record"));
+        registerItem(valueBase+2257, "record_cat", (new ItemRecord("cat")).setUnlocalizedName("record"));
+        registerItem(valueBase+2258, "record_blocks", (new ItemRecord("blocks")).setUnlocalizedName("record"));
+        registerItem(valueBase+2259, "record_chirp", (new ItemRecord("chirp")).setUnlocalizedName("record"));
+        registerItem(valueBase+2260, "record_far", (new ItemRecord("far")).setUnlocalizedName("record"));
+        registerItem(valueBase+2261, "record_mall", (new ItemRecord("mall")).setUnlocalizedName("record"));
+        registerItem(valueBase+2262, "record_mellohi", (new ItemRecord("mellohi")).setUnlocalizedName("record"));
+        registerItem(valueBase+2263, "record_stal", (new ItemRecord("stal")).setUnlocalizedName("record"));
+        registerItem(valueBase+2264, "record_strad", (new ItemRecord("strad")).setUnlocalizedName("record"));
+        registerItem(valueBase+2265, "record_ward", (new ItemRecord("ward")).setUnlocalizedName("record"));
+        registerItem(valueBase+2266, "record_11", (new ItemRecord("11")).setUnlocalizedName("record"));
+        registerItem(valueBase+2267, "record_wait", (new ItemRecord("wait")).setUnlocalizedName("record"));
+        registerItem(valueBase+2268, "record_magnetic_circuit", (new ItemRecord("magnetic_circuit")).setUnlocalizedName("record"));
+        registerItem(valueBase+2269, "record_key", (new ItemRecord("key")).setUnlocalizedName("record"));
+        registerItem(valueBase+2270, "record_alpha", (new ItemRecord("alpha")).setUnlocalizedName("record"));
 
 //        registerItem(valueBase+5011, "cave_map", (new ItemEmptyMap()).setUnlocalizedName("emptyCaveMap"));
-
-
-
     }
 
     // custom code

@@ -28,7 +28,7 @@ public class ItemProjectile extends Item
 
         worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-        if(variant==1) playerIn.getCooldownTracker().setCooldown(this, 20);
+        if(variant==1) playerIn.getCooldownTracker().setCooldown(this, 10);
 
         if (!worldIn.isRemote)
         {
