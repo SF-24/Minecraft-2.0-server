@@ -85,48 +85,6 @@ public class ItemPotion extends Item
         return list;
     }
 
-    public void onPlayerStoppedUsing(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, int timeLeft)
-    {
-        // TODO: Move to separate class
-
-        // Calculate how long the player charged the potion
-        int chargeDuration = this.getMaxItemUseDuration(itemStackIn) - timeLeft;
-
-        // Convert charge ticks to a generic float scaling between 0.0F and 1.0F (Fully charged at 1 second / 20 ticks)
-        float throwPower = (float)chargeDuration / 20.0F;
-        throwPower = (throwPower * throwPower + throwPower * 2.0F) / 3.0F;
-
-        // Don't throw if they barely clicked
-        if ((double)throwPower < 0.1D)
-        {
-            return;
-        }
-        if (throwPower > 1.0F)
-        {
-            throwPower = 1.0F;
-        }
-
-        worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-
-        if (!worldIn.isRemote)
-        {
-            EntityPotion entityPotion = new EntityPotion(worldIn, playerIn, itemStackIn/*, throwPower*0.8F*/);
-            float baseVelocityMultiplier = 1.0f; // was 1.375f;
-
-            double dirX = -Math.sin(Math.toRadians(playerIn.rotationYaw)) * Math.cos(Math.toRadians(playerIn.rotationPitch));
-            double dirY = -Math.sin(Math.toRadians(playerIn.rotationPitch));
-            double dirZ = Math.cos(Math.toRadians(playerIn.rotationYaw)) * Math.cos(Math.toRadians(playerIn.rotationPitch));
-            entityPotion.setThrowableHeading(dirX,dirY,dirZ, throwPower*baseVelocityMultiplier, 1.0f);
-            worldIn.spawnEntityInWorld(entityPotion);
-        }
-        if (!playerIn.capabilities.isCreativeMode)
-        {
-            --itemStackIn.stackSize;
-        }
-
-        playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
-    }
-
 
     /**
      * Called when the player finishes using this Item (E.g. finishes eating.). Not called when the player stops using
@@ -196,7 +154,35 @@ public class ItemPotion extends Item
      */
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
-        playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+        worldIn.playSoundAtEntity(playerIn, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
+        if (!worldIn.isRemote && isSplash(itemStackIn.getMetadata()))
+        {
+            EntityPotion entityPotion = new EntityPotion(worldIn, playerIn, itemStackIn/*, throwPower*0.8F*/);
+            float baseVelocityMultiplier = 1.0f; // was 1.375f;
+
+            double dirX = -Math.sin(Math.toRadians(playerIn.rotationYaw)) * Math.cos(Math.toRadians(playerIn.rotationPitch));
+            double dirY = -Math.sin(Math.toRadians(playerIn.rotationPitch));
+            double dirZ = Math.cos(Math.toRadians(playerIn.rotationYaw)) * Math.cos(Math.toRadians(playerIn.rotationPitch));
+            entityPotion.setThrowableHeading(dirX,dirY,dirZ, baseVelocityMultiplier, 1.0f);
+            worldIn.spawnEntityInWorld(entityPotion);
+            playerIn.getCooldownTracker().setCooldown(itemStackIn.getItem(), 10);
+
+            if (!playerIn.capabilities.isCreativeMode)
+            {
+                --itemStackIn.stackSize;
+                if(itemStackIn.stackSize<=0) {
+                    return null;
+                } else {
+                    return itemStackIn;
+                }
+            }
+        }
+
+        if(!isSplash(itemStackIn.getMetadata())) {
+            playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+        }
+
         return itemStackIn;
     }
 

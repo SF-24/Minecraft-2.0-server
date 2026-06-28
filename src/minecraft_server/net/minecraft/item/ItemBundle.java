@@ -1,16 +1,11 @@
 package net.minecraft.item;
 
-import net.minecraft.MineshaftLogger;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Slot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumChatFormatting;
-
-import java.util.List;
 
 public class ItemBundle extends Item {
     // TODO: Add leather-style dye
@@ -76,9 +71,9 @@ public class ItemBundle extends Item {
 
     public static ItemStack getItem(ItemStack bundle, int slot) {
         NBTTagList list = getItemList(bundle);
-        if (list == null) return ItemStack.empty;
+        if (list == null) return null;
         int count = list.tagCount();
-        if (count <= 0) return ItemStack.empty;
+        if (count <= 0) return null;
 
         slot = checkSlot(bundle, slot);
         return ItemStack.loadItemStackFromNBT(list.getCompoundTagAt(slot));
@@ -114,7 +109,7 @@ public class ItemBundle extends Item {
         }
         int empty = getEmptyAmount(bundle);
         int itemSize = getItemstackAmount(stack);
-        int itemCount = stack.getCount();
+        int itemCount = stack.stackSize;
         int countToAdd = Math.min(itemCount, empty / itemSize);
         if (countToAdd == 0) return;
         int amountToAdd = Math.min(itemSize * itemCount, itemSize * countToAdd);
@@ -125,8 +120,7 @@ public class ItemBundle extends Item {
         }
         else compound.setInteger("Count", countToAdd);
         list.appendTag(compound);
-        MineshaftLogger.logDebug("Tag: " + bundle.getTagCompound().toString());
-        stack.stackSize=(stack.getCount() - countToAdd);
+        stack.stackSize=(stack.stackSize - countToAdd);
         if (stack.stackSize <= 0) {
             if(!isBundleCursor) {
                 inventoryPlayer.setItemStack(null);
@@ -146,7 +140,7 @@ public class ItemBundle extends Item {
             NBTTagCompound compound = bundle.getTagCompound();
             list = new NBTTagList();
             compound.setTag("StoredItems", list);
-            return ItemStack.empty;
+            return null;
         }
 
         slot = checkSlot(bundle, slot);
@@ -155,11 +149,11 @@ public class ItemBundle extends Item {
         ItemStack stack = ItemStack.loadItemStackFromNBT(stackTag);
         if (stack.isEmpty()) return stack;
 
-        amount = Math.min(stack.getCount(), amount);
-        if (amount == stack.getCount()) {
+        amount = Math.min(stack.stackSize, amount);
+        if (amount == stack.stackSize) {
             list.removeTag(slot);
         } else {
-            int count = stack.getCount() - amount;
+            int count = stack.stackSize - amount;
 
             if (stackTag.hasKey("Count", 1)) {
                 stackTag.setByte("Count", (byte) count);
@@ -184,5 +178,4 @@ public class ItemBundle extends Item {
         if (list == null) return 0;
         return list.tagCount();
     }
-
 }

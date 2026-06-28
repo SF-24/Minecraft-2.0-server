@@ -12,7 +12,9 @@ public class ItemProjectile extends Item
     public ItemProjectile(byte variant)
     {
         this.maxStackSize = 16;
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        if(variant!=10) {
+            this.setCreativeTab(CreativeTabs.tabMisc);
+        }
         this.variant=variant;
     }
 
