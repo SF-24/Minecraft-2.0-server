@@ -1,14 +1,11 @@
-package net.minecraft.entity.item;
+package net.minecraft.item;
 
 import net.minecraft.MineshaftLogger;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
@@ -54,7 +51,7 @@ public class ItemBundle extends Item {
 
     private static int getItemstackAmount(ItemStack stack) {
         int size = 1;
-        if (stack.getMaxStackSize() < 64) size = 64 / stack.getItem().getBundledItemStackLimit();
+        if (stack.getMaxStackSize() < 64) size = 64 / (stack.getItem().getBundledItemStackLimit()==1?4:stack.getItem().getBundledItemStackLimit());
         return size;
     }
 
@@ -186,18 +183,6 @@ public class ItemBundle extends Item {
         NBTTagList list = getItemList(bundle);
         if (list == null) return 0;
         return list.tagCount();
-    }
-
-    // Tooltip - client only.
-    @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-            if (stack.hasTagCompound()) {
-            if (isDyed(stack)) tooltip.add(I18n.format("item.bundle.dyed"));
-            int size = getItemAmount(stack);
-            String str = I18n.format("item.bundle.fullness", size, 64);
-            if (size == 64) tooltip.add(EnumChatFormatting.DARK_RED + str);
-            else tooltip.add(str);
-        }
     }
 
 }

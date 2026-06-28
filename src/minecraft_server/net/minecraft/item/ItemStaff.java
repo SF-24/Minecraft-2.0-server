@@ -24,6 +24,8 @@ public class ItemStaff extends Item {
 
     public ItemStaff(int variant, int durability) {
         this.setMaxDamage(durability);
+        this.maxBundleStackSize=4;
+        this.maxStackSize=1;
         this.setCreativeTab(CreativeTabs.tabCombat);
         this.variant = variant;
     }
