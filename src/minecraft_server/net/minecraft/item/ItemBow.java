@@ -16,6 +16,7 @@ public class ItemBow extends Item
     public ItemBow()
     {
         this.maxStackSize = 1;
+        this.maxBundleStackSize=4;
         this.setMaxDamage(384);
         this.setCreativeTab(CreativeTabs.tabCombat);
     }

@@ -12,6 +12,7 @@ public class ItemShears extends Item
 {
     public ItemShears()
     {
+        this.maxBundleStackSize=4;
         this.setMaxStackSize(1);
         this.setMaxDamage(238);
         this.setCreativeTab(CreativeTabs.tabTools);

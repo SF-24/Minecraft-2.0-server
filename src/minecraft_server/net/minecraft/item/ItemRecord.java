@@ -23,6 +23,7 @@ public class ItemRecord extends Item
     {
         this.recordName = name;
         this.maxStackSize = 1;
+        this.maxBundleStackSize=4;
         this.setCreativeTab(CreativeTabs.tabMisc);
         RECORDS.put("records." + name, this);
     }

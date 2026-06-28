@@ -15,6 +15,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.HoverEvent;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -284,6 +285,28 @@ public final class ItemStack
     public int getMaxDamage()
     {
         return this.item.getMaxDamage();
+    }
+
+    public boolean isEmpty() {
+        if (this.equals(new ItemStack(Item.getItemFromBlock(Blocks.air))))
+        {
+            return true;
+        }
+        else if (this.item != null && this.item != Item.getItemFromBlock(Blocks.air))
+        {
+            if (this.stackSize <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                return this.itemDamage < -32768 || this.itemDamage > 65535;
+            }
+        }
+        else
+        {
+            return true;
+        }
     }
 
     /**

@@ -26,6 +26,7 @@ public class ItemTool extends Item
         this.toolMaterial = material;
         this.effectiveBlocks = effectiveBlocks;
         this.maxStackSize = 1;
+        this.maxBundleStackSize=4;
         this.setMaxDamage(material.getMaxUses());
         this.efficiencyOnProperMaterial = material.getEfficiencyOnProperMaterial();
         this.damageVsEntity = attackDamage + material.getDamageVsEntity();

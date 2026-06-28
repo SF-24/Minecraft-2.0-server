@@ -4,11 +4,6 @@ import com.google.common.base.Function;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-
 import net.minecraft.block.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -18,21 +13,20 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityPainting;
+import net.minecraft.entity.item.ItemBundle;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionHelper;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.RegistryNamespaced;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 public class Item {
     public static final RegistryNamespaced<ResourceLocation, Item> itemRegistry = new RegistryNamespaced();
@@ -49,6 +43,7 @@ public class Item {
      * Maximum size of the stack.
      */
     protected int maxStackSize = 64;
+    protected int maxBundleStackSize = -1;
 
     /**
      * Maximum damage an item can handle.
@@ -118,6 +113,11 @@ public class Item {
         return this;
     }
 
+    public Item setMaxBundleStackSize(int maxBundleStackSize) {
+        this.maxBundleStackSize = maxBundleStackSize;
+        return this;
+    }
+
     /**
      * Called when a Block is right-clicked with this Item
      */
@@ -149,6 +149,13 @@ public class Item {
      */
     public int getItemStackLimit() {
         return this.maxStackSize;
+    }
+
+    public int getBundledItemStackLimit() {
+        if(this.maxBundleStackSize>0) {
+            return this.maxBundleStackSize;
+        }
+        return maxStackSize;
     }
 
     /**
@@ -791,7 +798,7 @@ public class Item {
         registerItem(valueBase+351, "dye", (new ItemDye()).setUnlocalizedName("dyePowder"));
         registerItem(valueBase+352, "bone", (new Item()).setUnlocalizedName("bone").setFull3D().setCreativeTab(CreativeTabs.tabMisc));
         registerItem(valueBase+353, "sugar", (new Item()).setUnlocalizedName("sugar").setPotionEffect(PotionHelper.sugarEffect).setCreativeTab(CreativeTabs.tabMaterials));
-        registerItem(valueBase+354, "cake", (new ItemReed(Blocks.cake)).setMaxStackSize(1).setUnlocalizedName("cake").setCreativeTab(CreativeTabs.tabFood));
+        registerItem(valueBase+354, "cake", (new ItemReed(Blocks.cake)).setMaxStackSize(1).setMaxBundleStackSize(4).setUnlocalizedName("cake").setCreativeTab(CreativeTabs.tabFood));
         registerItem(valueBase+355, "bed", (new ItemBed()).setMaxStackSize(1).setUnlocalizedName("bed"));
         registerItem(valueBase+356, "repeater", (new ItemReed(Blocks.unpowered_repeater)).setUnlocalizedName("diode").setCreativeTab(CreativeTabs.tabRedstone));
         registerItem(valueBase+357, "cookie", (new ItemFood(2, 0.1F, false, EnumFoodType.BAKING)).setUnlocalizedName("cookie"));
@@ -853,9 +860,9 @@ public class Item {
         registerItem(valueBase+414, "rabbit_foot", (new Item()).setUnlocalizedName("rabbitFoot").setPotionEffect(PotionHelper.rabbitFootEffect).setCreativeTab(CreativeTabs.tabBrewing));
         registerItem(valueBase+415, "rabbit_hide", (new Item()).setUnlocalizedName("rabbitHide").setCreativeTab(CreativeTabs.tabMaterials));
         registerItem(valueBase+416, "armor_stand", (new ItemArmorStand()).setUnlocalizedName("armorStand").setMaxStackSize(16));
-        registerItem(valueBase+417, "iron_horse_armor", (new Item()).setUnlocalizedName("horsearmormetal").setMaxStackSize(1).setCreativeTab(CreativeTabs.tabMisc));
-        registerItem(valueBase+418, "golden_horse_armor", (new Item()).setUnlocalizedName("horsearmorgold").setMaxStackSize(1).setCreativeTab(CreativeTabs.tabMisc));
-        registerItem(valueBase+419, "diamond_horse_armor", (new Item()).setUnlocalizedName("horsearmordiamond").setMaxStackSize(1).setCreativeTab(CreativeTabs.tabMisc));
+        registerItem(valueBase+417, "iron_horse_armor", (new Item()).setUnlocalizedName("horsearmormetal").setMaxStackSize(1).setMaxBundleStackSize(4).setCreativeTab(CreativeTabs.tabMisc));
+        registerItem(valueBase+418, "golden_horse_armor", (new Item()).setUnlocalizedName("horsearmorgold").setMaxStackSize(1).setMaxBundleStackSize(4).setCreativeTab(CreativeTabs.tabMisc));
+        registerItem(valueBase+419, "diamond_horse_armor", (new Item()).setUnlocalizedName("horsearmordiamond").setMaxStackSize(1).setMaxBundleStackSize(4).setCreativeTab(CreativeTabs.tabMisc));
         registerItem(valueBase+422, "command_block_minecart", (new ItemMinecart(EntityMinecart.EnumMinecartType.COMMAND_BLOCK)).setUnlocalizedName("minecartCommandBlock").setCreativeTab((CreativeTabs) null));
         registerItem(valueBase+423, "mutton", (new ItemFood(2, 0.3F, true, EnumFoodType.RAW_MEAT)).setUnlocalizedName("muttonRaw"));
         registerItem(valueBase+424, "cooked_mutton", (new ItemFood(6, 0.8F, true, EnumFoodType.COOKED_MEAT)).setUnlocalizedName("muttonCooked"));
@@ -898,8 +905,9 @@ public class Item {
 //        registerItem(valueBase+475, "amethyst_leggings", (new ItemArmor(ItemArmor.ArmorMaterial.AMETHYST, 3, 2)).setUnlocalizedName("leggingsAmethyst"));
 //        registerItem(valueBase+476, "amethyst_boots", (new ItemArmor(ItemArmor.ArmorMaterial.AMETHYST, 3, 3)).setUnlocalizedName("bootsAmethyst"));
 
-        // Missing 477-493
+        // Missing 477-492
 
+        registerItem(valueBase+493, "bundle", (new ItemBundle()).setUnlocalizedName("bundle").setCreativeTab(CreativeTabs.tabTools));
         registerItem(valueBase+494, "ender_pouch", (new ItemBackpack(0)).setUnlocalizedName("pouchEnder").setUnlocalizedName("pouchEnder").setCreativeTab(CreativeTabs.tabTools));
 
         registerItem(valueBase+495, "steel_ingot", (new Item()).setUnlocalizedName("ingotSteel").setCreativeTab(CreativeTabs.tabMaterials));
@@ -937,7 +945,7 @@ public class Item {
         registerItem(valueBase+605, "name_tag", (new ItemNameTag()).setUnlocalizedName("nameTag"));
 
         // moved items
-        registerItem(valueBase+606, "enchanted_book", (new ItemEnchantedBook()).setMaxStackSize(1).setUnlocalizedName("enchantedBook"));
+        registerItem(valueBase+606, "enchanted_book", (new ItemEnchantedBook()).setMaxBundleStackSize(4).setMaxStackSize(1).setUnlocalizedName("enchantedBook"));
 
         // Unusable items:
         registerItem(valueBase+700, "display_bubble", (new ItemProjectile((byte) 10)).setUnlocalizedName("displayBubble"));

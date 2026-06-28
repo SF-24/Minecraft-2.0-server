@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import java.util.List;
 import java.util.Set;
+
+import net.minecraft.entity.item.ItemBundle;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
@@ -132,6 +134,46 @@ public abstract class Container
     {
         ItemStack itemstack = null;
         InventoryPlayer inventoryplayer = playerIn.inventory;
+
+        // Bundles
+        if (slotId >= 0 && slotId < this.inventorySlots.size()) {
+            Slot slot = this.inventorySlots.get(slotId);
+            ItemStack cursorStack = playerIn.inventory.getItemStack();
+
+            // clickedButton: 0 (Left), 1 (Right), 2 (Middle).
+            // mode: 0 (Click), 1 (Shift-Click), 2 (Hotbar), 3 (Pick Block), 4 (Drop), 5 (Drag Start/Add), 6 (Drag End).
+
+            // Check config handler, can put item
+            // TODO: CHECK!
+            if (slot != null && ((clickedButton == 1) && mode == 0)/* || (mode == 5 || mode == 6))*/) {
+                if (cursorStack != null && cursorStack.getItem() instanceof ItemBundle) {
+                    // The bundle is on the cursor.
+                    int itemAmount = ItemBundle.getItemAmount(cursorStack);
+                    if (slot.getHasStack() && slot.canTakeStack(playerIn) && itemAmount < ItemBundle.getBundleLimit() && ItemBundle.isBundleable(slot.getStack())) {
+                        bundles$insertItem(playerIn, cursorStack, slot.getStack(), slot, true);
+                        this.detectAndSendChanges();
+                        return null;
+                    } else if (itemAmount > 0) {
+                        bundles$removeItem(playerIn, cursorStack, slot, true);
+                        this.detectAndSendChanges();
+                        return null;
+                    }
+                } else if (slot.getStack()!=null && slot.getStack().getItem() instanceof ItemBundle) {
+                    // The bundle is the one being clicked
+                    int itemAmount = ItemBundle.getItemAmount(slot.getStack());
+                    if (cursorStack!=null && !cursorStack.isEmpty() && itemAmount < ItemBundle.getBundleLimit() && ItemBundle.isBundleable(cursorStack) && slot.canTakeStack(playerIn)) {
+                        bundles$insertItem(playerIn, slot.getStack(), cursorStack, slot, false);
+                        this.detectAndSendChanges();
+                        return null;
+                    }
+                    else if ((cursorStack==null||cursorStack.isEmpty()) && itemAmount > 0) {
+                        bundles$removeHeldItem(playerIn, slot, slot.getStack(), false);
+                        this.detectAndSendChanges();
+                        return null;
+                    }
+                }
+            }
+        }
 
         if (mode == 5)
         {
@@ -758,5 +800,50 @@ public abstract class Container
             f = f / (float)inv.getSizeInventory();
             return MathHelper.floor_float(f * 14.0F) + (i > 0 ? 1 : 0);
         }
+    }
+
+
+    private void bundles$insertItem(EntityPlayer player, ItemStack bundle, ItemStack stackToAdd, Slot slot, boolean isBundleCursor) {
+        if (player.worldObj.isRemote) player.playSound("dig.cloth", 1, 1);
+        slot.onPickupFromSlot(player, stackToAdd);
+        ItemBundle.addItem(player.inventory, slot,bundle, stackToAdd,isBundleCursor);
+    }
+
+    private void bundles$removeItem(EntityPlayer player, ItemStack bundle, Slot slotInventory, boolean isBundleCursor) {
+        if (slotInventory.getHasStack()) {
+            if (slotInventory.getStack().getMaxStackSize() == slotInventory.getStack().stackSize) return;
+            for (int i = 0; i < ItemBundle.getSlotCount(bundle); i++) {
+                ItemStack stack = ItemBundle.getItem(bundle, i);
+                if (Container.canAddItemToSlot(slotInventory, stack, true) && slotInventory.isItemValid(stack)) {
+                    if (player.worldObj.isRemote) player.playSound("dig.cloth", 1, 1);
+                    slotInventory.putStack(ItemBundle.removeItem(player.inventory, slotInventory, bundle, i, Math.min(slotInventory.getItemStackLimit(stack), stack.getMaxStackSize()),isBundleCursor));
+                    return;
+                }
+            }
+        }
+        int slot = 0;
+        ItemStack st = ItemBundle.getItem(bundle, slot);
+        if (Container.canAddItemToSlot(slotInventory, st, true) && slotInventory.isItemValid(st)) {
+            if (player.worldObj.isRemote) player.playSound("dig.cloth", 1, 1);
+            slotInventory.putStack(ItemBundle.removeItem(player.inventory, slotInventory,bundle, slot, Math.min(slotInventory.getItemStackLimit(st), st.getMaxStackSize()),isBundleCursor));
+        }
+    }
+
+    private void bundles$removeHeldItem(EntityPlayer player, Slot inventorySlot, ItemStack bundle, boolean isBundleCursor) {
+        if (player.inventory.getItemStack()!=null && !player.inventory.getItemStack().isEmpty()) {
+            for (int i = 0; i < ItemBundle.getSlotCount(bundle); i++) {
+                ItemStack stack = ItemBundle.getItem(bundle, i);
+                if (ItemStack.areItemStacksEqual(stack, player.inventory.getItemStack())) {
+                    if (player.worldObj.isRemote) player.playSound("dig.cloth", 1, 1);
+                    player.inventory.setItemStack(ItemBundle.removeItem(player.inventory,inventorySlot,bundle, i, stack.getMaxStackSize(),false));
+                    return;
+                }
+            }
+        }
+
+        int slot = 0;
+        ItemStack st = ItemBundle.getItem(bundle, slot);
+        if (player.worldObj.isRemote) player.playSound("dig.cloth", 1, 1);
+        player.inventory.setItemStack(ItemBundle.removeItem(player.inventory,inventorySlot,bundle, slot, st.getMaxStackSize(),isBundleCursor));
     }
 }

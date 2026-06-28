@@ -12,6 +12,7 @@ public class ItemFishingRod extends Item
     {
         this.setMaxDamage(64);
         this.setMaxStackSize(1);
+        this.maxBundleStackSize=4;
         this.setCreativeTab(CreativeTabs.tabTools);
     }
 
