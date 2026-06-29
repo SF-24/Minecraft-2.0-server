@@ -405,6 +405,9 @@ public abstract class EntityPlayer extends EntityLivingBase
         {
             this.setPosition(d3, this.posY, d4);
         }
+
+        // Check for extra logic.
+        this.cooldownTracker.tick();
     }
 
     /**
