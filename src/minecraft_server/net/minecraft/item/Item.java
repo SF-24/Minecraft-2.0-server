@@ -933,7 +933,6 @@ public class Item {
 //        registerItem(valueBase+596, "amethyst_hoe", (new ItemHoe(Item.ToolMaterial.AMETHYST)).setUnlocalizedName("hoeAmethyst"));
 
         // Missing: 597,598
-
         registerItem(valueBase+599, "holy_hand_grenade", (new ItemGrenade(0)).setUnlocalizedName("grenadeHoly").setCreativeTab(CreativeTabs.tabCombat));
 
         registerItem(valueBase+600, "shears", (new ItemShears()).setUnlocalizedName("shears"));

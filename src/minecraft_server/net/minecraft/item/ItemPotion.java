@@ -171,11 +171,7 @@ public class ItemPotion extends Item
             if (!playerIn.capabilities.isCreativeMode)
             {
                 --itemStackIn.stackSize;
-                if(itemStackIn.stackSize<=0) {
-                    return null;
-                } else {
-                    return itemStackIn;
-                }
+                return itemStackIn;
             }
         }
 
