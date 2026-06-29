@@ -1,6 +1,6 @@
 package net.minecraft.inventory;
 
-import net.minecraft.MineshaftLogger;
+import net.mineshaft.MineshaftLogger;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;

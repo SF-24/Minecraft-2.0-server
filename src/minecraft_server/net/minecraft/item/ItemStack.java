@@ -874,4 +874,9 @@ public final class ItemStack
             return false;
         }
     }
+
+    public boolean hasSpecialGlint()
+    {
+        return this.getItem().hasSpecialGlint(this);
+    }
 }

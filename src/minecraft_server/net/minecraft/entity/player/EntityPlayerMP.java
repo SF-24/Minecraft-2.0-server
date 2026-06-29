@@ -884,7 +884,8 @@ public class EntityPlayerMP extends EntityPlayer implements ICrafting
         this.playerNetServerHandler.sendPacket(new S31PacketWindowProperty(containerIn.windowId, varToUpdate, newValue));
     }
 
-    public void func_175173_a(Container p_175173_1_, IInventory p_175173_2_)
+    @Override
+    public void sendAllWindowProperties(Container p_175173_1_, IInventory p_175173_2_)
     {
         for (int i = 0; i < p_175173_2_.getFieldCount(); ++i)
         {

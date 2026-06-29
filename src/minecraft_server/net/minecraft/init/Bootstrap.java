@@ -141,7 +141,7 @@ public class Bootstrap
                 double d0 = source.getX() + (double)enumfacing.getFrontOffsetX();
                 double d1 = (double)((float)source.getBlockPos().getY() + 0.2F);
                 double d2 = source.getZ() + (double)enumfacing.getFrontOffsetZ();
-                Entity entity = ItemMonsterPlacer.spawnCreature(source.getWorld(), stack.getMetadata(), d0, d1, d2);
+                Entity entity = ItemMonsterPlacer.spawnCreature(source.getWorld(), stack, stack.getMetadata(), d0, d1, d2);
 
                 if (entity instanceof EntityLivingBase && stack.hasDisplayName())
                 {

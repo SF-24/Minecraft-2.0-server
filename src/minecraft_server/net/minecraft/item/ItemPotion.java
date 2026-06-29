@@ -194,15 +194,10 @@ public class ItemPotion extends Item
         return (meta & 16384) != 0;
     }
 
-    public int getColorFromDamage(int meta)
-    {
-        return PotionHelper.getLiquidColor(meta, false);
-    }
-
-    public int getColorFromItemStack(ItemStack stack, int renderPass)
-    {
-        return renderPass > 0 ? 16777215 : this.getColorFromDamage(stack.getMetadata());
-    }
+//    public int getColorFromItemStack(ItemStack stack, int renderPass)
+//    {
+//        return renderPass > 0 ? 16777215 : this.getColorFromDamage(stack.getMetadata());
+//    }
 
     public boolean isEffectInstant(int meta)
     {
@@ -253,94 +248,6 @@ public class ItemPotion extends Item
             {
                 String s1 = PotionHelper.getPotionPrefix(stack.getMetadata());
                 return StatCollector.translateToLocal(s1).trim() + " " + super.getItemStackDisplayName(stack);
-            }
-        }
-    }
-
-    /**
-     * allows items to add custom lines of information to the mouseover description
-     */
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
-    {
-        if (stack.getMetadata() != 0)
-        {
-            List<PotionEffect> list = Items.potionitem.getEffects(stack);
-            Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
-
-            if (list != null && !list.isEmpty())
-            {
-                for (PotionEffect potioneffect : list)
-                {
-                    String s1 = StatCollector.translateToLocal(potioneffect.getEffectName()).trim();
-                    Potion potion = Potion.potionTypes[potioneffect.getPotionID()];
-                    Map<IAttribute, AttributeModifier> map = potion.getAttributeModifierMap();
-
-                    if (map != null && map.size() > 0)
-                    {
-                        for (Entry<IAttribute, AttributeModifier> entry : map.entrySet())
-                        {
-                            AttributeModifier attributemodifier = (AttributeModifier)entry.getValue();
-                            AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.getAttributeModifierAmount(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-                            multimap.put(((IAttribute)entry.getKey()).getAttributeUnlocalizedName(), attributemodifier1);
-                        }
-                    }
-
-                    if (potioneffect.getAmplifier() > 0)
-                    {
-                        s1 = s1 + " " + StatCollector.translateToLocal("potion.potency." + potioneffect.getAmplifier()).trim();
-                    }
-
-                    if (potioneffect.getDuration() > 20)
-                    {
-                        s1 = s1 + " (" + Potion.getDurationString(potioneffect) + ")";
-                    }
-
-                    if (potion.isBadEffect())
-                    {
-                        tooltip.add(EnumChatFormatting.RED + s1);
-                    }
-                    else
-                    {
-                        tooltip.add(EnumChatFormatting.GRAY + s1);
-                    }
-                }
-            }
-            else
-            {
-                String s = StatCollector.translateToLocal("potion.empty").trim();
-                tooltip.add(EnumChatFormatting.GRAY + s);
-            }
-
-            if (!multimap.isEmpty())
-            {
-                tooltip.add("");
-                tooltip.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("potion.effects.whenDrank"));
-
-                for (Entry<String, AttributeModifier> entry1 : multimap.entries())
-                {
-                    AttributeModifier attributemodifier2 = (AttributeModifier)entry1.getValue();
-                    double d0 = attributemodifier2.getAmount();
-                    double d1;
-
-                    if (attributemodifier2.getOperation() != 1 && attributemodifier2.getOperation() != 2)
-                    {
-                        d1 = attributemodifier2.getAmount();
-                    }
-                    else
-                    {
-                        d1 = attributemodifier2.getAmount() * 100.0D;
-                    }
-
-                    if (d0 > 0.0D)
-                    {
-                        tooltip.add(EnumChatFormatting.BLUE + StatCollector.translateToLocalFormatted("attribute.modifier.plus." + attributemodifier2.getOperation(), new Object[] {ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + (String)entry1.getKey())}));
-                    }
-                    else if (d0 < 0.0D)
-                    {
-                        d1 = d1 * -1.0D;
-                        tooltip.add(EnumChatFormatting.RED + StatCollector.translateToLocalFormatted("attribute.modifier.take." + attributemodifier2.getOperation(), new Object[] {ItemStack.DECIMALFORMAT.format(d1), StatCollector.translateToLocal("attribute.name." + (String)entry1.getKey())}));
-                    }
-                }
             }
         }
     }

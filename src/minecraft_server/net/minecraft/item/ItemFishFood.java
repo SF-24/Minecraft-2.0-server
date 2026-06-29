@@ -15,7 +15,7 @@ public class ItemFishFood extends ItemFood
 
     public ItemFishFood(boolean cooked, EnumFoodType foodType)
     {
-        super(0, 0.0F, false);
+        super(0, 0.0F, false,cooked?EnumFoodType.COOKED_FISH:EnumFoodType.RAW_FISH);
         this.cooked = cooked;
     }
 

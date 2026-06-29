@@ -15,7 +15,7 @@ public class ItemSeedFood extends ItemFood
 
     public ItemSeedFood(int healAmount, float saturation, Block crops, Block soil)
     {
-        super(healAmount, saturation, false);
+        super(healAmount, saturation, false,EnumFoodType.RAW_VEGETABLE);
         this.crops = crops;
         this.soilId = soil;
     }

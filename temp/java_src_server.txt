@@ -441,6 +441,7 @@ src\minecraft_server\net\minecraft\entity\passive\EntityVillager.java
 src\minecraft_server\net\minecraft\entity\passive\EntityWaterMob.java
 src\minecraft_server\net\minecraft\entity\passive\EntityWolf.java
 src\minecraft_server\net\minecraft\entity\passive\IAnimals.java
+src\minecraft_server\net\minecraft\entity\player\CapabilityWindChargeFall.java
 src\minecraft_server\net\minecraft\entity\player\EntityPlayer.java
 src\minecraft_server\net\minecraft\entity\player\EntityPlayerMP.java
 src\minecraft_server\net\minecraft\entity\player\InventoryPlayer.java
@@ -512,6 +513,7 @@ src\minecraft_server\net\minecraft\item\ItemBook.java
 src\minecraft_server\net\minecraft\item\ItemBow.java
 src\minecraft_server\net\minecraft\item\ItemBucket.java
 src\minecraft_server\net\minecraft\item\ItemBucketMilk.java
+src\minecraft_server\net\minecraft\item\ItemBundle.java
 src\minecraft_server\net\minecraft\item\ItemCarrotOnAStick.java
 src\minecraft_server\net\minecraft\item\ItemCloth.java
 src\minecraft_server\net\minecraft\item\ItemCoal.java
@@ -549,6 +551,7 @@ src\minecraft_server\net\minecraft\item\ItemNameTag.java
 src\minecraft_server\net\minecraft\item\ItemPickaxe.java
 src\minecraft_server\net\minecraft\item\ItemPiston.java
 src\minecraft_server\net\minecraft\item\ItemPotion.java
+src\minecraft_server\net\minecraft\item\ItemProjectile.java
 src\minecraft_server\net\minecraft\item\ItemRecord.java
 src\minecraft_server\net\minecraft\item\ItemRedstone.java
 src\minecraft_server\net\minecraft\item\ItemReed.java
@@ -561,10 +564,10 @@ src\minecraft_server\net\minecraft\item\ItemSimpleFoiled.java
 src\minecraft_server\net\minecraft\item\ItemSkull.java
 src\minecraft_server\net\minecraft\item\ItemSlab.java
 src\minecraft_server\net\minecraft\item\ItemSnow.java
-src\minecraft_server\net\minecraft\item\ItemSnowball.java
 src\minecraft_server\net\minecraft\item\ItemSoup.java
 src\minecraft_server\net\minecraft\item\ItemSpade.java
 src\minecraft_server\net\minecraft\item\ItemStack.java
+src\minecraft_server\net\minecraft\item\ItemStaff.java
 src\minecraft_server\net\minecraft\item\ItemSword.java
 src\minecraft_server\net\minecraft\item\ItemTool.java
 src\minecraft_server\net\minecraft\item\ItemWritableBook.java
@@ -728,6 +731,7 @@ src\minecraft_server\net\minecraft\network\play\server\S46PacketSetCompressionLe
 src\minecraft_server\net\minecraft\network\play\server\S47PacketPlayerListHeaderFooter.java
 src\minecraft_server\net\minecraft\network\play\server\S48PacketResourcePackSend.java
 src\minecraft_server\net\minecraft\network\play\server\S49PacketUpdateEntityNBT.java
+src\minecraft_server\net\minecraft\network\play\server\SPacketCooldown.java
 src\minecraft_server\net\minecraft\network\rcon\IServer.java
 src\minecraft_server\net\minecraft\network\rcon\RConConsoleSource.java
 src\minecraft_server\net\minecraft\network\rcon\RConOutputStream.java
@@ -849,6 +853,8 @@ src\minecraft_server\net\minecraft\util\ChatStyle.java
 src\minecraft_server\net\minecraft\util\ClassInheritanceMultiMap.java
 src\minecraft_server\net\minecraft\util\CombatEntry.java
 src\minecraft_server\net\minecraft\util\CombatTracker.java
+src\minecraft_server\net\minecraft\util\CooldownTracker.java
+src\minecraft_server\net\minecraft\util\CooldownTrackerServer.java
 src\minecraft_server\net\minecraft\util\CryptManager.java
 src\minecraft_server\net\minecraft\util\DamageSource.java
 src\minecraft_server\net\minecraft\util\EntityDamageSource.java
@@ -1122,6 +1128,7 @@ src\minecraft_server\net\minecraft\world\storage\ThreadedFileIOBase.java
 src\minecraft_server\net\minecraft\world\storage\WorldInfo.java
 src\minecraft_server\net\mineshaft\ClimateZone.java
 src\minecraft_server\net\mineshaft\DifficultyManager.java
+src\minecraft_server\net\mineshaft\MineshaftLogger.java
 src\minecraft_server\net\mineshaft\cavegen\CaveConstants.java
 src\minecraft_server\net\mineshaft\cavegen\CaveDecorator.java
 src\minecraft_server\net\mineshaft\cavegen\CaveHeight.java
@@ -1130,3 +1137,4 @@ src\minecraft_server\net\mineshaft\cavegen\CaveType.java
 src\minecraft_server\net\mineshaft\cavegen\CaveUtil.java
 src\minecraft_server\net\mineshaft\cavegen\cave_types\CaveTypeFrozen.java
 src\minecraft_server\net\mineshaft\cavegen\cave_types\CaveTypeJungle.java
+src\minecraft_server\net\mineshaft\item\SpawnEggHelper.java

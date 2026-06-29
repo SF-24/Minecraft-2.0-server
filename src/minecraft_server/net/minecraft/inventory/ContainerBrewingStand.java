@@ -14,6 +14,7 @@ public class ContainerBrewingStand extends Container
     private final Slot theSlot;
     private int brewTime;
 
+
     public ContainerBrewingStand(InventoryPlayer playerInventory, IInventory tileBrewingStandIn)
     {
         this.tileBrewingStand = tileBrewingStandIn;
@@ -198,4 +199,5 @@ public class ContainerBrewingStand extends Container
             return stack != null && (stack.getItem() == Items.potionitem || stack.getItem() == Items.glass_bottle);
         }
     }
+
 }

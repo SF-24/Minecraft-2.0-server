@@ -93,4 +93,9 @@ public class ItemEnchantedBook extends Item
         EnchantmentHelper.addRandomEnchantment(rand, itemstack, 30);
         return new WeightedRandomChestContent(itemstack, minChance, maxChance, weight);
     }
+
+    @Override
+    public boolean hasSpecialGlint(ItemStack stack) {
+        return EnchantmentHelper.hasSpecialGlint(stack);
+    }
 }

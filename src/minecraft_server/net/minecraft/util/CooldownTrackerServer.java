@@ -16,12 +16,12 @@ public class CooldownTrackerServer extends CooldownTracker
     protected void notifyOnSet(Item itemIn, int ticksIn)
     {
         super.notifyOnSet(itemIn, ticksIn);
-        this.player.connection.sendPacket(new SPacketCooldown(itemIn, ticksIn));
+        this.player.playerNetServerHandler.sendPacket(new SPacketCooldown(itemIn, ticksIn));
     }
 
     protected void notifyOnRemove(Item itemIn)
     {
         super.notifyOnRemove(itemIn);
-        this.player.connection.sendPacket(new SPacketCooldown(itemIn, 0));
+        this.player.playerNetServerHandler.sendPacket(new SPacketCooldown(itemIn, 0));
     }
 }

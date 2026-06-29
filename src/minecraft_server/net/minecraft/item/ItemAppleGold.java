@@ -9,7 +9,7 @@ public class ItemAppleGold extends ItemFood
 {
     public ItemAppleGold(int amount, float saturation, boolean isWolfFood)
     {
-        super(amount, saturation, isWolfFood);
+        super(amount, saturation, isWolfFood, EnumFoodType.MAGIC);
         this.setHasSubtypes(true);
     }
 
