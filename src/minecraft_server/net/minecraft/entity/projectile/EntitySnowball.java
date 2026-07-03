@@ -1,17 +1,20 @@
 package net.minecraft.entity.projectile;
 
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.entity.monster.EntityBlaze;
+import net.minecraft.entity.*;
+import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.item.*;
+import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.CapabilityWindChargeFall;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class EntitySnowball extends EntityThrowable {
@@ -63,9 +66,21 @@ public class EntitySnowball extends EntityThrowable {
 
             if (this.riddenByEntity != null) {
                 // Slowly move upwards
-                this.motionX = 0.0D;
-                this.motionY = 0.1D;
-                this.motionZ = 0.0D;
+                if(this.isInWater()||this.riddenByEntity.isInWater()||this.riddenByEntity instanceof EntityFlying) {
+                    this.motionX = 0.0D;
+                    this.motionY = 0.0D;
+                    this.motionZ = 0.0D;
+                    ++this.lifetime;
+                } else if(this.riddenByEntity instanceof EntityGiantZombie || this.riddenByEntity instanceof EntityGuardian) {
+                    this.motionX = 0.0D;
+                    this.motionY = 0.05D;
+                    this.motionZ = 0.0D;
+                    ++this.lifetime;
+                } else {
+                    this.motionX = 0.0D;
+                    this.motionY = 0.1D;
+                    this.motionZ = 0.0D;
+                }
                 this.worldObj.spawnParticle(EnumParticleTypes.WATER_SPLASH, this.posX, this.posY, this.posZ, 0.0D, -1.0D, 0.0D);
 
                 if (!this.worldObj.isRemote) {
@@ -104,7 +119,7 @@ public class EntitySnowball extends EntityThrowable {
             case 1:
                 // TODO:
                 if (!this.worldObj.isRemote) {
-                    if (result.entityHit != null && !(result.entityHit instanceof EntityEnderCrystal) && !(result.entityHit == this.getThrower())) {
+                    if (result.entityHit != null && !(result.entityHit == this.getThrower())) {
                         // Do 1 damage.
                         result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float) 1);
                         /*Bedrock specific behaviour */
@@ -116,33 +131,23 @@ public class EntitySnowball extends EntityThrowable {
                     }
                 }
 
-                performKnockbackEffects(0.0);
-                checkBlockInteraction(this.getPosition());
-
-                //Spawn the burst
-                for (int i = 0; i < BURST_RADIUS * 1.5; i++) {
-                    EnumParticleTypes type = i < BURST_RADIUS * 10 / 10 ? EnumParticleTypes.EXPLOSION_LARGE : EnumParticleTypes.CLOUD;
-                    float range = (float) (BURST_RADIUS / 3);
-                    double x = this.posX + worldObj.rand.nextFloat() * range - worldObj.rand.nextFloat() * range;
-                    double y = this.posY + (worldObj.rand.nextFloat() * range - worldObj.rand.nextFloat() * range) / 2;
-                    double z = this.posZ + worldObj.rand.nextFloat() * range - worldObj.rand.nextFloat() * range;
-
-                    (this.worldObj).spawnParticle(type, x, y, z, 0, 0, 0, 1);
-                    // Speed 0, number = 1
-                }
+                this.spawnWindBurst();
 
                 break;
             case 10:
                 if (!this.worldObj.isRemote && result.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY && result.entityHit != this.thrower) {
                     Entity entity = result.entityHit;
-                    if (entity != null && !entity.isDead && entity.ridingEntity == null) {
-                        // Cache rendering values:
 
+                    this.performImpactChecks(entity);
+
+                    if (entity != null && !entity.isDead && entity.ridingEntity == null) {
                         if (this.riddenByEntity != null) {
                             this.riddenByEntity.setDead(); // TODO: CHECK FOR BUGS!
                         }
                         entity.mountEntity(this);
                     }
+                } else if(!this.worldObj.isRemote && result.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+                    this.setDead();
                 }
                 break;
         }
@@ -361,5 +366,68 @@ public class EntitySnowball extends EntityThrowable {
 
     public void setRenderOffset(float value) {
         this.renderOffset=value;
+    }
+
+    public void spawnWindBurst() {
+        performKnockbackEffects(0.0);
+        checkBlockInteraction(this.getPosition());
+
+        //Spawn the burst
+        for (int i = 0; i < BURST_RADIUS * 1.5; i++) {
+            EnumParticleTypes type = i < BURST_RADIUS * 10 / 10 ? EnumParticleTypes.EXPLOSION_LARGE : EnumParticleTypes.CLOUD;
+            float range = (float) (BURST_RADIUS / 3);
+            double x = this.posX + worldObj.rand.nextFloat() * range - worldObj.rand.nextFloat() * range;
+            double y = this.posY + (worldObj.rand.nextFloat() * range - worldObj.rand.nextFloat() * range) / 2;
+            double z = this.posZ + worldObj.rand.nextFloat() * range - worldObj.rand.nextFloat() * range;
+
+            (this.worldObj).spawnParticle(type, x, y, z, 0, 0, 0, 1);
+            // Speed 0, number = 1
+        }
+    }
+
+    public void performImpactChecks(Entity entity) {
+        if(entity instanceof EntityDragon || entity instanceof EntityWither || entity instanceof EntityIronGolem || entity instanceof EntityGhast
+                || entity instanceof EntityPotion || entity instanceof EntityArrow || entity instanceof EntityExpBottle
+                || entity instanceof EntityFishHook || entity instanceof EntityFireworkRocket || entity instanceof EntityLeashKnot || entity instanceof EntityItemFrame || entity instanceof EntityPainting || entity instanceof EntityMinecart || entity instanceof EntityXPOrb || entity instanceof EntityFallingBlock || entity instanceof EntityBoat || entity instanceof EntityLightningBolt) {
+            this.setDead();
+            return;
+        }
+
+        if(entity instanceof EntityEnderman) {
+            entity.attackEntityFrom(DamageSource.water,2.0F);
+            this.setDead();
+            return;
+        }
+
+        if(entity instanceof EntityFireball || entity instanceof EntityThrowable) {
+            this.setDead();
+            entity.setDead();
+            if(entity instanceof EntityFireball) {
+                if(worldObj instanceof WorldServer) {
+                    if(entity instanceof EntityLargeFireball) {
+                        // Ghast fireball
+                        ((WorldServer)worldObj).newExplosion(null, this.posX, this.posY, this.posZ, ((EntityLargeFireball) entity).explosionPower, false, false);
+                    } else if(entity instanceof EntitySmallFireball) {
+                        // Blaze fireball
+                        for(int i = 0; i < 8; ++i) {
+                            ((WorldServer)worldObj).spawnParticle(EnumParticleTypes.FLAME, false, posX, posY, posZ, 1, ((double) (posX + rand.nextFloat()) - 0.5d) / 2.0d, (posY + (double) rand.nextFloat() - 0.5d) / 8.0d, ((double) (posZ + rand.nextFloat()) - 0.5d) / 2.0d, 0.0d, new int[0]);
+                        }
+                        worldObj.newExplosion(null, this.posX, this.posY, this.posZ, 0.75F, false, false);
+                    } else if(entity instanceof EntityWitherSkull) {
+                        // Wither skull
+                        this.worldObj.newExplosion(this, this.posX, this.posY, this.posZ, 1.0F, false, this.worldObj.getGameRules().getBoolean("mobGriefing"));
+                    } else
+                    {
+                        worldObj.newExplosion(null, this.posX, this.posY, this.posZ, 1.5F, false, false);
+                    }
+
+                }
+            } else if(entity instanceof EntitySnowball && ((EntitySnowball) entity).getProjectileType()==1) {
+                this.spawnWindBurst();
+            }
+        } else if(entity instanceof EntityEnderCrystal) {
+            // Blow up end crystals
+            entity.attackEntityFrom(DamageSource.magic,1.0f);
+        }
     }
 }

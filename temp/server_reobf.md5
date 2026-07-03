@@ -855,7 +855,7 @@ net/minecraft/item/ItemSnow 72e3a0a4bda2d0ee3991d842ff086d33
 net/minecraft/item/ItemSoup 31302d63c760d2dd0600f8da7578d254
 net/minecraft/item/ItemSpade 5f7e28d63ff67e876258e01add67fd8f
 net/minecraft/item/ItemStack 335c048c89dc48b35b062e07cdcaa340
-net/minecraft/item/ItemStaff 17b2d112846732dd3f07a7dd5fa27907
+net/minecraft/item/ItemStaff 65549b47d4eedfe184e8abd8bc13f280
 net/minecraft/item/ItemSword c99f298fb9c7a78462df766896263097
 net/minecraft/item/ItemTool 28790ca212148d1be281a5af9421531d
 net/minecraft/item/ItemWritableBook f5bb90386c32c1425ec70d4e1c648360

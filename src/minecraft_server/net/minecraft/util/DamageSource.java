@@ -9,21 +9,28 @@ import net.minecraft.world.Explosion;
 
 public class DamageSource
 {
-    public static DamageSource inFire = (new DamageSource("inFire")).setFireDamage();
-    public static DamageSource lightningBolt = new DamageSource("lightningBolt");
-    public static DamageSource onFire = (new DamageSource("onFire")).setDamageBypassesArmor().setFireDamage();
-    public static DamageSource lava = (new DamageSource("lava")).setFireDamage();
-    public static DamageSource inWall = (new DamageSource("inWall")).setDamageBypassesArmor();
+    public static DamageSource generic = (new DamageSource("generic")).setDamageBypassesArmor();
+
+    // Special
     public static DamageSource drown = (new DamageSource("drown")).setDamageBypassesArmor();
     public static DamageSource starve = (new DamageSource("starve")).setDamageBypassesArmor().setDamageIsAbsolute();
-    public static DamageSource cactus = new DamageSource("cactus");
     public static DamageSource fall = (new DamageSource("fall")).setDamageBypassesArmor();
     public static DamageSource outOfWorld = (new DamageSource("outOfWorld")).setDamageBypassesArmor().setDamageAllowedInCreativeMode();
-    public static DamageSource generic = (new DamageSource("generic")).setDamageBypassesArmor();
-    public static DamageSource magic = (new DamageSource("magic")).setDamageBypassesArmor().setMagicDamage();
-    public static DamageSource wither = (new DamageSource("wither")).setDamageBypassesArmor();
+    public static DamageSource cactus = new DamageSource("cactus");
     public static DamageSource anvil = new DamageSource("anvil");
     public static DamageSource fallingBlock = new DamageSource("fallingBlock");
+    public static DamageSource inWall = (new DamageSource("inWall")).setDamageBypassesArmor();
+
+    // Elemental
+    public static DamageSource inFire = (new DamageSource("inFire")).setFireDamage();
+    public static DamageSource onFire = (new DamageSource("onFire")).setDamageBypassesArmor().setFireDamage();
+    public static DamageSource lava = (new DamageSource("lava")).setFireDamage();
+    public static DamageSource lightningBolt = new DamageSource("lightningBolt");
+    public static DamageSource water = (new DamageSource("water")).setDamageBypassesArmor();
+
+    // Damage
+    public static DamageSource magic = (new DamageSource("magic")).setDamageBypassesArmor().setMagicDamage();
+    public static DamageSource wither = (new DamageSource("wither")).setDamageBypassesArmor();
 
     /** This kind of damage can be blocked or not. */
     private boolean isUnblockable;

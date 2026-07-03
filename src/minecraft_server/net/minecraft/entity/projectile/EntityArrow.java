@@ -24,6 +24,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.mineshaft.item.ProjectileHelper;
 
 public class EntityArrow extends Entity implements IProjectile
 {
@@ -262,12 +263,12 @@ public class EntityArrow extends Entity implements IProjectile
             {
                 if (movingobjectposition.entityHit != null)
                 {
-                    float f2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-                    int l = MathHelper.ceiling_double_int((double)f2 * this.damage);
+                    float velocityScalar = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+                    int hitDamage = MathHelper.ceiling_double_int(Math.min(velocityScalar, ProjectileHelper.maxProjectileDamageScalar) * this.damage);
 
                     if (this.getIsCritical())
                     {
-                        l += this.rand.nextInt(l / 2 + 2);
+                        hitDamage += this.rand.nextInt(hitDamage / 2 + 2);
                     }
 
                     DamageSource damagesource;
@@ -286,7 +287,7 @@ public class EntityArrow extends Entity implements IProjectile
                         movingobjectposition.entityHit.setFire(5);
                     }
 
-                    if (movingobjectposition.entityHit.attackEntityFrom(damagesource, (float)l))
+                    if (movingobjectposition.entityHit.attackEntityFrom(damagesource, (float)hitDamage))
                     {
                         if (movingobjectposition.entityHit instanceof EntityLivingBase)
                         {

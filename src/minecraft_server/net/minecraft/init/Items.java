@@ -230,6 +230,7 @@ public class Items
     public static final Item breeze_rod;
     public static final ItemProjectile wind_charge;
     public static final ItemProjectile display_bubble;
+    public static final ItemCrossbow steel_crossbow;
     public static final ItemStaff water_staff;
     public static final ItemStaff fire_staff;
 
@@ -473,6 +474,7 @@ public class Items
             bundle = (ItemBundle) getRegisteredItem("bundle");
 
             display_bubble = (ItemProjectile) getRegisteredItem("display_bubble");
+            steel_crossbow = (ItemCrossbow) getRegisteredItem("steel_crossbow");
             water_staff = (ItemStaff) getRegisteredItem("water_staff");
             fire_staff = (ItemStaff) getRegisteredItem("fire_staff");
         }

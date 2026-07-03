@@ -62,6 +62,7 @@ public class EntityWither extends EntityMob implements IRangedAttackMob
         this.setHealth(this.getMaxHealth());
         this.setSize(0.9F, 3.5F);
         this.isImmuneToFire = true;
+        this.isFlyingMob=true;
         ((PathNavigateGround)this.getNavigator()).setCanSwim(true);
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIArrowAttack(this, 1.0D, 40, 20.0F));
