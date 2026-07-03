@@ -196,7 +196,7 @@ public abstract class Entity implements ICommandSender
     public int hurtResistantTime;
     protected boolean firstUpdate;
     protected boolean isImmuneToFire;
-    protected boolean isFlyingMob;
+    public boolean isFlyingMob;
     protected DataWatcher dataWatcher;
     private double entityRiderPitchDelta;
     private double entityRiderYawDelta;

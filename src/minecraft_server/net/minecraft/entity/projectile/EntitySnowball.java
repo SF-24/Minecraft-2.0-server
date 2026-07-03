@@ -66,7 +66,7 @@ public class EntitySnowball extends EntityThrowable {
 
             if (this.riddenByEntity != null) {
                 // Slowly move upwards
-                if(this.isInWater()||this.riddenByEntity.isInWater()||this.riddenByEntity instanceof EntityFlying) {
+                if(this.isInWater()||this.riddenByEntity.isInWater()||this.riddenByEntity.isFlyingMob) {
                     this.motionX = 0.0D;
                     this.motionY = 0.0D;
                     this.motionZ = 0.0D;
