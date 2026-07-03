@@ -558,8 +558,22 @@ public class Item {
         registerItemBlock(Blocks.diamond_block);
         registerItemBlock(Blocks.crafting_table);
         registerItemBlock(Blocks.farmland);
-        registerItemBlock(Blocks.furnace);
-        registerItemBlock(Blocks.lit_furnace);
+        registerItemBlock(Blocks.furnace, (new ItemMultiTexture(Blocks.furnace, Blocks.furnace, new Function<ItemStack, String>() {
+            public String apply(ItemStack p_apply_1_) {
+                if(p_apply_1_.getMetadata()==1) {
+                    return "forge";
+                }
+                return "furnace";
+            }
+        })).setUnlocalizedName("furnace"));
+        registerItemBlock(Blocks.lit_furnace, (new ItemMultiTexture(Blocks.furnace, Blocks.furnace, new Function<ItemStack, String>() {
+            public String apply(ItemStack p_apply_1_) {
+                if(p_apply_1_.getMetadata()==1) {
+                    return "lit_forge";
+                }
+                return "lit_furnace";
+            }
+        })).setUnlocalizedName("lit_furnace"));        registerItemBlock(Blocks.lit_furnace);
         registerItemBlock(Blocks.ladder);
         registerItemBlock(Blocks.rail);
         registerItemBlock(Blocks.stone_stairs);
