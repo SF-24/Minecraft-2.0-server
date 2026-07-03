@@ -681,8 +681,8 @@ public class Item {
         })).setUnlocalizedName("redSandStone"));
         registerItemBlock(Blocks.red_sandstone_stairs);
         registerItemBlock(Blocks.stone_slab2, (new ItemSlab(Blocks.stone_slab2, Blocks.stone_slab2, Blocks.double_stone_slab2)).setUnlocalizedName("stoneSlab2"));
-//        registerItemBlock(Blocks.nether_ash_ore);
-//        registerItemBlock(Blocks.steel_block);
+        registerItemBlock(Blocks.nether_ash_ore);
+        registerItemBlock(Blocks.steel_block);
         registerItemBlock(Blocks.nether_gold_ore);
 //        registerItemBlock(Blocks.amethyst_block);
 //        registerItemBlock(Blocks.amethyst_crystal);

@@ -95,10 +95,13 @@ public class EntityGhast extends EntityFlying implements IMob
         super.applyEntityAttributes();
         // Was default 10 health.
         if(worldObj.getDifficulty()==EnumDifficulty.HARD) {
+            this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(22.0D);
+        } else if(worldObj.getDifficulty()==EnumDifficulty.NORMAL){
             this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
         } else {
             this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(15.0D);
-        }        this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(100.0D);
+        }
+        this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(100.0D);
     }
 
     /**
