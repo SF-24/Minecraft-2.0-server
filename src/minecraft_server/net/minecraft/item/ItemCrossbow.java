@@ -51,7 +51,7 @@ public class ItemCrossbow extends Item {
             playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
         } else if (canFire(worldIn,stack)) {
             // Shoot
-            ProjectileHelper.shootProjectileArrowUsingItem(worldIn,playerIn,stack,itemRand,1.0f, 2.0f, this.damageMultiplier,true);
+            ProjectileHelper.shootProjectileArrowUsingItem(worldIn,playerIn,stack,itemRand,1.0f, 1.5f, this.damageMultiplier,true);
             setLoaded(worldIn,stack, false);
             return stack;
         }
