@@ -518,6 +518,7 @@ src\minecraft_server\net\minecraft\item\ItemCarrotOnAStick.java
 src\minecraft_server\net\minecraft\item\ItemCloth.java
 src\minecraft_server\net\minecraft\item\ItemCoal.java
 src\minecraft_server\net\minecraft\item\ItemColored.java
+src\minecraft_server\net\minecraft\item\ItemCrossbow.java
 src\minecraft_server\net\minecraft\item\ItemDoor.java
 src\minecraft_server\net\minecraft\item\ItemDoublePlant.java
 src\minecraft_server\net\minecraft\item\ItemDye.java
@@ -1137,4 +1138,5 @@ src\minecraft_server\net\mineshaft\cavegen\CaveType.java
 src\minecraft_server\net\mineshaft\cavegen\CaveUtil.java
 src\minecraft_server\net\mineshaft\cavegen\cave_types\CaveTypeFrozen.java
 src\minecraft_server\net\mineshaft\cavegen\cave_types\CaveTypeJungle.java
+src\minecraft_server\net\mineshaft\item\ProjectileHelper.java
 src\minecraft_server\net\mineshaft\item\SpawnEggHelper.java

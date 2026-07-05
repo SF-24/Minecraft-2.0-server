@@ -9,12 +9,13 @@ import net.minecraft.tileentity.TileEntityFurnace;
 public class ContainerFurnace extends Container
 {
     private final IInventory tileFurnace;
-    private int field_178152_f;
-    private int field_178153_g;
-    private int field_178154_h;
-    private int field_178155_i;
+    private int cookTime;
+    private int totalCookTime;
+    private int furnaceBurnTime;
+    private int currentItemBurnTime;
+    private boolean isForge;
 
-    public ContainerFurnace(InventoryPlayer playerInventory, IInventory furnaceInventory)
+    public ContainerFurnace(InventoryPlayer playerInventory, IInventory furnaceInventory, boolean isForge)
     {
         this.tileFurnace = furnaceInventory;
         this.addSlotToContainer(new Slot(furnaceInventory, 0, 56, 17));
@@ -52,31 +53,36 @@ public class ContainerFurnace extends Container
         {
             ICrafting icrafting = (ICrafting)this.crafters.get(i);
 
-            if (this.field_178152_f != this.tileFurnace.getField(2))
+            if (this.cookTime != this.tileFurnace.getField(2))
             {
                 icrafting.sendProgressBarUpdate(this, 2, this.tileFurnace.getField(2));
             }
 
-            if (this.field_178154_h != this.tileFurnace.getField(0))
+            if (this.furnaceBurnTime != this.tileFurnace.getField(0))
             {
                 icrafting.sendProgressBarUpdate(this, 0, this.tileFurnace.getField(0));
             }
 
-            if (this.field_178155_i != this.tileFurnace.getField(1))
+            if (this.currentItemBurnTime != this.tileFurnace.getField(1))
             {
                 icrafting.sendProgressBarUpdate(this, 1, this.tileFurnace.getField(1));
             }
 
-            if (this.field_178153_g != this.tileFurnace.getField(3))
+            if (this.totalCookTime != this.tileFurnace.getField(3))
             {
                 icrafting.sendProgressBarUpdate(this, 3, this.tileFurnace.getField(3));
             }
         }
 
-        this.field_178152_f = this.tileFurnace.getField(2);
-        this.field_178154_h = this.tileFurnace.getField(0);
-        this.field_178155_i = this.tileFurnace.getField(1);
-        this.field_178153_g = this.tileFurnace.getField(3);
+        this.cookTime = this.tileFurnace.getField(2);
+        this.furnaceBurnTime = this.tileFurnace.getField(0);
+        this.currentItemBurnTime = this.tileFurnace.getField(1);
+        this.totalCookTime = this.tileFurnace.getField(3);
+    }
+
+    public void updateProgressBar(int id, int data)
+    {
+        this.tileFurnace.setField(id, data);
     }
 
     public boolean canInteractWith(EntityPlayer playerIn)
@@ -108,14 +114,14 @@ public class ContainerFurnace extends Container
             }
             else if (index != 1 && index != 0)
             {
-                if (FurnaceRecipes.instance().getSmeltingResult(itemstack1) != null)
+                if (FurnaceRecipes.instance().getSmeltingResult(itemstack1,isForge) != null)
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
                     {
                         return null;
                     }
                 }
-                else if (TileEntityFurnace.isItemFuel(itemstack1))
+                else if (TileEntityFurnace.isItemFuel(itemstack1,isForge))
                 {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false))
                     {
