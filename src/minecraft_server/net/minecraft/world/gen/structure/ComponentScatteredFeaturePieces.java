@@ -3,15 +3,9 @@ package net.minecraft.world.gen.structure;
 import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.Random;
-import net.minecraft.block.BlockFlowerPot;
-import net.minecraft.block.BlockLever;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.BlockSandStone;
-import net.minecraft.block.BlockStoneBrick;
-import net.minecraft.block.BlockStoneSlab;
-import net.minecraft.block.BlockTripWire;
-import net.minecraft.block.BlockTripWireHook;
-import net.minecraft.entity.IEntityLivingData;
+
+import net.minecraft.block.*;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -22,9 +16,15 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
+import net.mineshaft.structure.EnumLootSource;
+import net.mineshaft.structure.LootTableEnchantedBook;
+import net.mineshaft.structure.LootTableList;
 
 public class ComponentScatteredFeaturePieces
 {
+    public static IBlockState cobblestone = Blocks.cobblestone.getDefaultState();
+    public static IBlockState cobblestoneMossy = Blocks.mossy_cobblestone.getDefaultState();
+
     public static void registerScatteredFeaturePieces()
     {
         MapGenStructureIO.registerStructureComponent(ComponentScatteredFeaturePieces.DesertPyramid.class, "TeDP");
@@ -34,8 +34,7 @@ public class ComponentScatteredFeaturePieces
 
     public static class DesertPyramid extends ComponentScatteredFeaturePieces.Feature
     {
-        private boolean[] field_74940_h = new boolean[4];
-        private static final List<WeightedRandomChestContent> itemsToGenerateInTemple = Lists.newArrayList(new WeightedRandomChestContent[] {new WeightedRandomChestContent(Items.diamond, 0, 1, 3, 3), new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 5, 10), new WeightedRandomChestContent(Items.gold_ingot, 0, 2, 7, 15), new WeightedRandomChestContent(Items.emerald, 0, 1, 3, 2), new WeightedRandomChestContent(Items.bone, 0, 4, 6, 20), new WeightedRandomChestContent(Items.rotten_flesh, 0, 3, 7, 16), new WeightedRandomChestContent(Items.saddle, 0, 1, 1, 3), new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.golden_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.diamond_horse_armor, 0, 1, 1, 1)});
+        private final boolean[] hasPlacedChest = new boolean[4];
 
         public DesertPyramid()
         {
@@ -49,19 +48,19 @@ public class ComponentScatteredFeaturePieces
         protected void writeStructureToNBT(NBTTagCompound tagCompound)
         {
             super.writeStructureToNBT(tagCompound);
-            tagCompound.setBoolean("hasPlacedChest0", this.field_74940_h[0]);
-            tagCompound.setBoolean("hasPlacedChest1", this.field_74940_h[1]);
-            tagCompound.setBoolean("hasPlacedChest2", this.field_74940_h[2]);
-            tagCompound.setBoolean("hasPlacedChest3", this.field_74940_h[3]);
+            tagCompound.setBoolean("hasPlacedChest0", this.hasPlacedChest[0]);
+            tagCompound.setBoolean("hasPlacedChest1", this.hasPlacedChest[1]);
+            tagCompound.setBoolean("hasPlacedChest2", this.hasPlacedChest[2]);
+            tagCompound.setBoolean("hasPlacedChest3", this.hasPlacedChest[3]);
         }
 
         protected void readStructureFromNBT(NBTTagCompound tagCompound)
         {
             super.readStructureFromNBT(tagCompound);
-            this.field_74940_h[0] = tagCompound.getBoolean("hasPlacedChest0");
-            this.field_74940_h[1] = tagCompound.getBoolean("hasPlacedChest1");
-            this.field_74940_h[2] = tagCompound.getBoolean("hasPlacedChest2");
-            this.field_74940_h[3] = tagCompound.getBoolean("hasPlacedChest3");
+            this.hasPlacedChest[0] = tagCompound.getBoolean("hasPlacedChest0");
+            this.hasPlacedChest[1] = tagCompound.getBoolean("hasPlacedChest1");
+            this.hasPlacedChest[2] = tagCompound.getBoolean("hasPlacedChest2");
+            this.hasPlacedChest[3] = tagCompound.getBoolean("hasPlacedChest3");
         }
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn)
@@ -255,11 +254,11 @@ public class ComponentScatteredFeaturePieces
 
             for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
             {
-                if (!this.field_74940_h[enumfacing.getHorizontalIndex()])
+                if (!this.hasPlacedChest[enumfacing.getHorizontalIndex()])
                 {
                     int l1 = enumfacing.getFrontOffsetX() * 2;
                     int i2 = enumfacing.getFrontOffsetZ() * 2;
-                    this.field_74940_h[enumfacing.getHorizontalIndex()] = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 10 + l1, -11, 10 + i2, WeightedRandomChestContent.func_177629_a(itemsToGenerateInTemple, new WeightedRandomChestContent[] {Items.enchanted_book.getRandom(randomIn)}), 2 + randomIn.nextInt(5));
+                    this.hasPlacedChest[enumfacing.getHorizontalIndex()] = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 10 + l1, -11, 10 + i2, WeightedRandomChestContent.func_177629_a(LootTableList.LootOverworld.DESERT_PYRAMID, LootTableEnchantedBook.getEnchantedBook(randomIn, EnumLootSource.DESERT_PYRAMID)), 2 + randomIn.nextInt(5));
                 }
             }
 
@@ -356,14 +355,13 @@ public class ComponentScatteredFeaturePieces
 
     public static class JunglePyramid extends ComponentScatteredFeaturePieces.Feature
     {
-        private boolean field_74947_h;
-        private boolean field_74948_i;
-        private boolean field_74945_j;
-        private boolean field_74946_k;
-        private static final List<WeightedRandomChestContent> field_175816_i = Lists.newArrayList(new WeightedRandomChestContent[] {new WeightedRandomChestContent(Items.diamond, 0, 1, 3, 3), new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 5, 10), new WeightedRandomChestContent(Items.gold_ingot, 0, 2, 7, 15), new WeightedRandomChestContent(Items.emerald, 0, 1, 3, 2), new WeightedRandomChestContent(Items.bone, 0, 4, 6, 20), new WeightedRandomChestContent(Items.rotten_flesh, 0, 3, 7, 16), new WeightedRandomChestContent(Items.saddle, 0, 1, 1, 3), new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.golden_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.diamond_horse_armor, 0, 1, 1, 1)});
-        private static final List<WeightedRandomChestContent> field_175815_j = Lists.newArrayList(new WeightedRandomChestContent[] {new WeightedRandomChestContent(Items.arrow, 0, 2, 7, 30)});
-        private static final List<WeightedRandomChestContent> field_175815_k = Lists.newArrayList(new WeightedRandomChestContent[] {new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.tnt), 0, 2, 7, 30)});
-        private static ComponentScatteredFeaturePieces.JunglePyramid.Stones junglePyramidsRandomScatteredStones = new ComponentScatteredFeaturePieces.JunglePyramid.Stones();
+        private boolean placedMainChest;
+        private boolean placedHiddenChest;
+        private boolean placedTrap1;
+        private boolean placedTrap2;
+        private static final List<WeightedRandomChestContent> field_175815_j = Lists.newArrayList(new WeightedRandomChestContent(Items.arrow, 0, 2, 7, 30));
+        private static final List<WeightedRandomChestContent> field_175815_k = Lists.newArrayList(new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.tnt), 0, 1, 2, 30));
+        private static final ComponentScatteredFeaturePieces.JunglePyramid.Stones junglePyramidsRandomScatteredStones = new ComponentScatteredFeaturePieces.JunglePyramid.Stones();
 
         public JunglePyramid()
         {
@@ -377,19 +375,19 @@ public class ComponentScatteredFeaturePieces
         protected void writeStructureToNBT(NBTTagCompound tagCompound)
         {
             super.writeStructureToNBT(tagCompound);
-            tagCompound.setBoolean("placedMainChest", this.field_74947_h);
-            tagCompound.setBoolean("placedHiddenChest", this.field_74948_i);
-            tagCompound.setBoolean("placedTrap1", this.field_74945_j);
-            tagCompound.setBoolean("placedTrap2", this.field_74946_k);
+            tagCompound.setBoolean("placedMainChest", this.placedMainChest);
+            tagCompound.setBoolean("placedHiddenChest", this.placedHiddenChest);
+            tagCompound.setBoolean("placedTrap1", this.placedTrap1);
+            tagCompound.setBoolean("placedTrap2", this.placedTrap2);
         }
 
         protected void readStructureFromNBT(NBTTagCompound tagCompound)
         {
             super.readStructureFromNBT(tagCompound);
-            this.field_74947_h = tagCompound.getBoolean("placedMainChest");
-            this.field_74948_i = tagCompound.getBoolean("placedHiddenChest");
-            this.field_74945_j = tagCompound.getBoolean("placedTrap1");
-            this.field_74946_k = tagCompound.getBoolean("placedTrap2");
+            this.placedMainChest = tagCompound.getBoolean("placedMainChest");
+            this.placedHiddenChest = tagCompound.getBoolean("placedHiddenChest");
+            this.placedTrap1 = tagCompound.getBoolean("placedTrap1");
+            this.placedTrap2 = tagCompound.getBoolean("placedTrap2");
         }
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn)
@@ -519,19 +517,14 @@ public class ComponentScatteredFeaturePieces
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 5, -3, 2, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 5, -3, 1, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 4, -3, 1, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 3, -3, 1, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy , 3, -3, 1, structureBoundingBoxIn);
 
-                if (!this.field_74945_j)
-                {
-                    int val = new Random().nextInt(4);
-
-                    if (val == 3)
-                    {
-                        this.field_74945_j = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 3, -2, 1, EnumFacing.NORTH.getIndex(), field_175815_j, 2);
-                    }
-                    else
-                    {
-                        this.field_74945_j = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 3, -2, 1, EnumFacing.NORTH.getIndex(), field_175815_k, 2);
+                if (!this.placedTrap1) {
+                    int v = new Random().nextInt(4);
+                    if (v == 3) {
+                        this.placedTrap1 = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 3, -2, 1, EnumFacing.NORTH.getIndex(), field_175815_k, 2);
+                    } else {
+                        this.placedTrap1 = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 3, -2, 1, EnumFacing.NORTH.getIndex(), field_175815_j, 2);
                     }
                 }
 
@@ -544,40 +537,36 @@ public class ComponentScatteredFeaturePieces
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 8, -3, 6, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 9, -3, 6, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 9, -3, 5, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 9, -3, 4, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy, 9, -3, 4, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 9, -2, 4, structureBoundingBoxIn);
 
-                if (!this.field_74946_k)
+                if (!this.placedTrap2)
                 {
-                    int val = new Random().nextInt(4);
-
-                    if (val == 3)
-                    {
-                        this.field_74946_k = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 3, -2, 1, EnumFacing.NORTH.getIndex(), field_175815_j, 2);
-                    }
-                    else
-                    {
-                        this.field_74946_k = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 3, -2, 1, EnumFacing.NORTH.getIndex(), field_175815_k, 2);
+                    int v = new Random().nextInt(4);
+                    if (v == 3) {
+                        this.placedTrap2 = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 9, -2, 3, EnumFacing.WEST.getIndex(), field_175815_k, 2);
+                    } else {
+                        this.placedTrap2 = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 9, -2, 3, EnumFacing.WEST.getIndex(), field_175815_j, 2);
                     }
                 }
 
                 this.setBlockState(worldIn, Blocks.vine.getStateFromMeta(15), 8, -1, 3, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.vine.getStateFromMeta(15), 8, -2, 3, structureBoundingBoxIn);
 
-                if (!this.field_74947_h)
+                if (!this.placedMainChest)
                 {
-                    this.field_74947_h = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 8, -3, 3, WeightedRandomChestContent.func_177629_a(field_175816_i, new WeightedRandomChestContent[] {Items.enchanted_book.getRandom(randomIn)}), 2 + randomIn.nextInt(5));
+                    this.placedMainChest = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 8, -3, 3, WeightedRandomChestContent.func_177629_a(LootTableList.LootOverworld.JUNGLE_PYRAMID, LootTableEnchantedBook.getEnchantedBook(randomIn,EnumLootSource.JUNGLE_PYRAMID)), 2 + randomIn.nextInt(5));
                 }
 
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 9, -3, 2, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 8, -3, 1, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 4, -3, 5, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 5, -2, 5, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 5, -1, 5, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 6, -3, 5, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 7, -2, 5, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 7, -1, 5, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 8, -3, 5, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy, 9, -3, 2, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy, 8, -3, 1, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy, 4, -3, 5, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy, 5, -2, 5, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy, 5, -1, 5, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy, 6, -3, 5, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy, 7, -2, 5, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy, 7, -1, 5, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy, 8, -3, 5, structureBoundingBoxIn);
                 this.fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 9, -1, 1, 9, -1, 5, false, randomIn, junglePyramidsRandomScatteredStones);
                 this.fillWithAir(worldIn, structureBoundingBoxIn, 8, -3, 8, 10, -1, 10);
                 this.setBlockState(worldIn, Blocks.stonebrick.getStateFromMeta(BlockStoneBrick.CHISELED_META), 8, -2, 11, structureBoundingBoxIn);
@@ -588,7 +577,7 @@ public class ComponentScatteredFeaturePieces
                 this.setBlockState(worldIn, Blocks.lever.getStateFromMeta(BlockLever.getMetadataForFacing(EnumFacing.getFront(this.getMetadataWithOffset(Blocks.lever, EnumFacing.NORTH.getIndex())))), 10, -2, 12, structureBoundingBoxIn);
                 this.fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 8, -3, 8, 8, -3, 10, false, randomIn, junglePyramidsRandomScatteredStones);
                 this.fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 10, -3, 8, 10, -3, 10, false, randomIn, junglePyramidsRandomScatteredStones);
-                this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 10, -2, 9, structureBoundingBoxIn);
+                this.setBlockState(worldIn, cobblestoneMossy, 10, -2, 9, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 8, -2, 9, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 8, -2, 10, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 10, -1, 9, structureBoundingBoxIn);
@@ -597,9 +586,9 @@ public class ComponentScatteredFeaturePieces
                 this.setBlockState(worldIn, Blocks.sticky_piston.getStateFromMeta(this.getMetadataWithOffset(Blocks.sticky_piston, EnumFacing.WEST.getIndex())), 10, -1, 8, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.unpowered_repeater.getStateFromMeta(this.getMetadataWithOffset(Blocks.unpowered_repeater, EnumFacing.NORTH.getHorizontalIndex())), 10, -2, 10, structureBoundingBoxIn);
 
-                if (!this.field_74948_i)
+                if (!this.placedHiddenChest)
                 {
-                    this.field_74948_i = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 9, -3, 10, WeightedRandomChestContent.func_177629_a(field_175816_i, new WeightedRandomChestContent[] {Items.enchanted_book.getRandom(randomIn)}), 2 + randomIn.nextInt(5));
+                    this.placedHiddenChest = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 9, -3, 10, WeightedRandomChestContent.func_177629_a(LootTableList.LootOverworld.JUNGLE_PYRAMID, LootTableEnchantedBook.getEnchantedBook(randomIn,EnumLootSource.JUNGLE_PYRAMID)), 2 + randomIn.nextInt(5));
                 }
 
                 return true;
@@ -616,11 +605,11 @@ public class ComponentScatteredFeaturePieces
             {
                 if (rand.nextFloat() < 0.4F)
                 {
-                    this.blockstate = Blocks.cobblestone.getDefaultState();
+                    this.blockstate = cobblestone;
                 }
                 else
                 {
-                    this.blockstate = Blocks.mossy_cobblestone.getDefaultState();
+                    this.blockstate = cobblestoneMossy;
                 }
             }
         }
@@ -707,8 +696,9 @@ public class ComponentScatteredFeaturePieces
                     {
                         this.hasWitch = true;
                         EntityWitch entitywitch = new EntityWitch(worldIn);
-                        entitywitch.setLocationAndAngles((double)l1 + 0.5D, (double)i2, (double)k1 + 0.5D, 0.0F, 0.0F);
-                        entitywitch.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(l1, i2, k1)), (IEntityLivingData)null);
+                        entitywitch.setLocationAndAngles((double)l1 + 0.5D, i2, (double)k1 + 0.5D, 0.0F, 0.0F);
+                        entitywitch.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(l1, i2, k1)), null);
+                        // make witches not despawn
                         entitywitch.enablePersistence();
                         worldIn.spawnEntityInWorld(entitywitch);
                     }

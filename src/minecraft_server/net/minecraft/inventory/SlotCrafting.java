@@ -125,10 +125,10 @@ public class SlotCrafting extends Slot
             this.thePlayer.triggerAchievement(AchievementList.bookcase);
         }
 
-        if (stack.getItem() == Items.golden_apple && stack.getMetadata() == 1)
-        {
-            this.thePlayer.triggerAchievement(AchievementList.overpowered);
-        }
+//        if (stack.getItem() == Items.golden_apple && stack.getMetadata() == 1)
+//        {
+//            this.thePlayer.triggerAchievement(AchievementList.overpowered);
+//        }
     }
 
     public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack)

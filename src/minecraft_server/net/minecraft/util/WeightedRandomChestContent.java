@@ -58,6 +58,14 @@ public class WeightedRandomChestContent extends WeightedRandom.Item
                     inv.setInventorySlotContents(random.nextInt(inv.getSizeInventory()), itemstack);
                 }
             }
+
+            for(WeightedRandomChestContent weightedRandomChestContent : listIn) {
+                if (weightedRandomChestContent.itemWeight == 0) {
+                    ItemStack itemstack = weightedRandomChestContent.theItemId.copy();
+                    itemstack.stackSize = weightedRandomChestContent.minStackSize + random.nextInt(weightedRandomChestContent.maxStackSize - weightedRandomChestContent.minStackSize);
+                    inv.setInventorySlotContents(random.nextInt(inv.getSizeInventory()), itemstack);
+                }
+            }
         }
     }
 

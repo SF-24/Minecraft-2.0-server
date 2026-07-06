@@ -1,8 +1,10 @@
 package net.minecraft.item;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.AchievementList;
 import net.minecraft.world.World;
 
 public class ItemAppleGold extends ItemFood
@@ -40,6 +42,11 @@ public class ItemAppleGold extends ItemFood
         else
         {
             super.onFoodEaten(stack, worldIn, player);
+        }
+
+        if (stack.getItem() == Items.golden_apple && stack.getMetadata() == 1)
+        {
+            player.triggerAchievement(AchievementList.overpowered);
         }
     }
 }

@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
@@ -819,9 +820,8 @@ public abstract class StructureComponent
             worldIn.setBlockState(blockpos, Blocks.chest.correctFacing(worldIn, blockpos, iblockstate), 2);
             TileEntity tileentity = worldIn.getTileEntity(blockpos);
 
-            if (tileentity instanceof TileEntityChest)
-            {
-                WeightedRandomChestContent.generateChestContents(rand, listIn, (TileEntityChest)tileentity, max);
+            if (tileentity instanceof TileEntityChest) {
+                WeightedRandomChestContent.generateChestContents(rand, listIn, (TileEntityChest) tileentity, max);
             }
 
             return true;

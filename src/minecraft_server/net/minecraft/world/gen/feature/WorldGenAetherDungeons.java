@@ -12,6 +12,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
+import net.mineshaft.structure.LootTableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -141,7 +142,7 @@ public class WorldGenAetherDungeons extends WorldGenerator
                         if (j3 == 1)
                         {
                             worldIn.setBlockState(blockpos2, Blocks.chest.correctFacing(worldIn, blockpos2, Blocks.chest.getDefaultState()), 2);
-                            List<WeightedRandomChestContent> list = WeightedRandomChestContent.func_177629_a(CHESTCONTENT, Items.enchanted_book.getRandom(rand));
+                            List<WeightedRandomChestContent> list = WeightedRandomChestContent.func_177629_a(LootTableList.LootAether.AETHER_DUNGEON, Items.enchanted_book.getRandom(rand));
                             TileEntity tileentity1 = worldIn.getTileEntity(blockpos2);
 
                             if (tileentity1 instanceof TileEntityChest)
