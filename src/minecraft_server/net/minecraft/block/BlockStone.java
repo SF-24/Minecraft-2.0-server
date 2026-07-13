@@ -153,13 +153,4 @@ public class BlockStone extends Block
             }
         }
     }
-
-    @Override
-    public float getBlockHardness(World worldIn, BlockPos pos)
-    {
-        if(worldIn.getBlockState(pos).getValue(VARIANT) == BlockStone.EnumType.STONE) {
-            return 0.4F;
-        }
-        return this.blockHardness;
-    }
 }
