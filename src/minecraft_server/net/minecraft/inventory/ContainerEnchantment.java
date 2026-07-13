@@ -215,13 +215,13 @@ public class ContainerEnchantment extends Container
     {
         ItemStack itemstack = this.tableInventory.getStackInSlot(0);
         ItemStack itemstack1 = this.tableInventory.getStackInSlot(1);
-        int i = id + 1;
+        int lapisCost = id + 1;
 
-        if ((itemstack1 == null || itemstack1.stackSize < i) && !playerIn.capabilities.isCreativeMode)
+        if ((itemstack1 == null || itemstack1.stackSize < lapisCost) && !playerIn.capabilities.isCreativeMode)
         {
             return false;
         }
-        else if (this.enchantLevels[id] > 0 && itemstack != null && (playerIn.experienceLevel >= i && playerIn.experienceLevel >= this.enchantLevels[id] || playerIn.capabilities.isCreativeMode))
+        else if (this.enchantLevels[id] > 0 && itemstack != null && (playerIn.experienceLevel >= lapisCost && playerIn.experienceLevel >= this.enchantLevels[id] || playerIn.capabilities.isCreativeMode))
         {
             if (!this.worldPointer.isRemote)
             {
@@ -230,7 +230,7 @@ public class ContainerEnchantment extends Container
 
                 if (list != null)
                 {
-                    playerIn.removeExperienceLevel(i);
+                    playerIn.removeExperienceLevel(enchantLevels[id]/3);
 
                     if (flag)
                     {
@@ -253,7 +253,7 @@ public class ContainerEnchantment extends Container
 
                     if (!playerIn.capabilities.isCreativeMode)
                     {
-                        itemstack1.stackSize -= i;
+                        itemstack1.stackSize -= lapisCost;
 
                         if (itemstack1.stackSize <= 0)
                         {
