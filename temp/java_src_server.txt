@@ -1067,6 +1067,7 @@ src\minecraft_server\net\minecraft\world\gen\feature\WorldGenSand.java
 src\minecraft_server\net\minecraft\world\gen\feature\WorldGenSavannaTree.java
 src\minecraft_server\net\minecraft\world\gen\feature\WorldGenShrub.java
 src\minecraft_server\net\minecraft\world\gen\feature\WorldGenSpikes.java
+src\minecraft_server\net\minecraft\world\gen\feature\WorldGenStonePillar.java
 src\minecraft_server\net\minecraft\world\gen\feature\WorldGenSwamp.java
 src\minecraft_server\net\minecraft\world\gen\feature\WorldGenTaiga1.java
 src\minecraft_server\net\minecraft\world\gen\feature\WorldGenTaiga2.java
