@@ -49,6 +49,7 @@ public class FurnaceRecipes
         this.addBothSmeltingRecipeForBlock(Blocks.emerald_ore, new ItemStack(Items.emerald), 1.0F);
         this.addSmelting(Items.potato, new ItemStack(Items.baked_potato), 0.35F);
         this.addBothSmeltingRecipeForBlock(Blocks.netherrack, new ItemStack(Items.netherbrick), 0.1F);
+        this.addBothSmeltingRecipeForBlock(Blocks.blackstone, new ItemStack(Items.netherbrick), 0.1F);
         this.addSmeltingRecipe(new ItemStack(Blocks.sponge, 1, 1), new ItemStack(Blocks.sponge, 1, 0), 0.15F);
 
         for (ItemFishFood.FishType itemfishfood$fishtype : ItemFishFood.FishType.values())
