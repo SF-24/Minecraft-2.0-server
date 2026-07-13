@@ -2,9 +2,9 @@ package net.mineshaft.structure;
 
 import net.minecraft.enchantment.Enchantment;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public enum EnumLootSource {
 
@@ -25,6 +25,10 @@ public enum EnumLootSource {
 
     public List<Enchantment> getNativeEnchantments() {
         return this.nativeEnchantments;
+    }
+
+    public Enchantment getRandomEnchantment(Random rand) {
+        return this.nativeEnchantments.get(rand.nextInt(this.nativeEnchantments.size()));
     }
 
     public boolean hasSuperEnchants() {

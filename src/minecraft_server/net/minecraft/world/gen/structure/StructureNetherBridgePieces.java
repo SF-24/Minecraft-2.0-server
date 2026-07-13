@@ -13,6 +13,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
+import net.mineshaft.structure.LootTableList;
 
 @SuppressWarnings("incomplete-switch")
 public class StructureNetherBridgePieces
@@ -154,7 +155,7 @@ public class StructureNetherBridgePieces
             if (this.field_111021_b && structureBoundingBoxIn.isVecInside(new BlockPos(this.getXWithOffset(3, 3), this.getYWithOffset(2), this.getZWithOffset(3, 3))))
             {
                 this.field_111021_b = false;
-                this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 3, 2, 3, field_111019_a, 2 + randomIn.nextInt(4));
+                this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 3, 2, 3, LootTableList.LootNether.getNetherFortressEnchantedBook(randomIn), LootTableList.LootNether.getNetherFortressLootCount(randomIn));
             }
 
             this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 6, 0, 4, 6, 4, Blocks.nether_brick.getDefaultState(), Blocks.nether_brick.getDefaultState(), false);
@@ -225,7 +226,7 @@ public class StructureNetherBridgePieces
             if (this.field_111020_b && structureBoundingBoxIn.isVecInside(new BlockPos(this.getXWithOffset(1, 3), this.getYWithOffset(2), this.getZWithOffset(1, 3))))
             {
                 this.field_111020_b = false;
-                this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 1, 2, 3, field_111019_a, 2 + randomIn.nextInt(4));
+                this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 1, 2, 3, LootTableList.LootNether.getNetherFortressEnchantedBook(randomIn), LootTableList.LootNether.getNetherFortressLootCount(randomIn));
             }
 
             this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 6, 0, 4, 6, 4, Blocks.nether_brick.getDefaultState(), Blocks.nether_brick.getDefaultState(), false);

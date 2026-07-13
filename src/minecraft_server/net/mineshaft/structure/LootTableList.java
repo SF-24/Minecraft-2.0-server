@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.WeightedRandomChestContent;
 
 import java.util.List;
+import java.util.Random;
 
 public class LootTableList {
 
@@ -58,8 +59,33 @@ public class LootTableList {
     }
 
     public static class LootNether {
+        public static final List<WeightedRandomChestContent> NETHER_FORTRESS = Lists.newArrayList(
+                new WeightedRandomChestContent(Items.diamond, 0, 1, 3, 5),
+                new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 5, 5),
+                /* new WeightedRandomChestContent(Items.nether_ash, 0, 1, 5, 5),*/
+                new WeightedRandomChestContent(Items.gold_ingot, 0, 1, 3, 15),
+                new WeightedRandomChestContent(Items.golden_sword, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.golden_helmet, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.golden_chestplate, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.golden_leggings, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.golden_boots, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.flint_and_steel, 0, 1, 1, 5),
+                new WeightedRandomChestContent(Items.nether_wart, 0, 3, 7, 5),
+                new WeightedRandomChestContent(Items.saddle, 0, 1, 1, 10),
+                new WeightedRandomChestContent(Items.golden_horse_armor, 0, 1, 1, 8),
+                new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 5),
+                new WeightedRandomChestContent(Items.diamond_horse_armor, 0, 1, 1, 3),
+                new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.obsidian), 0, 2, 4, 2));
 
+        public static List<WeightedRandomChestContent> getNetherFortressEnchantedBook(Random randomIn) {
+            return WeightedRandomChestContent.addList(NETHER_FORTRESS, LootTableEnchantedBook.getEnchantedBooks(randomIn, EnumLootSource.NETHER_FORTRESS, 2,3, 4));
+        }
+
+        public static int getNetherFortressLootCount(Random randomIn) {
+            return 3 + randomIn.nextInt(3); // was 2 and 4
+        }
     }
+
 
     public static class LootAether {
         public static final List<WeightedRandomChestContent> AETHER_DUNGEON = Lists.newArrayList(

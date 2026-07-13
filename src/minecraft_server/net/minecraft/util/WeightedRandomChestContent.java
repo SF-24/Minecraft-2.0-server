@@ -100,4 +100,11 @@ public class WeightedRandomChestContent extends WeightedRandom.Item
         Collections.addAll(list, p_177629_1_);
         return list;
     }
+
+    public static List<WeightedRandomChestContent> addList(List<WeightedRandomChestContent> p_177629_0_, List<WeightedRandomChestContent> p_177629_1_)
+    {
+        List<WeightedRandomChestContent> list = Lists.newArrayList(p_177629_0_);
+        list.addAll(p_177629_1_);
+        return list;
+    }
 }
