@@ -13,7 +13,7 @@ public class WorldProviderHell extends WorldProvider
      */
     public void registerWorldChunkManager()
     {
-        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.hell, 0.0F);
+        this.worldChunkMgr = new WorldChunkManagerHell(BiomeGenBase.hell, worldObj.getSeed(), 0.0F, true);
         this.isHellWorld = true;
         this.hasNoSky = true;
         this.dimensionId = -1;

@@ -14,6 +14,7 @@ public enum ClimateZone {
     MUSHROOM_ISLAND,
     WASTELAND,
     NETHER,
+    NETHER_SOUL_SAND,
     END,
     AETHER;
 }

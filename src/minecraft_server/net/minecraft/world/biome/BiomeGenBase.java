@@ -137,31 +137,26 @@ public abstract class BiomeGenBase
 
     public static final BiomeGenBase autumnalForest = (new BiomeGenForestAutumnal(45, 0)).setColor(16243232).setBiomeName("Autumnal Forest").setHeight(height_Autumnal);
 
+    public static final BiomeGenBase roofedSwamp = (new BiomeGenSwampDark(46)).setColor(3236668).setBiomeName("Roofed Swamp").setHeight(height_PartiallySubmerged);
+
+    public static final BiomeGenBase gravelBeach = (new BiomeGenBeach(47, Blocks.gravel.getDefaultState())).setColor(16445632).setBiomeName("Gravel Beach").setTemperatureRainfall(0.3F, 0.3F).setHeight(height_Shores);
+
+    public static final BiomeGenBase archipelago = new BiomeGenArchipelago(48).setBiomeName("Archipelago").setColor(5470985).setTemperatureRainfall(0.8F, 0.9F).setHeight(height_Archipelago).setOcean().setClimateZone(ClimateZone.TROPICAL_OCEAN);
+
+    public static final BiomeGenBase archipelagoHills = new BiomeGenArchipelago(49).setBiomeName("Archipelago Hills").setColor(5470985).setTemperatureRainfall(0.8F, 0.9F).setHeight(height_ArchipelagoHills).setOcean().setClimateZone(ClimateZone.TROPICAL_OCEAN);
+
     public static final BiomeGenBase autumnalForestHills = (new BiomeGenForestAutumnal(50, 0)).setBiomeName("Autumnal Forest Hills").setColor(16243232).setHeight(height_MidHills);
 
     public static final BiomeGenBase lorienForest = (new BiomeGenForestLorien(51, 0)).setBiomeName("Lorien Forest").setColor(16246801).setHeight(height_Default);
 
     public static final BiomeGenBase lorienForestHills = (new BiomeGenForestLorien(52, 0)).setBiomeName("Lorien Forest Hills").setColor(16246801).setHeight(height_LowHills);
 
-    public static final BiomeGenBase roofedSwamp = (new BiomeGenSwampDark(46)).setColor(3236668).setBiomeName("Roofed Swamp").setHeight(height_PartiallySubmerged);
-
-    public static final BiomeGenBase gravelBeach = (new BiomeGenBeach(47, Blocks.gravel.getDefaultState())).setColor(16445632).setBiomeName("Gravel Beach").setTemperatureRainfall(0.3F, 0.3F).setHeight(height_Shores);
-
-    public static final BiomeGenBase archipelago = new BiomeGenArchipelago(48)
-    .setBiomeName("Archipelago")
-    .setColor(5470985)
-    .setTemperatureRainfall(0.8F, 0.9F)
-    .setHeight(height_Archipelago)
-    .setOcean().setClimateZone(ClimateZone.TROPICAL_OCEAN);
-
-    public static final BiomeGenBase archipelagoHills = new BiomeGenArchipelago(49)
-    .setBiomeName("Archipelago Hills")
-    .setColor(5470985)
-    .setTemperatureRainfall(0.8F, 0.9F)
-    .setHeight(height_ArchipelagoHills)
-    .setOcean().setClimateZone(ClimateZone.TROPICAL_OCEAN);
-
     public static final BiomeGenBase frozenMesa = (new BiomeGenMesaSnow(53, false, false)).setColor(747097).setBiomeName("Frozen Hills").setHeight(height_MesaSnow).setEnableSnow();
+
+
+    public static final BiomeGenBase gravelCrags = (new BiomeGenGravelCrags(60)).setColor(1776453).setBiomeName("Hell Crags").setDisableRain().setTemperatureRainfall(2.0F, 0.0F).setClimateZone(ClimateZone.NETHER);
+
+    public static final BiomeGenBase soulSandValley = (new BiomeGenSoulSandValley(61)).setColor(1776453).setBiomeName("Soul Sand Valley").setDisableRain().setTemperatureRainfall(2.0F, 0.0F).setClimateZone(ClimateZone.NETHER_SOUL_SAND);
 
     public static final BiomeGenBase alpha = new BiomeGenAlpha(99)
     .setBiomeName("Neon Plains")

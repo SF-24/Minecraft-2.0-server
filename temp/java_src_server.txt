@@ -27,6 +27,7 @@ src\minecraft_server\net\minecraft\block\BlockCommandBlock.java
 src\minecraft_server\net\minecraft\block\BlockCompressedPowered.java
 src\minecraft_server\net\minecraft\block\BlockContainer.java
 src\minecraft_server\net\minecraft\block\BlockCrops.java
+src\minecraft_server\net\minecraft\block\BlockCustomDrop.java
 src\minecraft_server\net\minecraft\block\BlockDaylightDetector.java
 src\minecraft_server\net\minecraft\block\BlockDeadBush.java
 src\minecraft_server\net\minecraft\block\BlockDirectional.java
@@ -958,6 +959,7 @@ src\minecraft_server\net\minecraft\world\biome\BiomeGenEnd.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenForest.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenForestAutumnal.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenForestLorien.java
+src\minecraft_server\net\minecraft\world\biome\BiomeGenGravelCrags.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenHell.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenHills.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenJungle.java
@@ -972,6 +974,7 @@ src\minecraft_server\net\minecraft\world\biome\BiomeGenPlains.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenRiver.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenSavanna.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenSnow.java
+src\minecraft_server\net\minecraft\world\biome\BiomeGenSoulSandValley.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenStoneBeach.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenSwamp.java
 src\minecraft_server\net\minecraft\world\biome\BiomeGenSwampDark.java
@@ -1130,6 +1133,7 @@ src\minecraft_server\net\minecraft\world\storage\WorldInfo.java
 src\minecraft_server\net\mineshaft\ClimateZone.java
 src\minecraft_server\net\mineshaft\DifficultyManager.java
 src\minecraft_server\net\mineshaft\MineshaftLogger.java
+src\minecraft_server\net\mineshaft\NetherConfig.java
 src\minecraft_server\net\mineshaft\cavegen\CaveConstants.java
 src\minecraft_server\net\mineshaft\cavegen\CaveDecorator.java
 src\minecraft_server\net\mineshaft\cavegen\CaveHeight.java
@@ -1140,3 +1144,8 @@ src\minecraft_server\net\mineshaft\cavegen\cave_types\CaveTypeFrozen.java
 src\minecraft_server\net\mineshaft\cavegen\cave_types\CaveTypeJungle.java
 src\minecraft_server\net\mineshaft\item\ProjectileHelper.java
 src\minecraft_server\net\mineshaft\item\SpawnEggHelper.java
+src\minecraft_server\net\mineshaft\structure\EnumLootSource.java
+src\minecraft_server\net\mineshaft\structure\LootTableEnchantedBook.java
+src\minecraft_server\net\mineshaft\structure\LootTableList.java
+src\minecraft_server\net\mineshaft\util\MathsUtil.java
+src\minecraft_server\net\mineshaft\util\RandomUtil.java

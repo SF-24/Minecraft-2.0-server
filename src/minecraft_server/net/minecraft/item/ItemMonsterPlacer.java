@@ -200,7 +200,7 @@ public class ItemMonsterPlacer extends Item
 
                     EntityLiving entityliving = (EntityLiving)entity;
 
-                    if(spawnItem!=null) {
+                    if(spawnItem!=null && spawnItem.hasTagCompound() && spawnItem.getTagCompound().hasKey("EntityTag")) {
                         NBTTagCompound entityTag = spawnItem.getTagCompound().getCompoundTag("EntityTag");
                         NBTTagCompound entityData = new NBTTagCompound();
                         entityliving.writeToNBT(entityData); // Save current default data

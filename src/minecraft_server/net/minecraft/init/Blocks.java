@@ -222,6 +222,8 @@ public class Blocks
     public static final BlockAetherPortal aether_portal;
 //    public static final BlockFloating gravitite_ore;
 
+    public static final Block soul_soil;
+
     /**
      * Returns the Block in the blockRegistry with the specified name.
      */
@@ -452,6 +454,7 @@ public class Blocks
 //            compressed_cobblestone = getRegisteredBlock("compressed_cobblestone");
             aether_portal = (BlockAetherPortal) getRegisteredBlock("aether_portal");
             observer = (BlockObserver) getRegisteredBlock("observer");
+            soul_soil = getRegisteredBlock("soul_soil");
         }
     }
 }
