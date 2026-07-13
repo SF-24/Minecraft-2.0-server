@@ -223,6 +223,7 @@ public class Blocks
 //    public static final BlockFloating gravitite_ore;
 
     public static final Block soul_soil;
+    public static final Block blackstone;
 
     /**
      * Returns the Block in the blockRegistry with the specified name.
@@ -455,6 +456,7 @@ public class Blocks
             aether_portal = (BlockAetherPortal) getRegisteredBlock("aether_portal");
             observer = (BlockObserver) getRegisteredBlock("observer");
             soul_soil = getRegisteredBlock("soul_soil");
+            blackstone = getRegisteredBlock("blackstone");
         }
     }
 }

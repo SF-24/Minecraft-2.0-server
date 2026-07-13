@@ -13,6 +13,6 @@ public class NetherConfig {
 
     public static Block magmaBlock = Blocks.obsidian;
     public static Block basaltBlock = Blocks.obsidian;
-    public static IBlockState blackstoneBlockState = Blocks.stone.getDefaultState().withProperty(VARIANT, BlockStone.EnumType.BLACKSTONE);
+    public static IBlockState blackstoneBlockState = Blocks.blackstone.getDefaultState();
     public static Block smoothBasaltBlock = Blocks.stone;
 }
