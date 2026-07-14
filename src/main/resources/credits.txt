@@ -1,0 +1,25 @@
+Brown Spider: https://imgur.com/a/brown-spider-1Ayzh
+Jungle spider texture is from better than wolves.
+Some textures are from "Classic Alternative"
+Holy hand grenade from Reliquary mod
+TODO: Credit other sources.
+
+To add (from analysed points 1-30):
+Longer (+5 mins day + 5 mins night) daylight cycle.
+Gold tools and armour have more durability
+Craftable chainmail
+Nethersteel tools/armour (coming later). - Cannot be enchanted but break slower than diamond. Same mining speed and protection as iron.
+Frozen ocean biome
+Faster boats
+Boats with chests
+Storing XP in bottles (using a special item)
+Lanterns
+1.14 written book GUI
+Nether portal raids (very rare)
+Spike traps
+Respawning cats/dogs
+Seasons (non-destructive, do not spawn snow). Very slightly affect mob spawning of only a few mobs. Affect crop growth (but not much). Change biome colours.
+Target block (from 1.16)
+Less laggy armour stands.
+Zombies break trapdoors OR gates. (Not both).
+Iron gates (not broken by zombies)? - Only to be added if zombies will be able to break gates.
