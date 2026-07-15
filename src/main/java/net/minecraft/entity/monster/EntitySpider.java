@@ -393,4 +393,13 @@ public class EntitySpider extends EntityMob
         super.writeEntityToNBT(tagCompound);
         tagCompound.setByte("SpiderType", (byte)this.getSpiderType());
     }
+
+    protected int getExperiencePoints(EntityPlayer player)
+    {
+        if (this.getSpiderType()==2)
+        {
+            this.experienceValue = 10;
+        }
+        return super.getExperiencePoints(player);
+    }
 }

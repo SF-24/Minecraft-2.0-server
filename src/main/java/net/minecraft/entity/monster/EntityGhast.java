@@ -32,7 +32,7 @@ public class EntityGhast extends EntityFlying implements IMob
         this.setSize(4.0F, 4.0F);
         this.isImmuneToFire = true;
         this.isFlyingMob=true;
-        this.experienceValue = 5;
+        this.experienceValue = 10;
         this.moveHelper = new EntityGhast.GhastMoveHelper(this);
         this.tasks.addTask(5, new EntityGhast.AIRandomFly(this));
         this.tasks.addTask(7, new EntityGhast.AILookAround(this));
