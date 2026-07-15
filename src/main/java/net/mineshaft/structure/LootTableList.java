@@ -77,6 +77,51 @@ public class LootTableList {
                 new WeightedRandomChestContent(Items.diamond_horse_armor, 0, 1, 1, 3),
                 new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.obsidian), 0, 2, 4, 2));
 
+        public static final List<WeightedRandomChestContent> NETHER_TOWER_GENERIC = Lists.newArrayList(
+                // Loot
+                new WeightedRandomChestContent(Items.nether_ash, 0, 1, 3, 3),
+                new WeightedRandomChestContent(Items.steel_nugget, 0, 1, 1, 2),
+
+                // Utilities used here
+                new WeightedRandomChestContent(Items.arrow, 0, 2, 9, 3),
+                new WeightedRandomChestContent(Items.bow, 0, 1, 1, 1),
+                new WeightedRandomChestContent(Items.golden_pickaxe, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.golden_shovel, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.mushroom_stew, 0, 1, 3, 2),
+
+                // Decorative and other useful items/
+                new WeightedRandomChestContent(Items.flint_and_steel, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.obsidian), 0, 2, 4, 2));
+
+        public static final List<WeightedRandomChestContent> NETHER_TOWER_ROOF = Lists.newArrayList(
+                // Loot - more ash on the roof.
+                new WeightedRandomChestContent(Items.nether_ash, 0, 1, 3, 5),
+                new WeightedRandomChestContent(Items.steel_nugget, 0, 1, 1, 2),
+
+                // Utilities used here
+                new WeightedRandomChestContent(Items.arrow, 0, 2, 9, 10),
+                new WeightedRandomChestContent(Items.bow, 0, 1, 1, 3),
+
+                // Decorative and other useful items/
+                new WeightedRandomChestContent(Items.flint_and_steel, 0, 1, 1, 3),
+                new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.obsidian), 0, 2, 4, 2));
+
+
+        public static final List<WeightedRandomChestContent> NETHER_BASEMENT = Lists.newArrayList(
+                // Loot
+                new WeightedRandomChestContent(Items.nether_ash, 0, 2, 3, 3),
+                new WeightedRandomChestContent(Items.steel_nugget, 0, 1, 2, 2),
+
+                // Utilities used here
+                new WeightedRandomChestContent(Items.golden_pickaxe, 0, 1, 1, 2),
+                new WeightedRandomChestContent(Items.golden_shovel, 0, 1, 1, 2),
+
+                // Decorative and other useful items/
+                new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.netherrack), 0, 5, 12, 2),
+                new WeightedRandomChestContent(Items.gold_nugget, 0, 5, 21, 3),
+                new WeightedRandomChestContent(Items.gold_ingot, 0, 1, 4, 1));
+
+
         public static List<WeightedRandomChestContent> getNetherFortressEnchantedBook(Random randomIn) {
             return WeightedRandomChestContent.addList(NETHER_FORTRESS, LootTableEnchantedBook.getEnchantedBooks(randomIn, EnumLootSource.NETHER_FORTRESS, 2,3, 4));
         }
@@ -84,8 +129,15 @@ public class LootTableList {
         public static int getNetherFortressLootCount(Random randomIn) {
             return 3 + randomIn.nextInt(3); // was 2 and 4
         }
-    }
 
+        public static int getNetherTowerLootCount(Random randomIn) {
+            return 2 + randomIn.nextInt(2);
+        }
+
+        public static int getNetherBasementLootCount(Random randomIn) {
+            return 2 + randomIn.nextInt(3);
+        }
+    }
 
     public static class LootAether {
         public static final List<WeightedRandomChestContent> AETHER_DUNGEON = Lists.newArrayList(

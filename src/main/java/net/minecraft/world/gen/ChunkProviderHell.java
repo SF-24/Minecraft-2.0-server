@@ -23,6 +23,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.nether.WorldGenNetherTower;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
 public class ChunkProviderHell implements IChunkProvider
 {
@@ -404,11 +405,11 @@ public class ChunkProviderHell implements IChunkProvider
     /**
      * Populates chunk with ores etc etc
      */
-    public void populate(IChunkProvider p_73153_1_, int p_73153_2_, int p_73153_3_)
+    public void populate(IChunkProvider provider, int x, int z)
     {
         BlockFalling.fallInstantly = true;
-        BlockPos blockpos = new BlockPos(p_73153_2_ * 16, 0, p_73153_3_ * 16);
-        ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(p_73153_2_, p_73153_3_);
+        BlockPos blockpos = new BlockPos(x * 16, 0, z * 16);
+        ChunkCoordIntPair chunkcoordintpair = new ChunkCoordIntPair(x, z);
         this.genNetherBridge.generateStructure(this.worldObj, this.hellRNG, chunkcoordintpair);
 
         for (int i = 0; i < 8; ++i)
@@ -491,6 +492,33 @@ public class ChunkProviderHell implements IChunkProvider
             (new WorldGenDungeonsNether()).generate(this.worldObj, this.hellRNG, blockpos.add(i3, l3, l1));
         }
 
+        if (this.hellRNG.nextInt(50) == 0) {
+            // Pick random X/Z coordinates within the chunk boundaries
+            int xOffset = x * 16 + this.hellRNG.nextInt(16) + 8;
+            int zOffset = z * 16 + this.hellRNG.nextInt(16) + 8;
+            int yOffset = 90;
+
+            // Find the ground. Must be a valid block.
+
+            while ((
+                    worldObj.isAirBlock(xOffset,yOffset,zOffset) ||
+                            worldObj.getBlockId(xOffset,yOffset,zOffset)==816 ||
+                            worldObj.getBlockId(xOffset,yOffset,zOffset)==624 ||
+                            worldObj.getBlockId(xOffset,yOffset,zOffset)==640
+            ) && yOffset > 30) {
+                yOffset--;
+            }
+
+            // Validate ground type
+            if (worldObj.getBlockState(xOffset,yOffset,zOffset).getBlock() == Blocks.netherrack ||
+                    worldObj.getBlockState(xOffset,yOffset,zOffset).getBlock() == Blocks.soul_sand ||
+                    worldObj.getBlockState(xOffset,yOffset,zOffset).getBlock() == Blocks.blackstone ||
+                    worldObj.getBlockState(xOffset,yOffset,zOffset).getBlock() == Blocks.soul_soil) {
+
+                // Run the tower generator.
+                (new WorldGenNetherTower()).generate(this.worldObj, this.hellRNG, new BlockPos(xOffset, yOffset+1, zOffset));
+            }
+        }
         BlockFalling.fallInstantly = false;
     }
 

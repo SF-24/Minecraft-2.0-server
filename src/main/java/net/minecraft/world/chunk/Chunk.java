@@ -552,27 +552,27 @@ public class Chunk
     {
         try
         {
-            int id = 0;
-
             if (y >= 0 && y >> 4 < this.storageArrays.length)
             {
                 ExtendedBlockStorage extendedblockstorage = this.storageArrays[y >> 4];
-
                 if (extendedblockstorage != null)
                 {
-                    try
-                    {
-                        id = extendedblockstorage.getId(x, y & 15, z);
-                    }
-                    catch (Throwable throwable)
-                    {
-                        CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting block");
-                        throw new ReportedException(crashreport);
-                    }
+//                        int j = x & 15;
+//                        int k = pos.getY() & 15;
+//                        int i = pos.getZ() & 15;
+                    return extendedblockstorage.getId(x&15,y&15,z&15);
                 }
+//                    try
+//                    {
+//                        id = extendedblockstorage.getId (x, y & 15, z);
+//                    }
+//                    catch (Throwable throwable)
+//                    {
+//                        CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Getting block");
+//                        throw new ReportedException(crashreport);
+//                    }
             }
-
-            return id;
+            return 0;
         }
         catch (ReportedException reportedexception)
         {
