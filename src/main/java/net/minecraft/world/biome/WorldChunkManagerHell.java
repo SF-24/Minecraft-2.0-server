@@ -71,21 +71,41 @@ public class WorldChunkManagerHell extends WorldChunkManager
 //                    : BiomeGenBase.soulSandValley;
 ////            return biomeList[nextInt(biomeList.length)];
 
-            double warpedX = x + 20*simplexNoise.getValue(x / 128.0, z / 128.0);
-            double warpedZ = z + 20*simplexNoise.getValue((x + 1000) / 256.0, (z + 1000) / 256.0);
+            double warpedX = x + 20*simplexNoise.getValue(x * 0.0078125, z * 0.0078125);
+            double warpedZ = z + 20*simplexNoise.getValue((x + 1000) * 0.00390625, (z + 1000) * 0.00390625);
 
-            double soulSandNoise = simplexNoise_second.getValue(
-                    (warpedX) / NetherConfig.netherBiomeScale / 4,
-                    (warpedZ) / NetherConfig.netherBiomeScale / 4
-            );
-            double cragNoise = simplexNoise_second.getValue(
-                    (warpedX) / NetherConfig.netherBiomeScale,
-                    (warpedZ) / NetherConfig.netherBiomeScale
-            );
-            double value = simplexNoise.getValue(
-                    (warpedX) / NetherConfig.netherBiomeScale,
-                    (warpedZ) / NetherConfig.netherBiomeScale
-            );
+            double soulSandNoise;
+            double cragNoise;
+            double value;
+
+            if(x*x+z*z<NetherConfig.hellBlendRadiusSquared) {
+                float multiplier = (float) (x * x + z * z) * (float) NetherConfig.hellBlendRadiusSquaredReciprocal;
+                soulSandNoise = multiplier * simplexNoise_second.getValue(
+                        (warpedX) * NetherConfig.netherBiomeScaleReciprocalQuarter,
+                        (warpedZ) * NetherConfig.netherBiomeScaleReciprocalQuarter
+                );
+                cragNoise = multiplier * simplexNoise_second.getValue(
+                        (warpedX) * NetherConfig.netherBiomeScaleReciprocal,
+                        (warpedZ) * NetherConfig.netherBiomeScaleReciprocal
+                );
+                value = multiplier * simplexNoise.getValue(
+                        (warpedX) * NetherConfig.netherBiomeScaleReciprocal,
+                        (warpedZ) * NetherConfig.netherBiomeScaleReciprocal
+                );
+            } else {
+                soulSandNoise = simplexNoise_second.getValue(
+                        (warpedX) * NetherConfig.netherBiomeScaleReciprocalQuarter,
+                        (warpedZ) * NetherConfig.netherBiomeScaleReciprocalQuarter
+                );
+                cragNoise = simplexNoise_second.getValue(
+                        (warpedX) * NetherConfig.netherBiomeScaleReciprocal,
+                        (warpedZ) * NetherConfig.netherBiomeScaleReciprocal
+                );
+                value = simplexNoise.getValue(
+                        (warpedX) * NetherConfig.netherBiomeScaleReciprocal,
+                        (warpedZ) * NetherConfig.netherBiomeScaleReciprocal
+                );
+            }
 
             // Small gravel crags
             if ((value*0.25 + 0.4*cragNoise)<(-0.5)) {
