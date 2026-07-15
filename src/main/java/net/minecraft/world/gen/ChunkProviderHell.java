@@ -492,10 +492,10 @@ public class ChunkProviderHell implements IChunkProvider
             (new WorldGenDungeonsNether()).generate(this.worldObj, this.hellRNG, blockpos.add(i3, l3, l1));
         }
 
-        if (this.hellRNG.nextInt(50) == 0) {
+        if (this.hellRNG.nextInt(250) == 0) {
             // Pick random X/Z coordinates within the chunk boundaries
-            int xOffset = x * 16 + this.hellRNG.nextInt(16) + 8;
-            int zOffset = z * 16 + this.hellRNG.nextInt(16) + 8;
+            int xOffset = x * 16 + this.hellRNG.nextInt(8) + 4;
+            int zOffset = z * 16 + this.hellRNG.nextInt(8) + 4;
             int yOffset = 90;
 
             // Find the ground. Must be a valid block.
@@ -509,11 +509,12 @@ public class ChunkProviderHell implements IChunkProvider
                 yOffset--;
             }
 
-            // Validate ground type
-            if (worldObj.getBlockState(xOffset,yOffset,zOffset).getBlock() == Blocks.netherrack ||
+            // Validate ground type and check if it's in a nether fortress
+            if (!this.genNetherBridge.func_175795_b(new BlockPos(xOffset,yOffset,zOffset)) && (
+                    worldObj.getBlockState(xOffset,yOffset,zOffset).getBlock() == Blocks.netherrack ||
                     worldObj.getBlockState(xOffset,yOffset,zOffset).getBlock() == Blocks.soul_sand ||
                     worldObj.getBlockState(xOffset,yOffset,zOffset).getBlock() == Blocks.blackstone ||
-                    worldObj.getBlockState(xOffset,yOffset,zOffset).getBlock() == Blocks.soul_soil) {
+                    worldObj.getBlockState(xOffset,yOffset,zOffset).getBlock() == Blocks.soul_soil)) {
 
                 // Run the tower generator.
                 (new WorldGenNetherTower()).generate(this.worldObj, this.hellRNG, new BlockPos(xOffset, yOffset+1, zOffset));

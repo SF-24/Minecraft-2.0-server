@@ -117,6 +117,7 @@ public class LootTableList {
                 new WeightedRandomChestContent(Items.golden_shovel, 0, 1, 1, 2),
 
                 // Decorative and other useful items/
+                new WeightedRandomChestContent(Items.bone, 0, 1, 5, 1),
                 new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.netherrack), 0, 5, 12, 2),
                 new WeightedRandomChestContent(Items.gold_nugget, 0, 5, 21, 3),
                 new WeightedRandomChestContent(Items.gold_ingot, 0, 1, 4, 1));
