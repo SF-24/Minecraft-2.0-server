@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 public class RecipesWeapons
 {
     private String[][] recipePatterns = new String[][] {{"X", "X", "#"}};
-    private final Object[][] recipeItems = new Object[][] {{Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.wooden_sword, Items.stone_sword, Items.iron_sword, Items.diamond_sword, Items.golden_sword}};
+    private final Object[][] recipeItems = new Object[][] {{Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot, Items.steel_ingot}, {Items.wooden_sword, Items.stone_sword, Items.iron_sword, Items.diamond_sword, Items.golden_sword, Items.steel_sword}};
 
     /**
      * Adds the weapon recipes to the CraftingManager.
@@ -27,6 +27,7 @@ public class RecipesWeapons
         }
 
         p_77583_1_.addRecipe(new ItemStack(Items.bow, 1), new Object[] {" #X", "# X", " #X", 'X', Items.string, '#', Items.stick});
+        p_77583_1_.addRecipe(new ItemStack(Items.steel_crossbow, 1), new Object[] {"S@S", "X#X", " # ", 'X', Items.string, '#', Items.stick, '@', Items.bow, 'S', Items.steel_ingot});
         p_77583_1_.addRecipe(new ItemStack(Items.arrow, 4), new Object[] {"X", "#", "Y", 'Y', Items.feather, 'X', Items.flint, '#', Items.stick});
     }
 }
