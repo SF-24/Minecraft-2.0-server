@@ -62,6 +62,6 @@ public class RecipesCrafting
         p_77589_1_.addRecipe(new ItemStack(Blocks.sea_lantern, 1, 0), "SCS", "CCC", "SCS", 'S', Items.prismarine_shard, 'C', Items.prismarine_crystals);
 
         // Bundle
-        p_77589_1_.addRecipe(new ItemStack(Items.bundle), "x#x", "# #", "###", 'x', new ItemStack(Items.string, 1), '#', new ItemStack(Items.leather, 1));
+        p_77589_1_.addRecipe(new ItemStack(Items.bundle), " x ", "# #", "###", 'x', new ItemStack(Items.string, 1), '#', new ItemStack(Items.leather, 1));
     }
 }
