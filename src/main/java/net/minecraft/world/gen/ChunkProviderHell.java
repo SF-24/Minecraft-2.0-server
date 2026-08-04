@@ -492,7 +492,7 @@ public class ChunkProviderHell implements IChunkProvider
             (new WorldGenDungeonsNether()).generate(this.worldObj, this.hellRNG, blockpos.add(i3, l3, l1));
         }
 
-        if (this.hellRNG.nextInt(250) == 0) {
+        if (false && this.hellRNG.nextInt(250) == 0) {
             // Pick random X/Z coordinates within the chunk boundaries
             int xOffset = x * 16 + this.hellRNG.nextInt(8) + 4;
             int zOffset = z * 16 + this.hellRNG.nextInt(8) + 4;

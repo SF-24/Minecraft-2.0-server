@@ -1,11 +1,8 @@
 package net.mineshaft;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockNetherrack;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.gen.feature.nether.WorldGenBasaltDeltas;
-import net.minecraft.world.gen.feature.nether.WorldGenBasaltFlats;
 
 public class NetherConfig {
 
