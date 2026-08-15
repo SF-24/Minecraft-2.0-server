@@ -1,5 +1,6 @@
 package net.minecraft.entity.ai.attributes;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import java.util.Collection;
@@ -138,6 +139,19 @@ public class ModifiableAttributeInstance implements IAttributeInstance
         this.flagForUpdate();
     }
 
+    public void removeAllModifiers()
+    {
+        Collection<AttributeModifier> collection = this.func_111122_c();
+
+        if (collection != null)
+        {
+            for (AttributeModifier attributemodifier : Lists.newArrayList(collection))
+            {
+                this.removeModifier(attributemodifier);
+            }
+        }
+    }
+
     public double getAttributeValue()
     {
         if (this.needsUpdate)
@@ -173,9 +187,9 @@ public class ModifiableAttributeInstance implements IAttributeInstance
         return this.genericAttribute.clampValue(d1);
     }
 
-    private Collection<AttributeModifier> func_180375_b(int p_180375_1_)
+    private Collection<AttributeModifier> func_180375_b(int operation)
     {
-        Set<AttributeModifier> set = Sets.newHashSet(this.getModifiersByOperation(p_180375_1_));
+        Set<AttributeModifier> set = Sets.newHashSet(this.getModifiersByOperation(operation));
 
         for (IAttribute iattribute = this.genericAttribute.func_180372_d(); iattribute != null; iattribute = iattribute.func_180372_d())
         {
@@ -183,7 +197,7 @@ public class ModifiableAttributeInstance implements IAttributeInstance
 
             if (iattributeinstance != null)
             {
-                set.addAll(iattributeinstance.getModifiersByOperation(p_180375_1_));
+                set.addAll(iattributeinstance.getModifiersByOperation(operation));
             }
         }
 

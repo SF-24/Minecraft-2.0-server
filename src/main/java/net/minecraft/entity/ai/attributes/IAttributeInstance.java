@@ -29,5 +29,7 @@ public interface IAttributeInstance
 
     void removeModifier(AttributeModifier modifier);
 
+    void removeAllModifiers();
+
     double getAttributeValue();
 }

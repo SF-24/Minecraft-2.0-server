@@ -70,8 +70,8 @@ public class ItemStaff extends Item {
                     worldServer.spawnParticle(EnumParticleTypes.FLAME, false, playerIn.posX, playerIn.posY + 1.0d, playerIn.posZ, 1, ((double) (x + rand.nextFloat()) - 0.5d) / 2.0d, (y + (double) rand.nextFloat() - 0.5d) / 8.0d, ((double) (z + rand.nextFloat()) - 0.5d) / 2.0d, 0.0d, new int[0]);
                 }
             } else {
-                for (int i = 0; i < 8; ++i) {
-                    worldIn.spawnParticle(EnumParticleTypes.FLAME, playerIn.posX, playerIn.posY + 1.0d, playerIn.posZ, ((double) (x + rand.nextFloat()) - 0.5d) / 2.0d, (y + (double) rand.nextFloat() - 0.5d) / 8.0d, ((double) (z + rand.nextFloat()) - 0.5d) / 2.0d, 0);
+                for(int i = 0; i < 8; ++i) {
+                    worldIn.spawnParticle(EnumParticleTypes.FLAME, playerIn.posX, playerIn.posY + 1.0d, playerIn.posZ, ((double)(x + rand.nextFloat()) - 0.5d) / 2.0d, (y + (double)rand.nextFloat() - 0.5d) / 8.0d, ((double)(z + rand.nextFloat()) - 0.5d) / 2.0d, 0);
                 }
             }
 

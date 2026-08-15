@@ -67,6 +67,12 @@ public class EnchantmentProtection extends Enchantment
         return 4;
     }
 
+    @Override
+    public int getMaxExtraLevel()
+    {
+        return 4;
+    }
+
     /**
      * Calculates the damage protection of the enchantment based on level and damage source passed.
      */

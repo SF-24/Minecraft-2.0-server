@@ -58,7 +58,7 @@ public class ItemSword extends Item
         {
             target.setFire(5);
             target.addVelocity(0, 1, 0);
-            target.setHealth(target.getHealth() - 2);
+            target.setHealth(target.getHealth()-2);
         }
 //        else if (this.material.equals(ToolMaterial.AETHER_LIGHT))
 //        {

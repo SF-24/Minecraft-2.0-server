@@ -29,6 +29,9 @@ public class EntityBoat extends Entity
     private double boatZ;
     private double boatYaw;
     private double boatPitch;
+    private double velocityX;
+    private double velocityY;
+    private double velocityZ;
 
     public EntityBoat(World worldIn)
     {
@@ -191,6 +194,8 @@ public class EntityBoat extends Entity
         }
 
         double d9 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
+
+        // Speed limit
 
         if (d9 > 0.2975D)
         {

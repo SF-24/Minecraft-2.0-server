@@ -142,7 +142,10 @@ public class EntityItem extends Entity
 
             this.handleWaterMovement();
 
-            // set items to take longer to despawn
+            /**
+             * Despawning item mechanic
+             * Default: 6000 (5 mins)
+             */
             if (!this.worldObj.isRemote && this.age >= 6000)
             {
                 this.setDead();
@@ -421,6 +424,7 @@ public class EntityItem extends Entity
     }
 
     /**
+     * Get the name of this object. For players this returns their username
      * Gets the name of this command sender (usually username, but possibly "Rcon")
      */
     public String getName()

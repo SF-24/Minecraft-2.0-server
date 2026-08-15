@@ -152,6 +152,7 @@ public abstract class Enchantment
     {
         return 1;
     }
+
     public int getMaxExtraLevel()
     {
         return Math.max(this.getMaxLevel(), 1);

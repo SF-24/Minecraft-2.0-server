@@ -43,7 +43,7 @@ public enum EnumEnchantmentType
         }
         else
         {
-            return p_77557_1_ instanceof ItemSword ? this == WEAPON : (p_77557_1_ instanceof ItemTool ? this == DIGGER : ((p_77557_1_ instanceof ItemBow || p_77557_1_ instanceof ItemCrossbow) ? this == BOW : (p_77557_1_ instanceof ItemFishingRod ? this == FISHING_ROD : false)));
+            return p_77557_1_ instanceof ItemSword ? this == WEAPON : (p_77557_1_ instanceof ItemTool ? this == DIGGER : ((p_77557_1_ instanceof ItemBow||p_77557_1_ instanceof ItemCrossbow) ? this == BOW : (p_77557_1_ instanceof ItemFishingRod ? this == FISHING_ROD : false)));
         }
     }
 }
