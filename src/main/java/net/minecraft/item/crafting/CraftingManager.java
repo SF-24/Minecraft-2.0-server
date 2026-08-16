@@ -188,6 +188,14 @@ public class CraftingManager
 //        this.addShapelessRecipe(new ItemStack(Items.steel_ingot, 1), Items.steel_nugget, Items.steel_nugget, Items.steel_nugget, Items.nether_ash);
         this.addRecipe(new ItemStack(Items.ender_pouch, 1), "O#O", "#X#", "O#O", '#', Items.leather, 'X', Blocks.ender_chest, 'O', Items.blaze_powder);
         this.addRecipe(new ItemStack(Blocks.observer, 1), "CCC", "RQQ", "CCC", 'C', Blocks.cobblestone, 'Q', Items.quartz, 'R', Items.redstone);
+        // Diamond anvil
+        this.addRecipe(new ItemStack(Blocks.anvil, 1, 8), "ddd", "dad", "ddd", 'd', Items.diamond, 'a', new ItemStack(Blocks.anvil,1,0));
+        this.addShapelessRecipe(new ItemStack(Blocks.anvil, 1, 8), new ItemStack(Blocks.anvil,1,10),Items.diamond);
+        this.addShapelessRecipe(new ItemStack(Blocks.anvil, 1, 10), new ItemStack(Blocks.anvil,1,12),Items.diamond);
+        // Anvil repair
+        this.addRecipe(new ItemStack(Blocks.anvil, 1, 0), "III", "IAI", "III", 'I', Items.iron_ingot, 'A', new ItemStack(Blocks.anvil,1,2));
+        this.addRecipe(new ItemStack(Blocks.anvil, 1, 2), "III", "IAI", "III", 'I', Items.iron_ingot, 'A', new ItemStack(Blocks.anvil,1,4));
+
         Collections.sort(this.recipes, new Comparator<IRecipe>()
         {
             public int compare(IRecipe p_compare_1_, IRecipe p_compare_2_)
