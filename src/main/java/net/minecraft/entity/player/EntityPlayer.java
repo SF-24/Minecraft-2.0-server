@@ -880,22 +880,39 @@ public abstract class EntityPlayer extends EntityLivingBase
      */
     public float getToolDigEfficiency(Block p_180471_1_)
     {
-        float f = this.inventory.getStrVsBlock(p_180471_1_);
+        float toolEfficiency = this.inventory.getStrVsBlock(p_180471_1_);
 
-        if (f > 1.0F)
+        if (toolEfficiency > 1.0F)
         {
-            int i = EnchantmentHelper.getEfficiencyModifier(this);
+            int efficiencyEnchantmentLevel = EnchantmentHelper.getEfficiencyModifier(this);
             ItemStack itemstack = this.inventory.getCurrentItem();
 
-            if (i > 0 && itemstack != null)
+            if (efficiencyEnchantmentLevel > 0 && itemstack != null)
             {
-                f += (float)(i * i + 1);
+                switch (efficiencyEnchantmentLevel) {
+                    case 1:
+                        toolEfficiency+=2;
+                        break;
+                    case 2:
+                        toolEfficiency+=4;
+                        break;
+                    case 3:
+                        toolEfficiency+=8;
+                        break;
+                    case 4:
+                        toolEfficiency+=12;
+                        break;
+                    case 5:
+                        toolEfficiency+=16;
+                        break;
+                }
+//                toolEfficiency += (float)(efficiencyEnchantmentLevel * efficiencyEnchantmentLevel + 1);
             }
         }
 
         if (this.isPotionActive(Potion.digSpeed))
         {
-            f *= 1.0F + (float)(this.getActivePotionEffect(Potion.digSpeed).getAmplifier() + 1) * 0.2F;
+            toolEfficiency *= 1.0F + (float)(this.getActivePotionEffect(Potion.digSpeed).getAmplifier() + 1) * 0.2F;
         }
 
         if (this.isPotionActive(Potion.digSlowdown))
@@ -921,20 +938,20 @@ public abstract class EntityPlayer extends EntityLivingBase
                     f1 = 8.1E-4F;
             }
 
-            f *= f1;
+            toolEfficiency *= f1;
         }
 
         if (this.isInsideOfMaterial(Material.water) && !EnchantmentHelper.getAquaAffinityModifier(this))
         {
-            f /= 5.0F;
+            toolEfficiency /= 5.0F;
         }
 
         if (!this.onGround)
         {
-            f /= 5.0F;
+            toolEfficiency /= 5.0F;
         }
 
-        return f;
+        return toolEfficiency;
     }
 
     /**
