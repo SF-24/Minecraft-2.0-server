@@ -912,8 +912,12 @@ public abstract class EntityPlayer extends EntityLivingBase
 
         if (this.isPotionActive(Potion.digSpeed))
         {
-            toolEfficiency *= 1.0F + (float)(this.getActivePotionEffect(Potion.digSpeed).getAmplifier() + 1) * 0.2F;
-        }
+            //Was: +20% per level. Now: +40% per level.
+            if(this.getActivePotionEffect(Potion.digSpeed).getAmplifier()>0) {
+                toolEfficiency *= 1.0F + (float)(this.getActivePotionEffect(Potion.digSpeed).getAmplifier() + 1) * 0.4F;
+            } else {
+                toolEfficiency *= 1.0F + (float)(this.getActivePotionEffect(Potion.digSpeed).getAmplifier() + 1) * 0.44F;
+            }        }
 
         if (this.isPotionActive(Potion.digSlowdown))
         {
