@@ -76,7 +76,7 @@ public class BlockOre extends Block
                 {
                     i = 0;
                 }
-                return Math.max(3,this.quantityDropped(random) * (i + 1));
+                return Math.min(3,this.quantityDropped(random) * (i + 1));
             }
         }
         else
