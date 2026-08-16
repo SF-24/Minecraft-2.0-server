@@ -39,7 +39,10 @@ public class BlockOre extends Block
      */
     public int quantityDropped(Random random)
     {
-        return this == Blocks.lapis_ore ? 4 + random.nextInt(5) : 1;
+        // Buffed non-fortune blocks.
+        return this == Blocks.lapis_ore ? 4 + random.nextInt(5) :
+                this == Blocks.diamond_ore ? 1 + random.nextInt(10)<3?1:0 :
+                        this == Blocks.quartz_ore||this == Blocks.coal_ore ? 1 + (random.nextInt()==0?1:0) : 1;
     }
 
     /**
@@ -49,14 +52,37 @@ public class BlockOre extends Block
     {
         if (fortune > 0 && Item.getItemFromBlock(this) != this.getItemDropped((IBlockState)this.getBlockState().getValidStates().iterator().next(), random, fortune))
         {
-            int i = random.nextInt(fortune + 2) - 1;
+            if(this == Blocks.lapis_ore) {
+                int i = random.nextInt(fortune + 2) - 1;
 
-            if (i < 0)
-            {
-                i = 0;
+                if (i < 0)
+                {
+                    i = 0;
+                }
+
+                return this.quantityDropped(random) * (i + 1);
+            } else if(this == Blocks.quartz_ore || this == Blocks.coal_ore) {
+                int i = random.nextInt(fortune + 2) - 1;
+
+                if (i < 0)
+                {
+                    i = 0;
+                }
+
+                // ?
+                return (i + 1);
+            } else {
+                // Diamond and emerald.
+                // calculate the extra amount of drops, diamonds etc.
+                // for stuff like lapis or redstone, a seperate calculation takes place
+
+                // For 2nd: 30|40|45|50
+                // For 3rd: 0 |20|35|50
+                // Amount: 1.3|1.6|1.8|2, for diamond.
+
+                int baseAmount = (this==Blocks.diamond_ore)?(random.nextInt(20)<7+fortune?2:1):1;
+                return baseAmount + ((random.nextInt(20)<1+fortune*3)?1:0);
             }
-
-            return this.quantityDropped(random) * (i + 1);
         }
         else
         {
