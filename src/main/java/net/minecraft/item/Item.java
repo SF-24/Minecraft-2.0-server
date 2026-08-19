@@ -365,6 +365,9 @@ public class Item {
      * allows items to add custom lines of information to the mouseover description
      */
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        if(EnchantmentHelper.getMaximumEnchantmentCapacity(stack.getItem())>0) {
+            tooltip.add(EnchantmentHelper.getUsedEnchantmentCapacity(EnchantmentHelper.getEnchantments(stack))+"/"+EnchantmentHelper.getMaximumEnchantmentCapacity(stack.getItem()));
+        }
     }
 
     public String getItemStackDisplayName(ItemStack stack) {

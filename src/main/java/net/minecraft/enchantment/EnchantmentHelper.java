@@ -604,17 +604,23 @@ public class EnchantmentHelper
     public static int getUsedEnchantmentCapacity(Map<Integer, Integer> enchants) {
         int capacity = 0;
         for(int enchId : enchants.keySet()) {
-            if(Enchantment.getEnchantmentById(enchId).getMaxLevel()==1) {
+            if(Enchantment.getEnchantmentById(enchId)==null || Enchantment.getEnchantmentById(enchId).getMaxLevel()==1) {
+                // Add 3, using max level
                 capacity+=3;
             } else {
+                // get the level
                 capacity+=enchants.get(enchId);
             }
         }
         return capacity;
     }
 
+    public static float getMaximumEnchantLevelCost(Map<Integer, Integer> enchants, Item item) {
+        return getUsedEnchantmentCapacityFraction(enchants,item)*20;
+    }
+
     public static float getUsedEnchantmentCapacityFraction(Map<Integer, Integer> enchants, Item item) {
-        return (float) getUsedEnchantmentCapacity(enchants) / getMaximumEnchantmentCapacity(item);
+        return (float)getUsedEnchantmentCapacity(enchants) / (float)getMaximumEnchantmentCapacity(item);
     }
 
     public static int getMaximumEnchantmentCapacity(Item item) {
@@ -645,6 +651,6 @@ public class EnchantmentHelper
                 return 11;
             }
         }
-        return 10;
+        return 0;
     }
 }

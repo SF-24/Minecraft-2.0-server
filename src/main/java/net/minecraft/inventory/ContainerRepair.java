@@ -434,7 +434,7 @@ public class ContainerRepair extends Container
 
                 // Count max cost.
                 this.maximumCost = currentSuperEnchants*3 + ((rawRepairCost>0)?Math.min(
-                        Math.max(1,(int)EnchantmentHelper.getUsedEnchantmentCapacityFraction(outputEnchants,output.getItem())*(20+currentSuperEnchants*2)),
+                        Math.max(1,(int)EnchantmentHelper.getMaximumEnchantLevelCost(enchMap,output.getItem())),
                         inheritedRepairCost+rawRepairCost):0) + enchantmentCost + (rawRepairCost==0?extraRenameCost:0
                 );
 
@@ -492,7 +492,7 @@ public class ContainerRepair extends Container
                         }
                         normalEnchantmentLevels += Math.max(Enchantment.getEnchantmentById(enchantment).getMaxExtraLevel(), EnchantmentHelper.getEnchantments(output).get(enchantment));
                     }
-                    int repairPenalty = repairCost + 1 + Math.max(4+specialEnchants,normalEnchantmentLevels/2 + specialEnchants);
+                    int repairPenalty = repairCost + 1 + Math.min(4+specialEnchants,normalEnchantmentLevels/2 + specialEnchants);
                     repairCost+=repairPenalty;
                     System.out.println("Cost: " + repairCost + " | risen: " + repairPenalty);
                 }
