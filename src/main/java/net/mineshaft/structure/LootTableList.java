@@ -75,6 +75,7 @@ public class LootTableList {
                 new WeightedRandomChestContent(Items.golden_horse_armor, 0, 1, 1, 8),
                 new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 5),
                 new WeightedRandomChestContent(Items.diamond_horse_armor, 0, 1, 1, 3),
+                new WeightedRandomChestContent(Items.record_pigstep, 0, 1, 1, 1),
                 new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.obsidian), 0, 2, 4, 2));
 
         public static final List<WeightedRandomChestContent> NETHER_TOWER_GENERIC = Lists.newArrayList(
