@@ -224,6 +224,11 @@ public class Items
     public static final Item record_magnetic_circuit;
     public static final Item record_alpha;
     public static final Item record_key;
+    public static final Item record_pigstep;
+    public static final Item record_creator;
+    public static final Item record_creator_music_box;
+    public static final Item record_precipice;
+    public static final Item record_relic;
 
     public static final ItemBundle bundle;
 
@@ -435,6 +440,11 @@ public class Items
             record_magnetic_circuit = getRegisteredItem("record_magnetic_circuit");
             record_key = getRegisteredItem("record_key");
             record_alpha = getRegisteredItem("record_alpha");
+            record_pigstep = getRegisteredItem("record_pigstep");
+            record_creator = getRegisteredItem("record_creator");
+            record_creator_music_box = getRegisteredItem("record_creator_music_box");
+            record_relic = getRegisteredItem("record_relic");
+            record_precipice = getRegisteredItem("record_precipice");
             prismarine_shard = getRegisteredItem("prismarine_shard");
             prismarine_crystals = getRegisteredItem("prismarine_crystals");
             banner = getRegisteredItem("banner");
