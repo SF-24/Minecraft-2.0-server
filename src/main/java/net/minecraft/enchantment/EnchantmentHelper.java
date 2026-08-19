@@ -7,8 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
@@ -599,5 +598,53 @@ public class EnchantmentHelper
                 return level;
             }
         }
+    }
+
+
+    public static int getUsedEnchantmentCapacity(Map<Integer, Integer> enchants) {
+        int capacity = 0;
+        for(int enchId : enchants.keySet()) {
+            if(Enchantment.getEnchantmentById(enchId).getMaxLevel()==1) {
+                capacity+=3;
+            } else {
+                capacity+=enchants.get(enchId);
+            }
+        }
+        return capacity;
+    }
+
+    public static float getUsedEnchantmentCapacityFraction(Map<Integer, Integer> enchants, Item item) {
+        return (float) getUsedEnchantmentCapacity(enchants) / getMaximumEnchantmentCapacity(item);
+    }
+
+    public static int getMaximumEnchantmentCapacity(Item item) {
+        if(item instanceof ItemShears ||item instanceof ItemFlintAndSteel) {
+            return 8;
+        }
+        if(item instanceof ItemBow || item instanceof ItemCrossbow) {
+            return 12;
+        }
+        if(item instanceof ItemTool) {
+            if (((ItemTool) item).getToolMaterial()== Item.ToolMaterial.GOLD) {
+                return 12;
+            } else {
+                return 10;
+            }
+        }
+        if(item instanceof ItemSword) {
+            if (((ItemSword) item).getToolMaterial()== Item.ToolMaterial.GOLD) {
+                return 15;
+            } else {
+                return 12;
+            }
+        }
+        if(item instanceof ItemArmor) {
+            if (((ItemArmor) item).getArmorMaterial()== ItemArmor.ArmorMaterial.GOLD) {
+                return 13;
+            } else {
+                return 11;
+            }
+        }
+        return 10;
     }
 }

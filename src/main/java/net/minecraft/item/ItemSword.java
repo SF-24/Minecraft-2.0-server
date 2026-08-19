@@ -130,6 +130,11 @@ public class ItemSword extends Item
         return this.material.toString();
     }
 
+    public Item.ToolMaterial getToolMaterial()
+    {
+        return this.material;
+    }
+
     /**
      * Return whether this item is repairable in an anvil.
      */

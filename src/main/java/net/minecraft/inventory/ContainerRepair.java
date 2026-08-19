@@ -433,7 +433,10 @@ public class ContainerRepair extends Container
                 // TODO: Cycle through other enchants and apply a penalty based on them.
 
                 // Count max cost.
-                this.maximumCost = currentSuperEnchants*5 + ((rawRepairCost>0)?Math.min(20, inheritedRepairCost+rawRepairCost):0) + enchantmentCost + (rawRepairCost==0?extraRenameCost:0);
+                this.maximumCost = currentSuperEnchants*3 + ((rawRepairCost>0)?Math.min(
+                        (int)EnchantmentHelper.getUsedEnchantmentCapacityFraction(outputEnchants,output.getItem())*(20+currentSuperEnchants*2),
+                        inheritedRepairCost+rawRepairCost):0) + enchantmentCost + (rawRepairCost==0?extraRenameCost:0
+                );
 
                 // Print debugging:
 
