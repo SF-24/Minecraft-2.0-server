@@ -894,7 +894,7 @@ public abstract class EntityPlayer extends EntityLivingBase
                         toolEfficiency+=2;
                         break;
                     case 2:
-                        toolEfficiency+=4;
+                        toolEfficiency+=5;
                         break;
                     case 3:
                         toolEfficiency+=8;
