@@ -9,7 +9,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDoor;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
@@ -612,11 +611,11 @@ public abstract class StructureComponent
                     {
                         if (i != minY && i != maxY && j != minX && j != maxX && k != minZ && k != maxZ)
                         {
-                            this.setBlockId(worldIn, blockInside, j, i, k, boundingboxIn);
+                            this.setBlockPrimitive(worldIn, blockInside, j, i, k, boundingboxIn);
                         }
                         else
                         {
-                            this.setBlockId(worldIn, block, j, i, k, boundingboxIn);
+                            this.setBlockPrimitive(worldIn, block, j, i, k, boundingboxIn);
                         }
                     }
                 }
@@ -624,7 +623,7 @@ public abstract class StructureComponent
         }
     }
 
-    protected void setBlockId(World worldIn, Block block, int x, int y, int z, StructureBoundingBox boundingboxIn)
+    protected void setBlockPrimitive(World worldIn, Block block, int x, int y, int z, StructureBoundingBox boundingboxIn)
     {
         if (boundingboxIn.isVecInside(x, y, z))
         {

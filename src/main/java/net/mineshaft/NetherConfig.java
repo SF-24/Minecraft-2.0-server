@@ -6,6 +6,8 @@ import net.minecraft.init.Blocks;
 
 public class NetherConfig {
 
+    public static int fortressWellRoomMaxSize = 18;
+
     public static int hellBlendRadius = 800; // was 224, then 512 then 1024
 
     public static int hellBlendRadiusSquared = (hellBlendRadius*hellBlendRadius);
