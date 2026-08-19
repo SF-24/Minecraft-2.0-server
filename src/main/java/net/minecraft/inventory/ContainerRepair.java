@@ -434,7 +434,7 @@ public class ContainerRepair extends Container
 
                 // Count max cost.
                 this.maximumCost = currentSuperEnchants*3 + ((rawRepairCost>0)?Math.min(
-                        (int)EnchantmentHelper.getUsedEnchantmentCapacityFraction(outputEnchants,output.getItem())*(20+currentSuperEnchants*2),
+                        Math.max(1,(int)EnchantmentHelper.getUsedEnchantmentCapacityFraction(outputEnchants,output.getItem())*(20+currentSuperEnchants*2)),
                         inheritedRepairCost+rawRepairCost):0) + enchantmentCost + (rawRepairCost==0?extraRenameCost:0
                 );
 
