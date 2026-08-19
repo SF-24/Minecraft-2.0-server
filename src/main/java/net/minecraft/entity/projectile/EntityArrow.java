@@ -360,7 +360,7 @@ public class EntityArrow extends Entity implements IProjectile
 
                     if (this.inTile.getMaterial() != Material.air)
                     {
-                        this.inTile.onEntityCollidedWithBlock(this.worldObj, blockpos1, iblockstate1, this);
+                        this.inTile.onEntityWalk(this.worldObj, blockpos1, iblockstate1, this);
                     }
                 }
             }

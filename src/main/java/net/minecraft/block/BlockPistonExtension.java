@@ -29,7 +29,7 @@ public class BlockPistonExtension extends Block
     {
         super(Material.piston);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TYPE, BlockPistonExtension.EnumPistonType.DEFAULT).withProperty(SHORT, Boolean.valueOf(false)));
-        this.setStepSound(soundTypePiston);
+        this.setSoundType(soundTypePiston);
         this.setHardness(0.5F);
     }
 

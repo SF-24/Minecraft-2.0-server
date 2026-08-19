@@ -66,7 +66,7 @@ public class BlockEndPortal extends BlockContainer
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityWalk(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
         if (entityIn.ridingEntity == null && entityIn.riddenByEntity == null && !worldIn.isRemote)
         {

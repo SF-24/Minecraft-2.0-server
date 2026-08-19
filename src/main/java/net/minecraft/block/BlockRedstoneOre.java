@@ -47,10 +47,10 @@ public class BlockRedstoneOre extends Block
     /**
      * Triggered whenever an entity collides with this block (enters into the block)
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn)
+    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn)
     {
         this.activate(worldIn, pos);
-        super.onEntityCollidedWithBlock(worldIn, pos, entityIn);
+        super.onEntityWalk(worldIn, pos, entityIn);
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)

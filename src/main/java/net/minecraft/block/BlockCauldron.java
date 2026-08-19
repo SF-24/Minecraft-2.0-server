@@ -78,7 +78,7 @@ public class BlockCauldron extends Block
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityWalk(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
         int i = ((Integer)state.getValue(LEVEL)).intValue();
         float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;

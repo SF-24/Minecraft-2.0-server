@@ -698,6 +698,7 @@ public class Item {
         registerItemBlock(Blocks.nether_ash_ore);
         registerItemBlock(Blocks.steel_block);
         registerItemBlock(Blocks.nether_gold_ore);
+        registerItemBlock(Blocks.magma);
 //        registerItemBlock(Blocks.amethyst_block);
 //        registerItemBlock(Blocks.amethyst_crystal);
         registerItemBlock(Blocks.ruby_block);
@@ -965,21 +966,26 @@ public class Item {
         // Unusable items:
         registerItem(valueBase+700, "display_bubble", (new ItemProjectile((byte) 10)).setUnlocalizedName("displayBubble"));
 
-        registerItem(valueBase+2256, "record_13", (new ItemRecord("13")).setUnlocalizedName("record"));
-        registerItem(valueBase+2257, "record_cat", (new ItemRecord("cat")).setUnlocalizedName("record"));
-        registerItem(valueBase+2258, "record_blocks", (new ItemRecord("blocks")).setUnlocalizedName("record"));
-        registerItem(valueBase+2259, "record_chirp", (new ItemRecord("chirp")).setUnlocalizedName("record"));
-        registerItem(valueBase+2260, "record_far", (new ItemRecord("far")).setUnlocalizedName("record"));
-        registerItem(valueBase+2261, "record_mall", (new ItemRecord("mall")).setUnlocalizedName("record"));
-        registerItem(valueBase+2262, "record_mellohi", (new ItemRecord("mellohi")).setUnlocalizedName("record"));
-        registerItem(valueBase+2263, "record_stal", (new ItemRecord("stal")).setUnlocalizedName("record"));
-        registerItem(valueBase+2264, "record_strad", (new ItemRecord("strad")).setUnlocalizedName("record"));
-        registerItem(valueBase+2265, "record_ward", (new ItemRecord("ward")).setUnlocalizedName("record"));
-        registerItem(valueBase+2266, "record_11", (new ItemRecord("11")).setUnlocalizedName("record"));
-        registerItem(valueBase+2267, "record_wait", (new ItemRecord("wait")).setUnlocalizedName("record"));
-        registerItem(valueBase+2268, "record_magnetic_circuit", (new ItemRecord("magnetic_circuit")).setUnlocalizedName("record"));
-        registerItem(valueBase+2269, "record_key", (new ItemRecord("key")).setUnlocalizedName("record"));
-        registerItem(valueBase+2270, "record_alpha", (new ItemRecord("alpha")).setUnlocalizedName("record"));
+        registerItem(valueBase+1256, "record_13", (new ItemRecord("13")).setUnlocalizedName("record"));
+        registerItem(valueBase+1257, "record_cat", (new ItemRecord("cat")).setUnlocalizedName("record"));
+        registerItem(valueBase+1258, "record_blocks", (new ItemRecord("blocks")).setUnlocalizedName("record"));
+        registerItem(valueBase+1259, "record_chirp", (new ItemRecord("chirp")).setUnlocalizedName("record"));
+        registerItem(valueBase+1260, "record_far", (new ItemRecord("far")).setUnlocalizedName("record"));
+        registerItem(valueBase+12261, "record_mall", (new ItemRecord("mall")).setUnlocalizedName("record"));
+        registerItem(valueBase+1262, "record_mellohi", (new ItemRecord("mellohi")).setUnlocalizedName("record"));
+        registerItem(valueBase+1263, "record_stal", (new ItemRecord("stal")).setUnlocalizedName("record"));
+        registerItem(valueBase+1264, "record_strad", (new ItemRecord("strad")).setUnlocalizedName("record"));
+        registerItem(valueBase+1265, "record_ward", (new ItemRecord("ward")).setUnlocalizedName("record"));
+        registerItem(valueBase+1266, "record_11", (new ItemRecord("11")).setUnlocalizedName("record"));
+        registerItem(valueBase+1267, "record_wait", (new ItemRecord("wait")).setUnlocalizedName("record"));
+        registerItem(valueBase+1268, "record_magnetic_circuit", (new ItemRecord("magnetic_circuit")).setUnlocalizedName("record"));
+        registerItem(valueBase+1269, "record_key", (new ItemRecord("key")).setUnlocalizedName("record"));
+        registerItem(valueBase+1270, "record_alpha", (new ItemRecord("alpha")).setUnlocalizedName("record"));
+        registerItem(valueBase+1271, "record_pigstep", (new ItemRecord("pigstep")).setUnlocalizedName("record"));
+        registerItem(valueBase+1272, "record_relic", (new ItemRecord("relic")).setUnlocalizedName("record"));
+        registerItem(valueBase+1273, "record_creator", (new ItemRecord("creator")).setUnlocalizedName("record"));
+        registerItem(valueBase+1274, "record_creator_music_box", (new ItemRecord("creator_music_box")).setUnlocalizedName("record"));
+        registerItem(valueBase+1275, "record_precipice", (new ItemRecord("precipice")).setUnlocalizedName("record"));
 
 //        registerItem(valueBase+5011, "cave_map", (new ItemEmptyMap()).setUnlocalizedName("emptyCaveMap"));
     }

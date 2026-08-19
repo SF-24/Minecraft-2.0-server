@@ -32,7 +32,7 @@ public class BlockDaylightDetector extends BlockContainer
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.375F, 1.0F);
         this.setCreativeTab(CreativeTabs.tabRedstone);
         this.setHardness(0.2F);
-        this.setStepSound(soundTypeWood);
+        this.setSoundType(soundTypeWood);
         this.setUnlocalizedName("daylightDetector");
     }
 

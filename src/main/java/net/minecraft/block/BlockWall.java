@@ -30,7 +30,7 @@ public class BlockWall extends Block
         this.setDefaultState(this.blockState.getBaseState().withProperty(UP, Boolean.valueOf(false)).withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(VARIANT, BlockWall.EnumType.NORMAL));
         this.setHardness(modelBlock.blockHardness);
         this.setResistance(modelBlock.blockResistance / 3.0F);
-        this.setStepSound(modelBlock.stepSound);
+        this.setSoundType(modelBlock.stepSound);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 

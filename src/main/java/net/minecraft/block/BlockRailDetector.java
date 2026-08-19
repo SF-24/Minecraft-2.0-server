@@ -57,7 +57,7 @@ public class BlockRailDetector extends BlockRailBase
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityWalk(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
         if (!worldIn.isRemote)
         {

@@ -43,7 +43,7 @@ public class BlockStairs extends Block
         this.modelState = modelState;
         this.setHardness(this.modelBlock.blockHardness);
         this.setResistance(this.modelBlock.blockResistance / 3.0F);
-        this.setStepSound(this.modelBlock.stepSound);
+        this.setSoundType(this.modelBlock.stepSound);
         this.setLightOpacity(255);
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
@@ -610,9 +610,9 @@ public class BlockStairs extends Block
     /**
      * Triggered whenever an entity collides with this block (enters into the block)
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, Entity entityIn)
+    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn)
     {
-        this.modelBlock.onEntityCollidedWithBlock(worldIn, pos, entityIn);
+        this.modelBlock.onEntityWalk(worldIn, pos, entityIn);
     }
 
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)

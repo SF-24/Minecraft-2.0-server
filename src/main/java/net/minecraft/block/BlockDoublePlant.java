@@ -31,7 +31,7 @@ public class BlockDoublePlant extends BlockBush implements IGrowable
         super(Material.vine);
         this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockDoublePlant.EnumPlantType.SUNFLOWER).withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER).withProperty(field_181084_N, EnumFacing.NORTH));
         this.setHardness(0.0F);
-        this.setStepSound(soundTypeGrass);
+        this.setSoundType(soundTypeGrass);
         this.setUnlocalizedName("doublePlant");
     }
 

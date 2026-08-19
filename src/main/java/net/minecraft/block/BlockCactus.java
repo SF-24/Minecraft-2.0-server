@@ -111,7 +111,7 @@ public class BlockCactus extends Block
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityWalk(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
         entityIn.attackEntityFrom(DamageSource.cactus, 1.0F);
     }

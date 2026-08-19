@@ -31,13 +31,13 @@ public class BlockOre extends Block
      */
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return this == Blocks.coal_ore ? Items.coal : (this == Blocks.diamond_ore ? Items.diamond : (this == Blocks.lapis_ore ? Items.dye : (this == Blocks.emerald_ore ? Items.emerald : (this == Blocks.quartz_ore ? Items.quartz : (this == Blocks.nether_ash_ore ? Items.nether_ash: (this == Blocks.ruby_ore ? Items.ruby : Item.getItemFromBlock(this)))))));
+        return this == Blocks.coal_ore ? Items.coal : (this == Blocks.diamond_ore ? Items.diamond : (this == Blocks.lapis_ore ? Items.dye : (this == Blocks.emerald_ore ? Items.emerald : (this == Blocks.quartz_ore ? Items.quartz : (this == Blocks.nether_ash_ore ? Items.nether_ash: /*(this == Blocks.amethyst_crystal ? Items.amethyst:*/ (this == Blocks.ruby_ore ? Items.ruby: this == Blocks.nether_ash_ore ? Items.nether_ash : this == Blocks.nether_gold_ore_deprecated ? Item.getItemFromBlock(Blocks.nether_gold_ore) : Item.getItemFromBlock(this)))))));
     }
 
     /**
      * Returns the quantity of items to drop on block destruction.
      */
-    public int quantityDropped(Random random)
+    public int quantityDropped(Random   random)
     {
         // Buffed non-fortune blocks.
         return this == Blocks.lapis_ore ? 4 + random.nextInt(5) : 1;
@@ -100,7 +100,11 @@ public class BlockOre extends Block
             {
                 i = MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 2);
             }
-            if (this == Blocks.nether_ash_ore)
+            else if (this == Blocks.nether_ash_ore)
+            {
+                i = MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 2);
+            }
+            else if (this == Blocks.ruby_ore)
             {
                 i = MathHelper.getRandomIntegerInRange(worldIn.rand, 0, 2);
             }
@@ -125,6 +129,9 @@ public class BlockOre extends Block
         }
     }
 
+    /**
+     * Gets the meta to use for the Pick Block ItemStack result
+     */
     public int getDamageValue(World worldIn, BlockPos pos)
     {
         return 0;

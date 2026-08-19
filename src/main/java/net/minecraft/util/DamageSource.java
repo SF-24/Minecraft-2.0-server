@@ -20,6 +20,7 @@ public class DamageSource
     public static DamageSource anvil = new DamageSource("anvil");
     public static DamageSource fallingBlock = new DamageSource("fallingBlock");
     public static DamageSource inWall = (new DamageSource("inWall")).setDamageBypassesArmor();
+    public static DamageSource hotFloor = (new DamageSource("hotFloor")).setFireDamage();
 
     // Elemental
     public static DamageSource inFire = (new DamageSource("inFire")).setFireDamage();

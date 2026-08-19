@@ -197,7 +197,7 @@ public class BlockAetherPortal extends BlockBreakable
     /**
      * Called When an Entity Collided with the Block
      */
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityWalk(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
         if (entityIn.ridingEntity == null && entityIn.riddenByEntity == null)
         {

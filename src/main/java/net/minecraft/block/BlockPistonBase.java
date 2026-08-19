@@ -35,7 +35,7 @@ public class BlockPistonBase extends Block
         super(Material.piston);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(EXTENDED, Boolean.valueOf(false)));
         this.isSticky = isSticky;
-        this.setStepSound(soundTypePiston);
+        this.setSoundType(soundTypePiston);
         this.setHardness(0.5F);
         this.setCreativeTab(CreativeTabs.tabRedstone);
     }

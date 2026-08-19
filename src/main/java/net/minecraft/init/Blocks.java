@@ -207,6 +207,8 @@ public class Blocks
     public static final Block nether_ash_ore;
     public static final Block steel_block;
     public static final Block nether_gold_ore;
+    public static final Block nether_gold_ore_deprecated;
+    public static final BlockMagma magma;
 //    public static final Block amethyst_block;
 //    public static final Block amethyst_crystal;
     public static final Block ruby_ore;
@@ -443,6 +445,8 @@ public class Blocks
             nether_ash_ore = getRegisteredBlock("nether_ash_ore");
             steel_block = getRegisteredBlock("steel_block");
             nether_gold_ore = getRegisteredBlock("nether_gold_ore");
+            nether_gold_ore_deprecated = getRegisteredBlock("nether_gold_ore_deprecated");
+            magma = (BlockMagma) getRegisteredBlock("magma");
 //            amethyst_crystal = getRegisteredBlock("amethyst_crystal");
 //            amethyst_block = getRegisteredBlock("amethyst_block");
             ruby_ore = getRegisteredBlock("ruby_ore");
